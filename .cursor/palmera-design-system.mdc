@@ -1,0 +1,30 @@
+---
+name: palmera-design-system.mdc
+description: Palmera design system and branding guidelines
+globs: 
+  - packages/ui/**/*.{ts,tsx,css}
+  - apps/web-admin/**/*.{ts,tsx,css}
+  - apps/web-provider/**/*.{ts,tsx,css}
+  - apps/mobile/**/*.{ts,tsx}
+---
+
+- Use the Palmera color palette: Midnight Blue (#1a365d), Palm Green (#38a169), Ivory White (#f7fafc), Sandstone Beige (#f4f1eb), Gold Accents (#d69e2e)
+- Use the Palmera typography: Playfair Display for headings, Lato for body text
+- Implement consistent spacing using the 8px grid system
+- Use proper component variants for different states (primary, secondary, outline, ghost)
+- Implement proper accessibility with WCAG 2.1 AA compliance
+- Use proper responsive breakpoints for mobile-first design
+- Implement proper dark mode support with design system tokens
+- Use proper animation and transition timing for smooth interactions
+- Implement proper iconography with consistent icon styles
+- Use proper form styling with consistent input and button styles
+- Implement proper card and layout components with consistent shadows and borders
+- Use proper loading states and skeleton components
+- Implement proper error states with consistent error messaging
+- Use proper success states with consistent success indicators
+- Implement proper empty states with helpful messaging
+- Use proper navigation components with consistent styling
+- Implement proper modal and overlay components
+- Use proper data visualization components with consistent chart styling
+- Implement proper mobile-specific components with touch-friendly interactions
+- Use proper internationalization support with RTL language support

@@ -1,0 +1,30 @@
+---
+name: tanstack-query-best-practices.mdc
+description: Best practices for data fetching with TanStack Query
+globs: 
+  - apps/mobile/**/*.{ts,tsx}
+  - apps/web-admin/**/*.{ts,tsx}
+  - apps/web-provider/**/*.{ts,tsx}
+  - packages/sdk/**/*.{ts,tsx}
+---
+
+- Use query keys to uniquely identify queries with proper hierarchy
+- Implement caching strategies to reduce unnecessary requests
+- Use mutation hooks for creating/updating data (bookings, payments, reviews)
+- Handle loading and error states gracefully in the UI
+- Use proper TypeScript types for query and mutation responses
+- Implement proper error handling with custom error boundaries
+- Use proper query invalidation after mutations
+- Implement proper optimistic updates for better UX
+- Use proper query prefetching for better performance
+- Implement proper retry logic for failed requests
+- Use proper query deduplication to avoid duplicate requests
+- Implement proper query background refetching
+- Use proper query stale time configuration for different data types
+- Implement proper query cache management
+- Use proper query suspense for loading states
+- Implement proper query error recovery
+- Use proper query pagination for large datasets
+- Implement proper query infinite scrolling for listings
+- Use proper query real-time updates with WebSocket integration
+- Implement proper query offline support

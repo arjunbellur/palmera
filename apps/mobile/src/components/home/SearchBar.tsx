@@ -1,0 +1,53 @@
+import React from 'react';
+import {
+  View,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+} from 'react-native';
+import { router } from 'expo-router';
+import { palmeraTheme } from '@palmera/ui';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+
+export function SearchBar() {
+  const handleSearchPress = () => {
+    router.push('/search');
+  };
+
+  return (
+    <View style={styles.container}>
+      <TouchableOpacity style={styles.searchBar} onPress={handleSearchPress}>
+        <MagnifyingGlassIcon size={20} color={palmeraTheme.colors.textMuted} />
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Search experiences..."
+          placeholderTextColor={palmeraTheme.colors.textMuted}
+          editable={false}
+        />
+      </TouchableOpacity>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: 20,
+    marginBottom: 24,
+  },
+  searchBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: palmeraTheme.colors.background,
+    borderRadius: palmeraTheme.borderRadius.lg,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderWidth: 1,
+    borderColor: palmeraTheme.colors.border,
+  },
+  searchInput: {
+    flex: 1,
+    marginLeft: 12,
+    fontSize: 16,
+    color: palmeraTheme.colors.text,
+  },
+});

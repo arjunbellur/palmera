@@ -1,0 +1,36 @@
+---
+name: nestjs-best-practices.mdc
+description: Best practices for building APIs with NestJS
+globs: 
+  - apps/api/**/*.{ts}
+  - apps/api/src/**/*.{ts}
+---
+
+- Use modules to organize your application structure (AuthModule, PaymentsModule, etc.)
+- Implement DTOs for data validation and transformation with Zod schemas
+- Use guards and interceptors for authentication and logging
+- Leverage dependency injection for better testability
+- Use proper TypeScript types for all controllers, services, and DTOs
+- Implement proper error handling with custom exception filters
+- Use proper validation pipes for request validation
+- Implement proper authentication with JWT and Passport strategies
+- Use proper authorization with role-based access control (RBAC)
+- Implement proper logging with structured logging
+- Use proper database transactions with Prisma
+- Implement proper caching with Redis
+- Use proper rate limiting for API endpoints
+- Implement proper API documentation with Swagger/OpenAPI
+- Use proper health checks for monitoring
+- Implement proper metrics collection
+- Use proper environment configuration with ConfigModule
+- Implement proper database migrations with Prisma
+- Use proper testing with Jest and Supertest
+- Implement proper API versioning
+- Use proper CORS configuration
+- Implement proper request/response interceptors
+- Use proper file upload handling with multer
+- Implement proper webhook handling with signature verification
+- Use proper payment provider integration with adapters
+- Implement proper internationalization support
+- Use proper API rate limiting and throttling
+- Implement proper API monitoring and alerting

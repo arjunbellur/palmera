@@ -1,0 +1,36 @@
+---
+name: monorepo-best-practices.mdc
+description: Best practices for monorepo management and organization
+globs: 
+  - **/*.{json,js,ts,tsx}
+  - apps/**/*.{json,js,ts,tsx}
+  - packages/**/*.{json,js,ts,tsx}
+  - turbo.json
+  - pnpm-workspace.yaml
+---
+
+- Use pnpm workspaces for efficient package management and dependency sharing
+- Use Turbo for build optimization and task running across the monorepo
+- Organize packages by domain (ui, schemas, sdk, i18n) for clear separation of concerns
+- Use proper TypeScript project references for build optimization
+- Implement proper shared configuration for ESLint, Prettier, and TypeScript
+- Use proper package versioning and dependency management
+- Implement proper build caching with Turbo for faster builds
+- Use proper task dependencies and parallel execution
+- Implement proper package publishing and distribution
+- Use proper workspace-specific scripts and commands
+- Implement proper shared tooling and development utilities
+- Use proper environment configuration across all packages
+- Implement proper testing strategies across the monorepo
+- Use proper documentation for package APIs and usage
+- Implement proper change detection for affected packages
+- Use proper build optimization with proper package boundaries
+- Implement proper dependency graph management
+- Use proper package isolation and encapsulation
+- Implement proper shared types and interfaces
+- Use proper build artifacts and distribution
+- Implement proper development workflow optimization
+- Use proper package discovery and resolution
+- Implement proper build pipeline optimization
+- Use proper package testing and validation
+- Implement proper package deployment and distribution

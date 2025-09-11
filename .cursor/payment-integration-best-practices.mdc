@@ -1,0 +1,36 @@
+---
+name: payment-integration-best-practices.mdc
+description: Best practices for payment integration and processing
+globs: 
+  - apps/api/src/payments/**/*.{ts}
+  - apps/api/src/payments/adapters/**/*.{ts}
+  - apps/api/src/payments/services/**/*.{ts}
+  - packages/schemas/src/payment.ts
+  - packages/sdk/src/clients/payment.ts
+---
+
+- Use the payment adapter pattern for consistent payment provider integration
+- Implement proper webhook signature verification for all payment providers
+- Use proper error handling and retry logic for payment failures
+- Implement proper idempotency for payment operations
+- Use proper currency conversion with real-time exchange rates
+- Implement proper payment status tracking and updates
+- Use proper refund handling with provider-specific limitations
+- Implement proper payment reconciliation and audit trails
+- Use proper security for payment data with PCI compliance
+- Implement proper rate limiting for payment endpoints
+- Use proper logging for payment operations without sensitive data
+- Implement proper testing with mocked payment provider responses
+- Use proper environment configuration for different payment providers
+- Implement proper fallback mechanisms for payment provider failures
+- Use proper payment method validation and verification
+- Implement proper payment confirmation and booking updates
+- Use proper payment analytics and reporting
+- Use proper payment fraud detection and prevention
+- Implement proper payment dispute handling
+- Use proper payment settlement and reconciliation
+- Implement proper payment provider monitoring and alerting
+- Use proper payment data encryption and secure storage
+- Implement proper payment audit logging for compliance
+- Use proper payment testing with sandbox environments
+- Implement proper payment error recovery and user communication

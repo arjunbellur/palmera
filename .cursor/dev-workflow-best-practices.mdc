@@ -1,0 +1,36 @@
+---
+name: dev-workflow-best-practices.mdc
+description: Best practices for development workflow and tooling
+globs: 
+  - **/*.{ts,tsx}
+  - apps/**/*.{ts,tsx}
+  - packages/**/*.{ts,tsx}
+  - *.{json,js,ts}
+  - .github/**/*.{yml,yaml}
+---
+
+- Use trunk-based development with PR reviews and proper branching strategy
+- Implement ESLint and Prettier for code quality and consistency
+- Use Vitest/Jest for unit and integration testing with proper coverage
+- Manage secrets securely with environment variables and tools like Doppler or 1Password
+- Use pnpm for package management with proper workspace configuration
+- Use Turbo for monorepo build optimization and task running
+- Implement proper CI/CD with GitHub Actions for automated testing and deployment
+- Use proper code review process with required reviewers
+- Implement proper automated testing in CI pipeline
+- Use proper environment management for development, staging, and production
+- Implement proper database migration management
+- Use proper API versioning and backward compatibility
+- Implement proper monitoring and alerting for production
+- Use proper logging and error tracking with structured logging
+- Implement proper performance monitoring and optimization
+- Use proper security scanning and vulnerability assessment
+- Implement proper documentation with proper API documentation
+- Use proper dependency management and security updates
+- Implement proper backup and disaster recovery procedures
+- Use proper deployment strategies with zero-downtime deployments
+- Implement proper feature flags for gradual rollouts
+- Use proper A/B testing for feature validation
+- Implement proper user feedback collection and analysis
+- Use proper analytics and metrics collection
+- Implement proper compliance and audit procedures

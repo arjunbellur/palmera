@@ -1,0 +1,48 @@
+@import '@palmera/ui/palmera-theme.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: var(--font-body);
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
+}
+
+@layer components {
+  .admin-sidebar {
+    @apply bg-midnight-950 text-ivory-50 min-h-screen w-64 fixed left-0 top-0 z-40;
+  }
+  
+  .admin-main {
+    @apply ml-64 min-h-screen bg-ivory-50;
+  }
+  
+  .admin-header {
+    @apply bg-white shadow-palmera border-b border-midnight-200 px-6 py-4;
+  }
+  
+  .admin-content {
+    @apply p-6;
+  }
+  
+  .stat-card {
+    @apply bg-white rounded-2xl shadow-palmera p-6 border border-midnight-200;
+  }
+  
+  .data-table {
+    @apply bg-white rounded-2xl shadow-palmera overflow-hidden border border-midnight-200;
+  }
+  
+  .table-header {
+    @apply bg-midnight-50 px-6 py-4 border-b border-midnight-200;
+  }
+  
+  .table-row {
+    @apply px-6 py-4 border-b border-midnight-100 hover:bg-midnight-50 transition-colors;
+  }
+}

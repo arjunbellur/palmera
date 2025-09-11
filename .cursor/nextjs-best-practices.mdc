@@ -1,0 +1,33 @@
+---
+name: nextjs-best-practices.mdc
+description: Best practices for Next.js applications and routing
+globs: 
+  - apps/web-admin/**/*.{ts,tsx}
+  - apps/web-provider/**/*.{ts,tsx}
+---
+
+- Use the App Router for better performance and developer experience
+- Implement proper error boundaries with error.tsx files
+- Use proper data fetching patterns with suspense and loading.tsx
+- Optimize images with Next.js Image component
+- Use proper TypeScript types for all components and pages
+- Implement proper authentication with NextAuth.js
+- Use proper middleware for route protection and redirects
+- Implement proper SEO with metadata API
+- Use proper server components for better performance
+- Implement proper client components only when necessary
+- Use proper dynamic imports for code splitting
+- Implement proper static generation where possible
+- Use proper API routes for backend integration
+- Implement proper form handling with server actions
+- Use proper caching strategies with Next.js cache
+- Implement proper internationalization with next-intl
+- Use proper environment variable handling
+- Implement proper error logging and monitoring
+- Use proper performance monitoring with Web Vitals
+- Implement proper accessibility with proper ARIA labels
+- Use proper responsive design with Tailwind CSS
+- Implement proper dark mode support
+- Use proper analytics integration
+- Implement proper security headers
+- Use proper CSP (Content Security Policy) configuration

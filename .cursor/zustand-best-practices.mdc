@@ -1,0 +1,30 @@
+---
+name: zustand-best-practices.mdc
+description: Best practices for state management with Zustand
+globs: 
+  - apps/mobile/**/*.{ts,tsx}
+  - apps/web-admin/**/*.{ts,tsx}
+  - apps/web-provider/**/*.{ts,tsx}
+  - packages/ui/**/*.{ts,tsx}
+---
+
+- Keep the store minimal and focused on global state
+- Use selectors to derive state and avoid unnecessary re-renders
+- Implement middleware for logging and persisting state
+- Use TypeScript for type safety in the store
+- Use proper store composition for different domains (auth, bookings, payments)
+- Implement proper store persistence for user preferences
+- Use proper store middleware for API integration
+- Implement proper store actions for async operations
+- Use proper store selectors for computed values
+- Implement proper store subscriptions for real-time updates
+- Use proper store devtools integration for debugging
+- Implement proper store testing with mock stores
+- Use proper store hydration for SSR compatibility
+- Implement proper store error handling
+- Use proper store state normalization for complex data
+- Implement proper store optimistic updates
+- Use proper store state synchronization across tabs
+- Implement proper store state cleanup
+- Use proper store state validation
+- Implement proper store state migration for version updates

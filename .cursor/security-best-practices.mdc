@@ -1,0 +1,36 @@
+---
+name: security-best-practices.mdc
+description: Best practices for securing applications
+globs: 
+  - apps/api/**/*.{ts}
+  - apps/web-admin/**/*.{ts,tsx}
+  - apps/web-provider/**/*.{ts,tsx}
+  - apps/mobile/**/*.{ts,tsx}
+---
+
+- Implement JWT for authentication and authorization with proper expiration
+- Use RBAC for role-based access control (Customer, Provider, Admin)
+- Store sensitive data securely and use signed URLs for KYC documents
+- Implement rate limiting and webhook signature checks
+- Use proper password hashing with bcrypt
+- Implement proper session management and token refresh
+- Use proper CORS configuration for cross-origin requests
+- Implement proper input validation and sanitization
+- Use proper SQL injection prevention with Prisma
+- Implement proper XSS protection with proper escaping
+- Use proper CSRF protection for web applications
+- Implement proper file upload security with type validation
+- Use proper API key management and rotation
+- Implement proper audit logging for security events
+- Use proper encryption for sensitive data at rest
+- Implement proper secure communication with HTTPS
+- Use proper security headers (CSP, HSTS, etc.)
+- Implement proper error handling without information leakage
+- Use proper authentication flow with proper redirects
+- Implement proper authorization checks for all endpoints
+- Use proper payment security with PCI compliance
+- Implement proper webhook security with signature verification
+- Use proper environment variable security
+- Implement proper database security with proper access controls
+- Use proper third-party service security
+- Implement proper mobile app security with proper certificate pinning
