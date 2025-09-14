@@ -10,7 +10,7 @@ type Props = {
 };
 
 export function Button({ children, variant='primary', onPress, className, style, textStyle }: Props) {
-  // For now, use traditional styles until NativeWind types are properly configured
+  // Using traditional styles for consistent styling
   const baseStyles: ViewStyle = {
     paddingHorizontal: 16,
     paddingVertical: 12,
