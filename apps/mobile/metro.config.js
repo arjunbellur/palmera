@@ -1,20 +1,23 @@
 const { getDefaultConfig } = require('expo/metro-config');
-const { withNativeWind } = require('nativewind/metro');
 const path = require('path');
 
-const config = getDefaultConfig(__dirname);
+const projectRoot = __dirname;
+const workspaceRoot = path.resolve(projectRoot, '../..');
 
-// Add support for workspace packages
-config.watchFolders = [
-  path.resolve(__dirname, '../../packages'),
-];
+const config = getDefaultConfig(projectRoot);
 
+// Watch the whole monorepo
+config.watchFolders = [workspaceRoot];
+
+// Resolve modules from the root to avoid duplicates
 config.resolver.nodeModulesPaths = [
-  path.resolve(__dirname, 'node_modules'),
-  path.resolve(__dirname, '../../node_modules'),
+  path.resolve(workspaceRoot, 'node_modules'),
+  path.resolve(projectRoot, 'node_modules'),
 ];
 
-// Add support for .tsx files
-config.resolver.sourceExts.push('tsx');
+// If needed for some deps:
+if (!config.resolver.sourceExts.includes('cjs')) {
+  config.resolver.sourceExts.push('cjs');
+}
 
-module.exports = withNativeWind(config);
+module.exports = config;
