@@ -5,7 +5,7 @@ echo "🚀 Starting Palmera Development Environment..."
 
 # Kill any existing processes
 echo "🧹 Cleaning up existing processes..."
-pkill -f "expo\|next\|turbo" 2>/dev/null || true
+pkill -f "expo\|next" 2>/dev/null || true
 
 # Start API server
 echo "🔧 Starting API server..."

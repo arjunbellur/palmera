@@ -30,14 +30,18 @@ export function TranslationProvider({ children, defaultLanguage = 'en' }: Transl
     setCurrentLanguage(language);
     
     // Save to localStorage
-    localStorage.setItem('palmera-language', language);
+    if (typeof window !== 'undefined' && window.localStorage) {
+      localStorage.setItem('palmera-language', language);
+    }
   };
 
   useEffect(() => {
     // Load saved language from localStorage
-    const savedLanguage = localStorage.getItem('palmera-language');
-    if (savedLanguage && savedLanguage !== currentLanguage) {
-      handleChangeLanguage(savedLanguage);
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const savedLanguage = localStorage.getItem('palmera-language');
+      if (savedLanguage && savedLanguage !== currentLanguage) {
+        handleChangeLanguage(savedLanguage);
+      }
     }
   }, []);
 
