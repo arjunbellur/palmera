@@ -8,12 +8,13 @@ import {
   Alert,
   ActivityIndicator,
 } from 'react-native';
-import { router, useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { palmeraTheme } from '@palmera/ui';
-import { AuthClient } from '@palmera/sdk';
+import { useSDK } from '../../contexts/SDKContext';
+import { useRouter } from 'expo-router';
 
 const verifySchema = z.object({
   token: z.string().min(1, 'Token is required'),
@@ -25,7 +26,8 @@ export function VerifyMagicLinkScreen() {
   const [isLoading, setIsLoading] = useState(false);
   const [isAutoVerifying, setIsAutoVerifying] = useState(false);
   const { token: urlToken } = useLocalSearchParams<{ token?: string }>();
-  const authClient = new AuthClient();
+  const router = useRouter();
+  const sdk = useSDK();
 
   const {
     control,
@@ -46,7 +48,7 @@ export function VerifyMagicLinkScreen() {
   const handleAutoVerify = async (token: string) => {
     try {
       setIsAutoVerifying(true);
-      const result = await authClient.verifyMagicLink(token);
+      const result = await sdk.auth.verifyMagicLink(token);
       
       // Store auth tokens
       // TODO: Implement secure token storage
@@ -80,7 +82,7 @@ export function VerifyMagicLinkScreen() {
   const onSubmit = async (data: VerifyForm) => {
     try {
       setIsLoading(true);
-      const result = await authClient.verifyMagicLink(data.token);
+      const result = await sdk.auth.verifyMagicLink(data.token);
       
       // Store auth tokens
       // TODO: Implement secure token storage

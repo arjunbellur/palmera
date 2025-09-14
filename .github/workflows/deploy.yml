@@ -1,0 +1,85 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+
+env:
+  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+
+jobs:
+  deploy-api:
+    name: Deploy API
+    runs-on: ubuntu-latest
+    if: contains(github.event.head_commit.modified, 'apps/api')
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build API
+        run: npm run build --filter=@palmera/api
+
+      - name: Deploy to production
+        run: |
+          echo "Deploying API to production..."
+          # Add your deployment commands here
+
+  deploy-web-admin:
+    name: Deploy Web Admin
+    runs-on: ubuntu-latest
+    if: contains(github.event.head_commit.modified, 'apps/web-admin')
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Web Admin
+        run: npm run build --filter=@palmera/web-admin
+
+      - name: Deploy to production
+        run: |
+          echo "Deploying Web Admin to production..."
+          # Add your deployment commands here
+
+  deploy-web-provider:
+    name: Deploy Web Provider
+    runs-on: ubuntu-latest
+    if: contains(github.event.head_commit.modified, 'apps/web-provider')
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Web Provider
+        run: npm run build --filter=@palmera/web-provider
+
+      - name: Deploy to production
+        run: |
+          echo "Deploying Web Provider to production..."
+          # Add your deployment commands here

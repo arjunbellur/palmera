@@ -10,13 +10,13 @@ import {
   Platform,
   ScrollView,
 } from 'react-native';
-import { router } from 'expo-router';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { palmeraTheme } from '@palmera/ui';
-import { AuthClient } from '@palmera/sdk';
+import { useSDK } from '../../contexts/SDKContext';
 import { useTranslation } from '@palmera/i18n';
+import { useRouter } from 'expo-router';
 
 const loginSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
@@ -27,7 +27,8 @@ type LoginForm = z.infer<typeof loginSchema>;
 export function LoginScreen() {
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
-  const authClient = new AuthClient();
+  const router = useRouter();
+  const sdk = useSDK();
 
   const {
     control,
@@ -40,7 +41,7 @@ export function LoginScreen() {
   const onSubmit = async (data: LoginForm) => {
     try {
       setIsLoading(true);
-      await authClient.requestMagicLink(data.email);
+      await sdk.auth.requestMagicLink(data.email);
       Alert.alert(
         'Magic Link Sent',
         'Check your email for a magic link to sign in.',

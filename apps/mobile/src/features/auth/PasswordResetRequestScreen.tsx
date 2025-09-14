@@ -9,12 +9,11 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import { router } from 'expo-router';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { palmeraTheme } from '@palmera/ui';
-import { AuthClient } from '@palmera/sdk';
+import { useSDK } from '../../contexts/SDKContext';
 
 const resetRequestSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
@@ -24,7 +23,7 @@ type ResetRequestForm = z.infer<typeof resetRequestSchema>;
 
 export function PasswordResetRequestScreen() {
   const [isLoading, setIsLoading] = useState(false);
-  const authClient = new AuthClient();
+  const sdk = useSDK();
 
   const {
     control,
@@ -37,7 +36,7 @@ export function PasswordResetRequestScreen() {
   const onSubmit = async (data: ResetRequestForm) => {
     try {
       setIsLoading(true);
-      await authClient.requestPasswordReset(data.email);
+      await sdk.auth.requestPasswordReset(data.email);
       Alert.alert(
         'Reset Link Sent',
         'Check your email for a password reset link.',

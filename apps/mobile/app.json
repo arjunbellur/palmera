@@ -30,7 +30,6 @@
       "bundler": "metro"
     },
     "plugins": [
-      "expo-router",
       [
         "expo-notifications",
         {
@@ -38,32 +37,12 @@
           "color": "#1C5E3C"
         }
       ],
-      [
-        "expo-image-picker",
-        {
-          "photosPermission": "The app accesses your photos to let you share them with your experiences."
-        }
-      ],
-      [
-        "expo-camera",
-        {
-          "cameraPermission": "The app accesses your camera to let you take photos for your experiences."
-        }
-      ],
-      [
-        "expo-location",
-        {
-          "locationAlwaysAndWhenInUsePermission": "The app accesses your location to show you nearby experiences."
-        }
-      ]
+      "expo-router"
     ],
     "scheme": "palmera",
     "extra": {
       "router": {
         "origin": false
-      },
-      "eas": {
-        "projectId": "your-eas-project-id"
       }
     }
   }

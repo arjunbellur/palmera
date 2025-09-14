@@ -1,9 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   transpilePackages: ['@palmera/ui', '@palmera/schemas', '@palmera/sdk'],
-  experimental: {
-    appDir: true,
-  },
   images: {
     domains: ['images.unsplash.com', 'localhost'],
   },

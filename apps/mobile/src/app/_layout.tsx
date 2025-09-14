@@ -3,8 +3,9 @@ import { StatusBar } from 'expo-status-bar';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { Toast } from 'react-native-toast-message';
+import Toast from 'react-native-toast-message';
 import { palmeraTheme } from '@palmera/ui';
+import { SDKProvider } from '../contexts/SDKContext';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -19,19 +20,20 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
-        <QueryClientProvider client={queryClient}>
-          <Stack
-            screenOptions={{
-              headerStyle: {
-                backgroundColor: palmeraTheme.colors.primary,
-              },
-              headerTintColor: palmeraTheme.colors.background,
-              headerTitleStyle: {
-                fontFamily: palmeraTheme.typography.fontFamily.display,
-                fontWeight: 'bold',
-              },
-            }}
-          >
+        <SDKProvider>
+          <QueryClientProvider client={queryClient}>
+            <Stack
+              screenOptions={{
+                headerStyle: {
+                  backgroundColor: palmeraTheme.colors.primary,
+                },
+                headerTintColor: palmeraTheme.colors.background,
+                headerTitleStyle: {
+                  fontFamily: palmeraTheme.typography.fontFamily.display,
+                  fontWeight: 'bold',
+                },
+              }}
+            >
             <Stack.Screen 
               name="index" 
               options={{ 
@@ -134,10 +136,11 @@ export default function RootLayout() {
                 title: 'Membership'
               }} 
             />
-          </Stack>
-          <StatusBar style="light" />
-          <Toast />
-        </QueryClientProvider>
+            </Stack>
+            <StatusBar style="light" />
+            <Toast />
+          </QueryClientProvider>
+        </SDKProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );

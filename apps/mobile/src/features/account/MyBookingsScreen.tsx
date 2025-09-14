@@ -7,20 +7,28 @@ import {
   StyleSheet,
   RefreshControl,
 } from 'react-native';
-import { router } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { palmeraTheme } from '@palmera/ui';
-import { BookingClient } from '@palmera/sdk';
-import { CalendarIcon, MapPinIcon, ClockIcon } from '@heroicons/react/24/outline';
+import { useSDK } from '../../contexts/SDKContext';
+import { useRouter } from 'expo-router';
 
 export function MyBookingsScreen() {
   const [selectedFilter, setSelectedFilter] = useState<'all' | 'upcoming' | 'past'>('all');
 
-  const bookingClient = new BookingClient();
+  const sdk = useSDK();
+  const router = useRouter();
 
   const { data: bookings, isLoading, refetch } = useQuery({
     queryKey: ['bookings', 'my', selectedFilter],
-    queryFn: () => bookingClient.getMyBookings({ status: selectedFilter === 'all' ? undefined : selectedFilter }),
+    queryFn: () => sdk.bookings.getMyBookings({ 
+      page: 1, 
+      limit: 20, 
+      sortOrder: 'desc',
+      sortBy: 'createdAt',
+      filters: {
+        status: selectedFilter === 'all' ? undefined : selectedFilter as any
+      }
+    }),
   });
 
   const getStatusColor = (status: string) => {
@@ -75,19 +83,19 @@ export function MyBookingsScreen() {
 
       <View style={styles.bookingDetails}>
         <View style={styles.detailRow}>
-          <CalendarIcon size={16} color={palmeraTheme.colors.textMuted} />
+          <Text style={{ fontSize: 16, color: palmeraTheme.colors.textMuted }}>📅</Text>
           <Text style={styles.detailText}>
             {new Date(item.startDate).toLocaleDateString()} - {new Date(item.endDate).toLocaleDateString()}
           </Text>
         </View>
 
         <View style={styles.detailRow}>
-          <MapPinIcon size={16} color={palmeraTheme.colors.textMuted} />
+          <Text style={{ fontSize: 16, color: palmeraTheme.colors.textMuted }}>📍</Text>
           <Text style={styles.detailText}>{item.listing.city}</Text>
         </View>
 
         <View style={styles.detailRow}>
-          <ClockIcon size={16} color={palmeraTheme.colors.textMuted} />
+          <Text style={{ fontSize: 16, color: palmeraTheme.colors.textMuted }}>🕐</Text>
           <Text style={styles.detailText}>
             {item.guests} guest{item.guests > 1 ? 's' : ''}
           </Text>
@@ -155,7 +163,7 @@ export function MyBookingsScreen() {
 
       {/* Bookings List */}
       <FlatList
-        data={bookings}
+        data={bookings?.data || []}
         renderItem={renderBooking}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.listContainer}

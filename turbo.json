@@ -4,13 +4,16 @@
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },
     "dev": {
       "cache": false,
       "persistent": true
     },
     "lint": {
+      "dependsOn": ["^build"]
+    },
+    "type-check": {
       "dependsOn": ["^build"]
     },
     "test": {
@@ -28,25 +31,7 @@
     "test:e2e": {
       "dependsOn": ["^build"]
     },
-    "type-check": {
-      "dependsOn": ["^build"]
-    },
     "clean": {
-      "cache": false
-    },
-    "db:generate": {
-      "cache": false
-    },
-    "db:push": {
-      "cache": false
-    },
-    "db:migrate": {
-      "cache": false
-    },
-    "db:seed": {
-      "cache": false
-    },
-    "validate:env": {
       "cache": false
     }
   }

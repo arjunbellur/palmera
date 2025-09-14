@@ -9,12 +9,13 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import { router, useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { palmeraTheme } from '@palmera/ui';
-import { AuthClient } from '@palmera/sdk';
+import { useSDK } from '../../contexts/SDKContext';
+import { useRouter } from 'expo-router';
 
 const resetSchema = z.object({
   token: z.string().min(1, 'Token is required'),
@@ -30,7 +31,8 @@ type ResetForm = z.infer<typeof resetSchema>;
 export function PasswordResetScreen() {
   const [isLoading, setIsLoading] = useState(false);
   const { token: urlToken } = useLocalSearchParams<{ token?: string }>();
-  const authClient = new AuthClient();
+  const router = useRouter();
+  const sdk = useSDK();
 
   const {
     control,
@@ -50,7 +52,7 @@ export function PasswordResetScreen() {
   const onSubmit = async (data: ResetForm) => {
     try {
       setIsLoading(true);
-      await authClient.resetPassword({
+      await sdk.auth.resetPassword({
         token: data.token,
         password: data.password,
       });

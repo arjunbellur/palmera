@@ -9,28 +9,22 @@ import {
 } from 'react-native';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { palmeraTheme } from '@palmera/ui';
-import { UserClient } from '@palmera/sdk';
-import { 
-  StarIcon, 
-  CheckIcon, 
-  CrownIcon,
-  GiftIcon,
-  SparklesIcon,
-} from '@heroicons/react/24/solid';
+import { useSDK } from '../../contexts/SDKContext';
+// Using text-based icons for now - can be replaced with proper icon library later
 
 export function MembershipScreen() {
   const [selectedTier, setSelectedTier] = useState<'STANDARD' | 'GOLD'>('GOLD');
-  
-  const userClient = new UserClient();
+
+  const sdk = useSDK();
   const queryClient = useQueryClient();
 
   const { data: profile } = useQuery({
     queryKey: ['user', 'profile'],
-    queryFn: () => userClient.getProfile(),
+    queryFn: () => sdk.users.getProfile(),
   });
 
   const upgradeMembershipMutation = useMutation({
-    mutationFn: (tier: 'GOLD') => userClient.upgradeMembership({ tier }),
+    mutationFn: (tier: 'GOLD') => sdk.users.upgradeMembership({ tier: tier, paymentMethod: 'CARD' }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user', 'profile'] });
       Alert.alert('Success', 'Membership upgraded successfully!');
@@ -85,9 +79,9 @@ export function MembershipScreen() {
         <View style={styles.currentStatus}>
           <View style={styles.statusHeader}>
             {isGold ? (
-              <CrownIcon size={32} color="#FFD700" />
+              <Text style={{ fontSize: 32, color: '#FFD700' }}>👑</Text>
             ) : (
-              <StarIcon size={32} color={palmeraTheme.colors.textMuted} />
+              <Text style={{ fontSize: 32, color: palmeraTheme.colors.textMuted }}>⭐</Text>
             )}
             <Text style={styles.statusTitle}>
               {isGold ? 'Gold Member' : 'Standard Member'}
@@ -122,7 +116,7 @@ export function MembershipScreen() {
             <View style={styles.benefitsList}>
               {standardBenefits.map((benefit, index) => (
                 <View key={index} style={styles.benefitItem}>
-                  <CheckIcon size={16} color={palmeraTheme.colors.success} />
+                  <Text style={{ fontSize: 16, color: palmeraTheme.colors.success }}>✓</Text>
                   <Text style={styles.benefitText}>{benefit}</Text>
                 </View>
               ))}
@@ -146,7 +140,7 @@ export function MembershipScreen() {
             <View style={styles.benefitsList}>
               {goldBenefits.map((benefit, index) => (
                 <View key={index} style={styles.benefitItem}>
-                  <CheckIcon size={16} color="#FFD700" />
+                  <Text style={{ fontSize: 16, color: '#FFD700' }}>✓</Text>
                   <Text style={styles.benefitText}>{benefit}</Text>
                 </View>
               ))}
@@ -158,7 +152,7 @@ export function MembershipScreen() {
                 onPress={handleUpgrade}
                 disabled={upgradeMembershipMutation.isPending}
               >
-                <SparklesIcon size={20} color={palmeraTheme.colors.background} />
+                <Text style={{ fontSize: 20, color: palmeraTheme.colors.background }}>✨</Text>
                 <Text style={styles.upgradeButtonText}>Upgrade to Gold</Text>
               </TouchableOpacity>
             )}
@@ -171,7 +165,7 @@ export function MembershipScreen() {
             <Text style={styles.sectionTitle}>Your Gold Benefits</Text>
             
             <View style={styles.exclusiveCard}>
-              <GiftIcon size={24} color="#FFD700" />
+              <Text style={{ fontSize: 24, color: '#FFD700' }}>🎁</Text>
               <Text style={styles.exclusiveTitle}>Welcome Gift</Text>
               <Text style={styles.exclusiveDescription}>
                 Enjoy a complimentary welcome experience worth 25,000 XOF
@@ -179,7 +173,7 @@ export function MembershipScreen() {
             </View>
 
             <View style={styles.exclusiveCard}>
-              <CrownIcon size={24} color="#FFD700" />
+              <Text style={{ fontSize: 24, color: '#FFD700' }}>👑</Text>
               <Text style={styles.exclusiveTitle}>Concierge Service</Text>
               <Text style={styles.exclusiveDescription}>
                 Get personalized recommendations and booking assistance

@@ -6,11 +6,11 @@ import {
   StyleSheet,
   Alert,
 } from 'react-native';
-import { router, useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { palmeraTheme } from '@palmera/ui';
-import { BookingClient } from '@palmera/sdk';
-import { CheckCircleIcon, XCircleIcon, CalendarIcon, MapPinIcon } from '@heroicons/react/24/solid';
+import { useSDK } from '../../contexts/SDKContext';
+import { useRouter } from 'expo-router';
 
 export function BookingResultScreen() {
   const { bookingId, status, paymentMethod } = useLocalSearchParams<{ 
@@ -19,11 +19,12 @@ export function BookingResultScreen() {
     paymentMethod: string;
   }>();
 
-  const bookingClient = new BookingClient();
+  const sdk = useSDK();
+  const router = useRouter();
 
   const { data: booking } = useQuery({
     queryKey: ['booking', bookingId],
-    queryFn: () => bookingClient.get(bookingId!),
+    queryFn: () => sdk.bookings.getBooking(bookingId!),
     enabled: !!bookingId,
   });
 
@@ -71,9 +72,9 @@ export function BookingResultScreen() {
         {/* Status Icon */}
         <View style={styles.iconContainer}>
           {isSuccess ? (
-            <CheckCircleIcon size={80} color={palmeraTheme.colors.success} />
+            <Text style={{ fontSize: 80, color: palmeraTheme.colors.success }}>✅</Text>
           ) : (
-            <XCircleIcon size={80} color={palmeraTheme.colors.error} />
+            <Text style={{ fontSize: 80, color: palmeraTheme.colors.error }}>❌</Text>
           )}
         </View>
 
@@ -96,7 +97,7 @@ export function BookingResultScreen() {
             <Text style={styles.detailsTitle}>Booking Details</Text>
             
             <View style={styles.detailRow}>
-              <CalendarIcon size={20} color={palmeraTheme.colors.textMuted} />
+              <Text style={{ fontSize: 20, color: palmeraTheme.colors.textMuted }}>📅</Text>
               <View style={styles.detailContent}>
                 <Text style={styles.detailLabel}>Date</Text>
                 <Text style={styles.detailValue}>
@@ -106,10 +107,10 @@ export function BookingResultScreen() {
             </View>
 
             <View style={styles.detailRow}>
-              <MapPinIcon size={20} color={palmeraTheme.colors.textMuted} />
+              <Text style={{ fontSize: 20, color: palmeraTheme.colors.textMuted }}>📍</Text>
               <View style={styles.detailContent}>
                 <Text style={styles.detailLabel}>Location</Text>
-                <Text style={styles.detailValue}>{booking.listing.city}</Text>
+                <Text style={styles.detailValue}>{booking.listing?.city || 'N/A'}</Text>
               </View>
             </View>
 

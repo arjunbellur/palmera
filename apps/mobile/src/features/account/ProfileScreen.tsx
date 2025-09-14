@@ -9,20 +9,13 @@ import {
   Alert,
   TextInput,
 } from 'react-native';
-import { router } from 'expo-router';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { palmeraTheme } from '@palmera/ui';
-import { UserClient, FilesClient } from '@palmera/sdk';
-import { 
-  UserIcon, 
-  CameraIcon, 
-  PencilIcon,
-  CheckIcon,
-  XMarkIcon,
-} from '@heroicons/react/24/outline';
+import { useSDK } from '../../contexts/SDKContext';
+import { useRouter } from 'expo-router';
 import * as ImagePicker from 'expo-image-picker';
 
 const profileSchema = z.object({
@@ -37,17 +30,17 @@ export function ProfileScreen() {
   const [isEditing, setIsEditing] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   
-  const userClient = new UserClient();
-  const filesClient = new FilesClient();
+  const sdk = useSDK();
+  const router = useRouter();
   const queryClient = useQueryClient();
 
   const { data: profile, isLoading } = useQuery({
     queryKey: ['user', 'profile'],
-    queryFn: () => userClient.getProfile(),
+    queryFn: () => sdk.users.getProfile(),
   });
 
   const updateProfileMutation = useMutation({
-    mutationFn: (data: ProfileForm) => userClient.updateProfile(data),
+    mutationFn: (data: ProfileForm) => sdk.users.updateProfile(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user', 'profile'] });
       setIsEditing(false);
@@ -115,7 +108,7 @@ export function ProfileScreen() {
         setIsUploading(true);
         
         const asset = result.assets[0];
-        const signedUrlResponse = await filesClient.getSignedUrl({
+        const signedUrlResponse = await sdk.files.getSignedUrl({
           fileName: `avatar-${Date.now()}.jpg`,
           contentType: 'image/jpeg',
           fileSize: asset.fileSize || 0,
@@ -133,7 +126,7 @@ export function ProfileScreen() {
 
         if (uploadResponse.ok) {
           // Update user profile with new avatar URL
-          await userClient.updateProfile({ avatar: signedUrlResponse.fileUrl });
+          await sdk.users.updateProfile({ avatar: signedUrlResponse.fileUrl });
           queryClient.invalidateQueries({ queryKey: ['user', 'profile'] });
           Alert.alert('Success', 'Avatar updated successfully');
         } else {
@@ -186,7 +179,7 @@ export function ProfileScreen() {
               <Image source={{ uri: profile.avatar }} style={styles.avatar} />
             ) : (
               <View style={styles.avatarPlaceholder}>
-                <UserIcon size={40} color={palmeraTheme.colors.textMuted} />
+                <Text style={{ fontSize: 40, color: palmeraTheme.colors.textMuted }}>👤</Text>
               </View>
             )}
             <TouchableOpacity
@@ -194,7 +187,7 @@ export function ProfileScreen() {
               onPress={handleAvatarUpload}
               disabled={isUploading}
             >
-              <CameraIcon size={16} color={palmeraTheme.colors.background} />
+              <Text style={{ fontSize: 16, color: palmeraTheme.colors.background }}>📷</Text>
             </TouchableOpacity>
           </View>
           <Text style={styles.userName}>
@@ -209,15 +202,15 @@ export function ProfileScreen() {
             <Text style={styles.sectionTitle}>Personal Information</Text>
             {!isEditing ? (
               <TouchableOpacity onPress={handleEdit}>
-                <PencilIcon size={20} color={palmeraTheme.colors.accent} />
+                <Text style={{ fontSize: 20, color: palmeraTheme.colors.accent }}>✏️</Text>
               </TouchableOpacity>
             ) : (
               <View style={styles.editActions}>
                 <TouchableOpacity onPress={handleCancel}>
-                  <XMarkIcon size={20} color={palmeraTheme.colors.error} />
+                  <Text style={{ fontSize: 20, color: palmeraTheme.colors.error }}>❌</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={handleSubmit(handleSave)}>
-                  <CheckIcon size={20} color={palmeraTheme.colors.success} />
+                  <Text style={{ fontSize: 20, color: palmeraTheme.colors.success }}>✅</Text>
                 </TouchableOpacity>
               </View>
             )}
