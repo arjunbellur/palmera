@@ -7,6 +7,7 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
+    "lint": "echo 'No linting needed for tokens package'",
     "type-check": "tsc --noEmit",
     "clean": "rm -rf dist"
   },

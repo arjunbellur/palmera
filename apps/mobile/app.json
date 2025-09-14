@@ -36,14 +36,8 @@
           "icon": "./assets/notification-icon.png",
           "color": "#1C5E3C"
         }
-      ],
-      "expo-router"
+      ]
     ],
-    "scheme": "palmera",
-    "extra": {
-      "router": {
-        "origin": false
-      }
-    }
+    "scheme": "palmera"
   }
 }

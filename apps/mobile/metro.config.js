@@ -17,4 +17,4 @@ config.resolver.nodeModulesPaths = [
 // Add support for .tsx files
 config.resolver.sourceExts.push('tsx');
 
-module.exports = withNativeWind(config, { input: './global.css' });
+module.exports = withNativeWind(config);

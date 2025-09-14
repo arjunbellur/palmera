@@ -1,4 +1,4 @@
-const { tokens } = require('./dist/index.js');
+const { tokens } = require('../../packages/tokens/dist/index.js');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {

@@ -2,14 +2,13 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StatusBar } from 'expo-status-bar';
-import './global.css';
 
-// Import screens
-import WelcomeScreen from './src/screens/WelcomeScreen';
-import LoginScreen from './src/screens/LoginScreen';
-import SignupScreen from './src/screens/SignupScreen';
-import HomeScreen from './src/screens/HomeScreen';
-import DesignShowcase from './src/components/DesignShowcase';
+// Import screens from mobile app
+import WelcomeScreen from './apps/mobile/src/screens/WelcomeScreen';
+import LoginScreen from './apps/mobile/src/screens/LoginScreen';
+import SignupScreen from './apps/mobile/src/screens/SignupScreen';
+import HomeScreen from './apps/mobile/src/screens/HomeScreen';
+import DesignShowcase from './apps/mobile/src/components/DesignShowcase';
 
 const Stack = createStackNavigator();
 
