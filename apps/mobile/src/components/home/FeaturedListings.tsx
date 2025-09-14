@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import { router } from 'expo-router';
 import { palmeraTheme } from '@palmera/ui';
-import { StarIcon, MapPinIcon } from '@heroicons/react/24/solid';
 
 interface Listing {
   id: string;
@@ -47,12 +46,12 @@ export function FeaturedListings({ listings = [] }: FeaturedListingsProps) {
           {item.description}
         </Text>
         <View style={styles.listingLocation}>
-          <MapPinIcon size={12} color={palmeraTheme.colors.textMuted} />
+          <Text style={{ fontSize: 12, marginRight: 4 }}>📍</Text>
           <Text style={styles.listingCity}>{item.city}</Text>
         </View>
         <View style={styles.listingFooter}>
           <View style={styles.ratingContainer}>
-            <StarIcon size={12} color="#FFD700" />
+            <Text style={{ fontSize: 12, marginRight: 4 }}>⭐</Text>
             <Text style={styles.rating}>{item.rating}</Text>
             <Text style={styles.reviewCount}>({item.reviewCount})</Text>
           </View>

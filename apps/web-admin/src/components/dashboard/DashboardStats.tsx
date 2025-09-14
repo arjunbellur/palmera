@@ -7,8 +7,8 @@ import {
   BuildingOfficeIcon, 
   CalendarDaysIcon, 
   CurrencyDollarIcon,
-  TrendingUpIcon,
-  TrendingDownIcon,
+  ArrowTrendingUpIcon,
+  ArrowTrendingDownIcon,
 } from '@heroicons/react/24/outline';
 
 // Mock data - replace with real API calls
@@ -80,9 +80,9 @@ export function DashboardStats() {
               }`}
             >
               {stat.changeType === 'increase' ? (
-                <TrendingUpIcon className="self-center flex-shrink-0 h-5 w-5 text-green-500" />
+                <ArrowTrendingUpIcon className="self-center flex-shrink-0 h-5 w-5 text-green-500" />
               ) : (
-                <TrendingDownIcon className="self-center flex-shrink-0 h-5 w-5 text-red-500" />
+                <ArrowTrendingDownIcon className="self-center flex-shrink-0 h-5 w-5 text-red-500" />
               )}
               <span className="sr-only">
                 {stat.changeType === 'increase' ? 'Increased' : 'Decreased'} by

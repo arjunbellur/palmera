@@ -64,7 +64,7 @@ export function BusinessInfoStep({ onNext }: BusinessInfoStepProps) {
         </div>
 
         <div className="flex justify-end">
-          <Button type="submit">
+          <Button onPress={() => handleSubmit(onSubmit)()}>
             Continue
           </Button>
         </div>

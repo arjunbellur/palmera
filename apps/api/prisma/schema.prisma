@@ -140,7 +140,11 @@ model Listing {
 model Booking {
   id           String   @id @default(cuid())
   userId       String
+  user         User     @relation(fields: [userId], references: [id])
   experienceId String
+  listing      Listing  @relation(fields: [experienceId], references: [id])
+  providerId   String
+  provider     Provider @relation(fields: [providerId], references: [id])
   status       String   // draft | pending_payment | confirmed | cancelled
   total        Int
   currency     String   @default("XOF")
@@ -156,6 +160,7 @@ model Booking {
 model Payment {
   id          String           @id @default(cuid())
   bookingId   String
+  booking     Booking          @relation(fields: [bookingId], references: [id])
   provider    PaymentProvider
   method      PaymentMethod
   amount      Int

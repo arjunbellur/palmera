@@ -156,10 +156,10 @@ export function KycDocumentsStep({ onNext, onPrevious }: KycDocumentsStepProps) 
 
         {/* Navigation */}
         <div className="flex justify-between">
-          <Button variant="outline" onClick={onPrevious}>
+          <Button variant="outline" onPress={onPrevious}>
             Previous
           </Button>
-          <Button onClick={handleNext}>
+          <Button onPress={handleNext}>
             Continue
           </Button>
         </div>

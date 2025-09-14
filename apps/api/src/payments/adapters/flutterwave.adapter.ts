@@ -1,13 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import axios, { AxiosInstance } from 'axios';
-import { 
-  PaymentProvider, 
-  PaymentRequest, 
-  PaymentResponse, 
-  PaymentVerification,
-  PaymentMethod 
-} from '../interfaces/payment-provider.interface';
+import { PaymentAdapter, PaymentIntent, VerifiedEvent } from '../interfaces/payment-adapter.interface';
 
 interface FlutterwaveConfig {
   publicKey: string;
@@ -65,7 +59,7 @@ interface FlutterwaveVerificationResponse {
 }
 
 @Injectable()
-export class FlutterwaveAdapter implements PaymentProvider {
+export class FlutterwaveAdapter implements PaymentAdapter {
   private readonly logger = new Logger(FlutterwaveAdapter.name);
   private readonly httpClient: AxiosInstance;
   private readonly config: FlutterwaveConfig;
@@ -86,31 +80,38 @@ export class FlutterwaveAdapter implements PaymentProvider {
     });
   }
 
-  get name(): string {
-    return 'FLUTTERWAVE';
-  }
-
-  async initiatePayment(request: PaymentRequest): Promise<PaymentResponse> {
+  async createIntent(input: {
+    amount: number;
+    currency: string;
+    meta?: any;
+    customer?: {
+      email?: string;
+      phone?: string;
+      name?: string;
+    };
+  }): Promise<PaymentIntent> {
     try {
+      const reference = `palmera_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+      
       const flutterwaveRequest: FlutterwavePaymentRequest = {
-        tx_ref: request.reference,
-        amount: request.amount,
-        currency: request.currency,
+        tx_ref: reference,
+        amount: input.amount,
+        currency: input.currency,
         redirect_url: `${this.configService.get<string>('APP_URL')}/payments/callback`,
-        payment_options: this.getPaymentOptions(request.metadata?.method),
+        payment_options: 'card,mobilemoney',
         customer: {
-          email: request.customer.email,
-          phone_number: request.customer.phone,
-          name: request.customer.name,
+          email: input.customer?.email || '',
+          phone_number: input.customer?.phone,
+          name: input.customer?.name,
         },
         customizations: {
           title: 'Palmera Experience Booking',
           description: 'Payment for your Palmera experience',
         },
-        meta: request.metadata,
+        meta: input.meta,
       };
 
-      this.logger.log(`Initiating Flutterwave payment for reference: ${request.reference}`);
+      this.logger.log(`Creating Flutterwave payment intent for reference: ${reference}`);
 
       const response = await this.httpClient.post<FlutterwavePaymentResponse>(
         '/payments',
@@ -119,117 +120,99 @@ export class FlutterwaveAdapter implements PaymentProvider {
 
       if (response.data.status === 'success' && response.data.data?.link) {
         return {
-          success: true,
-          reference: request.reference,
-          providerReference: response.data.data.reference,
-          redirectUrl: response.data.data.link,
+          checkoutUrl: response.data.data.link,
+          reference: reference,
+          amount: input.amount,
+          currency: input.currency,
+          metadata: input.meta,
         };
       }
 
-      return {
-        success: false,
-        reference: request.reference,
-        error: response.data.message || 'Failed to initiate payment',
-      };
+      throw new Error(response.data.message || 'Failed to create payment intent');
     } catch (error) {
-      this.logger.error(`Flutterwave payment initiation failed: ${error.message}`, error.stack);
-      return {
-        success: false,
-        reference: request.reference,
-        error: 'Payment initiation failed',
-      };
+      this.logger.error(`Flutterwave payment intent creation failed: ${error.message}`, error.stack);
+      throw error;
     }
   }
 
-  async verifyPayment(reference: string): Promise<PaymentVerification> {
+  async refund(reference: string, amountMinor?: number): Promise<{
+    refundId: string;
+    status: 'success' | 'failed' | 'pending';
+  }> {
     try {
-      this.logger.log(`Verifying Flutterwave payment for reference: ${reference}`);
-
-      const response = await this.httpClient.get<FlutterwaveVerificationResponse>(
-        `/transactions/${reference}/verify`
-      );
-
-      if (response.data.status === 'success' && response.data.data) {
-        const payment = response.data.data;
-        return {
-          success: true,
-          status: this.mapFlutterwaveStatus(payment.status),
-          amount: payment.amount,
-          currency: payment.currency,
-          providerReference: payment.flw_ref,
-        };
-      }
-
-      return {
-        success: false,
-        status: 'FAILED',
-        error: response.data.message || 'Payment verification failed',
-      };
-    } catch (error) {
-      this.logger.error(`Flutterwave payment verification failed: ${error.message}`, error.stack);
-      return {
-        success: false,
-        status: 'FAILED',
-        error: 'Payment verification failed',
-      };
-    }
-  }
-
-  async refundPayment(paymentId: string, amount?: number): Promise<{ success: boolean; refundId?: string; error?: string }> {
-    try {
-      this.logger.log(`Processing Flutterwave refund for payment: ${paymentId}`);
+      this.logger.log(`Processing Flutterwave refund for reference: ${reference}`);
 
       const response = await this.httpClient.post('/refunds', {
-        id: paymentId,
-        amount: amount,
+        tx_ref: reference,
+        amount: amountMinor,
       });
 
       if (response.data.status === 'success') {
         return {
-          success: true,
-          refundId: response.data.data.id?.toString(),
+          refundId: response.data.data.id?.toString() || reference,
+          status: 'success',
         };
       }
 
       return {
-        success: false,
-        error: response.data.message || 'Refund failed',
+        refundId: reference,
+        status: 'failed',
       };
     } catch (error) {
       this.logger.error(`Flutterwave refund failed: ${error.message}`, error.stack);
       return {
-        success: false,
-        error: 'Refund failed',
+        refundId: reference,
+        status: 'failed',
       };
     }
   }
 
-  private getPaymentOptions(method?: string): string {
-    switch (method) {
-      case PaymentMethod.CARD:
-        return 'card';
-      case PaymentMethod.ORANGE_MONEY_SN:
-        return 'mobilemoney';
-      case PaymentMethod.WAVE_SN:
-        return 'mobilemoney';
-      case PaymentMethod.FREE_MONEY_SN:
-        return 'mobilemoney';
-      default:
-        return 'card,mobilemoney';
+  verifyWebhook(raw: Buffer, headers: Record<string, string>): VerifiedEvent {
+    const signature = headers['verif-hash'];
+    if (!signature) {
+      throw new Error('Missing Flutterwave signature');
     }
+
+    const body = JSON.parse(raw.toString());
+    
+    return {
+      type: this.mapFlutterwaveEventType(body.event),
+      reference: body.data?.tx_ref || '',
+      amount: body.data?.amount || 0,
+      currency: body.data?.currency || 'XOF',
+      metadata: body.data,
+      timestamp: new Date(),
+      provider: 'flutterwave',
+    };
   }
 
-  private mapFlutterwaveStatus(status: string): 'INITIATED' | 'PENDING' | 'CONFIRMED' | 'FAILED' {
-    switch (status.toLowerCase()) {
-      case 'successful':
-        return 'CONFIRMED';
-      case 'pending':
-        return 'PENDING';
-      case 'failed':
-      case 'cancelled':
-        return 'FAILED';
+  getSupportedMethods(): string[] {
+    return ['card', 'mobilemoney'];
+  }
+
+  getSupportedCurrencies(): string[] {
+    return ['XOF', 'NGN', 'GHS', 'KES', 'USD', 'EUR'];
+  }
+
+  supportsCountry(country: string): boolean {
+    const supportedCountries = ['SN', 'NG', 'GH', 'KE', 'CI', 'ML', 'BF', 'NE', 'GN'];
+    return supportedCountries.includes(country);
+  }
+
+  private mapFlutterwaveEventType(event: string): 'payment.success' | 'payment.failed' | 'payment.pending' | 'refund.success' | 'refund.failed' {
+    switch (event) {
+      case 'charge.completed':
+        return 'payment.success';
+      case 'charge.failed':
+        return 'payment.failed';
+      case 'charge.pending':
+        return 'payment.pending';
+      case 'refund.completed':
+        return 'refund.success';
+      case 'refund.failed':
+        return 'refund.failed';
       default:
-        return 'INITIATED';
+        return 'payment.pending';
     }
   }
 }

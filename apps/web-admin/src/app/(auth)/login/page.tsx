@@ -1,12 +1,15 @@
 'use client';
 
 import React, { useState } from 'react';
+
+// Disable static generation for this page
+export const dynamic = 'force-dynamic';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Button } from '@palmera/ui';
-import { AuthClient } from '@palmera/sdk';
+// import { Button } from '@palmera/ui';
+// import { PalmeraSDK } from '@palmera/sdk';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 
 const loginSchema = z.object({
@@ -35,21 +38,32 @@ export default function AdminLoginPage() {
       setIsLoading(true);
       setError('');
 
-      const authClient = new AuthClient({
-        baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3002',
+      // Simple auth client for now
+      const baseURL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3002';
+      const response = await fetch(`${baseURL}/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
       });
 
-      const response = await authClient.login(data);
+      if (!response.ok) {
+        throw new Error('Login failed');
+      }
+
+      const result = await response.json();
+      const authResponse = result.data;
       
       // Check if user is admin
-      if (response.user.role !== 'ADMIN') {
+      if (authResponse.user.role !== 'ADMIN') {
         setError('Access denied. Admin privileges required.');
         return;
       }
 
       // Store auth token
-      localStorage.setItem('palmera_token', response.accessToken);
-      localStorage.setItem('palmera_user', JSON.stringify(response.user));
+      localStorage.setItem('palmera_token', authResponse.accessToken);
+      localStorage.setItem('palmera_user', JSON.stringify(authResponse.user));
 
       // Redirect to dashboard
       router.push('/dashboard');
@@ -130,13 +144,13 @@ export default function AdminLoginPage() {
           </div>
 
           <div>
-            <Button
+            <button
               type="submit"
               disabled={isLoading}
-              className="w-full"
+              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-midnight-950 hover:bg-midnight-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-midnight-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? 'Signing in...' : 'Sign in'}
-            </Button>
+            </button>
           </div>
 
           <div className="text-center">

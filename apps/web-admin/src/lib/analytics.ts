@@ -1,4 +1,32 @@
-import { PostHogAnalytics, SentryAnalytics, PALMERA_EVENTS } from '@palmera/ui';
+// import { PostHogAnalytics, SentryAnalytics, PALMERA_EVENTS } from '@palmera/ui';
+
+// Temporary placeholder analytics implementation
+export class PostHogAnalytics {
+  constructor(private client?: any) {}
+  
+  track(event: string, properties?: any) {
+    console.log('Analytics track:', event, properties);
+  }
+}
+
+export class SentryAnalytics {
+  constructor(private client?: any) {}
+  
+  captureException(error: Error) {
+    console.error('Sentry error:', error);
+  }
+}
+
+export const PALMERA_EVENTS = {
+  USER_LOGIN: 'user_login',
+  USER_LOGOUT: 'user_logout',
+  LOGIN: 'login',
+  LOGOUT: 'logout',
+  EXPERIENCE_VIEWED: 'experience_viewed',
+  BOOKING_CREATED: 'booking_created',
+  BOOKING_STARTED: 'booking_started',
+  BOOKING_COMPLETED: 'booking_completed',
+};
 
 // Initialize analytics providers
 let posthog: any = null;
@@ -33,8 +61,8 @@ export const analytics = {
 
 // Convenience functions for common events
 export const trackEvent = (event: string, properties?: Record<string, any>) => {
-  analytics.posthog.track({ name: event, properties });
-  analytics.sentry.track({ name: event, properties });
+  analytics.posthog.track(event, properties);
+  analytics.sentry.captureException(new Error(`Event: ${event}`));
 };
 
 export const trackBookingStarted = (experienceId: string, userId: string) => {

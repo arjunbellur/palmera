@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import { router } from 'expo-router';
 import { palmeraTheme } from '@palmera/ui';
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { Text } from 'react-native';
 
 export function SearchBar() {
   const handleSearchPress = () => {
@@ -17,7 +17,7 @@ export function SearchBar() {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.searchBar} onPress={handleSearchPress}>
-        <MagnifyingGlassIcon size={20} color={palmeraTheme.colors.textMuted} />
+        <Text style={styles.searchIcon}>🔍</Text>
         <TextInput
           style={styles.searchInput}
           placeholder="Search experiences..."
@@ -43,6 +43,10 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderWidth: 1,
     borderColor: palmeraTheme.colors.border,
+  },
+  searchIcon: {
+    fontSize: 20,
+    color: palmeraTheme.colors.textMuted,
   },
   searchInput: {
     flex: 1,

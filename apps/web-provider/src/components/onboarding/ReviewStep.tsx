@@ -101,10 +101,10 @@ export function ReviewStep({ onComplete, onPrevious }: ReviewStepProps) {
 
         {/* Navigation */}
         <div className="flex justify-between">
-          <Button variant="outline" onClick={onPrevious}>
+          <Button variant="outline" onPress={onPrevious}>
             Previous
           </Button>
-          <Button onClick={onComplete}>
+          <Button onPress={onComplete}>
             Submit Application
           </Button>
         </div>

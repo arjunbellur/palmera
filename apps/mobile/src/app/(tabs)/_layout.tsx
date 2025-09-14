@@ -1,11 +1,6 @@
 import { Tabs } from 'expo-router';
 import { palmeraTheme } from '@palmera/ui';
-import { 
-  HomeIcon, 
-  MagnifyingGlassIcon, 
-  HeartIcon, 
-  UserIcon 
-} from '@heroicons/react/24/outline';
+import { Text } from 'react-native';
 
 export default function TabLayout() {
   return (
@@ -40,8 +35,8 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'Home',
-          tabBarIcon: ({ color, size }) => (
-            <HomeIcon size={size} color={color} />
+          tabBarIcon: ({ color }) => (
+            <Text style={{ color, fontSize: 20 }}>🏠</Text>
           ),
         }}
       />
@@ -49,8 +44,8 @@ export default function TabLayout() {
         name="search"
         options={{
           title: 'Search',
-          tabBarIcon: ({ color, size }) => (
-            <MagnifyingGlassIcon size={size} color={color} />
+          tabBarIcon: ({ color }) => (
+            <Text style={{ color, fontSize: 20 }}>🔍</Text>
           ),
         }}
       />
@@ -58,8 +53,8 @@ export default function TabLayout() {
         name="favorites"
         options={{
           title: 'Favorites',
-          tabBarIcon: ({ color, size }) => (
-            <HeartIcon size={size} color={color} />
+          tabBarIcon: ({ color }) => (
+            <Text style={{ color, fontSize: 20 }}>❤️</Text>
           ),
         }}
       />
@@ -67,8 +62,8 @@ export default function TabLayout() {
         name="profile"
         options={{
           title: 'Profile',
-          tabBarIcon: ({ color, size }) => (
-            <UserIcon size={size} color={color} />
+          tabBarIcon: ({ color }) => (
+            <Text style={{ color, fontSize: 20 }}>👤</Text>
           ),
         }}
       />

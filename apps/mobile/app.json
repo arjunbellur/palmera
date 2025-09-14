@@ -3,7 +3,6 @@
     "name": "Palmera",
     "slug": "palmera",
     "version": "1.0.0",
-    "sdkVersion": "49.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
@@ -17,20 +16,23 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.palmera.app"
+      "bundleIdentifier": "com.palmera.app",
+      "jsEngine": "hermes"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#1C5E3C"
       },
-      "package": "com.palmera.app"
+      "package": "com.palmera.app",
+      "jsEngine": "hermes"
     },
     "web": {
       "favicon": "./assets/favicon.png",
       "bundler": "metro"
     },
     "plugins": [
+      "expo-router",
       [
         "expo-notifications",
         {
@@ -39,6 +41,9 @@
         }
       ]
     ],
-    "scheme": "palmera"
+    "scheme": "palmera",
+    "experiments": {
+      "typedRoutes": true
+    }
   }
 }

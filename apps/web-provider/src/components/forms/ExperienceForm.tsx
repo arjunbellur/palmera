@@ -59,7 +59,6 @@ export const ExperienceForm: React.FC = () => {
           name="description"
           label="Description"
           type="textarea"
-          rows={4}
           placeholder="Describe your experience in detail..."
           error={errors.description?.message}
         />
@@ -114,15 +113,13 @@ export const ExperienceForm: React.FC = () => {
           name="requirements"
           label="Requirements"
           type="textarea"
-          rows={2}
           placeholder="Any special requirements or what to bring..."
           error={errors.requirements?.message}
         />
 
         <Button
-          type="submit"
-          disabled={isSubmitting}
-          className="w-full"
+          onPress={() => handleSubmit(onSubmit)()}
+          style={{ width: '100%', opacity: isSubmitting ? 0.6 : 1 }}
         >
           {isSubmitting ? 'Creating...' : 'Create Experience'}
         </Button>

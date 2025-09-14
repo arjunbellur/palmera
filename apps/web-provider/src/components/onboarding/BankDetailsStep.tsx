@@ -90,10 +90,10 @@ export function BankDetailsStep({ onNext, onPrevious }: BankDetailsStepProps) {
         </div>
 
         <div className="flex justify-between">
-          <Button variant="outline" onClick={onPrevious}>
+          <Button variant="outline" onPress={onPrevious}>
             Previous
           </Button>
-          <Button type="submit">
+          <Button onPress={() => handleSubmit(onSubmit)()}>
             Continue
           </Button>
         </div>

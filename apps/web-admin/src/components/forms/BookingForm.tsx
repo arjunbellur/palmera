@@ -89,7 +89,6 @@ export const BookingForm: React.FC = () => {
           name="specialRequests"
           label="Special Requests"
           type="textarea"
-          rows={3}
           placeholder="Any special requirements or requests..."
           error={errors.specialRequests?.message}
         />
@@ -101,9 +100,9 @@ export const BookingForm: React.FC = () => {
         />
 
         <Button
-          type="submit"
+          onPress={() => handleSubmit(onSubmit)()}
           disabled={isSubmitting}
-          className="w-full"
+          style={{ width: '100%', opacity: isSubmitting ? 0.6 : 1 }}
         >
           {isSubmitting ? 'Booking...' : 'Book Experience'}
         </Button>

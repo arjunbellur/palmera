@@ -4,12 +4,14 @@ module.exports = function (api) {
     presets: ['babel-preset-expo'],
     plugins: [
       ['module-resolver', {
-        root: ['./'],
-        extensions: ['.ts', '.tsx', '.js', '.json'],
+        root: ['./src'],
+        extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
         alias: {
+          '@': './src',
           '@palmera/ui': '../../packages/ui/src',
-          '@palmera/types': '../../packages/types/src',
-          '@palmera/tokens': '../../packages/tokens/src'
+          '@palmera/schemas': '../../packages/schemas/src',
+          '@palmera/sdk': '../../packages/sdk/src',
+          '@palmera/i18n': '../../packages/i18n/src',
         },
       }],
       'react-native-reanimated/plugin',

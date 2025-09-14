@@ -1,6 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
+
+// Disable static generation for this page
+export const dynamic = 'force-dynamic';
 import { useQuery } from '@tanstack/react-query';
 import { 
   MagnifyingGlassIcon, 
