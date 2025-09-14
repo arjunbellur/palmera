@@ -45,15 +45,16 @@ enum PaymentStatus {
 
 enum PaymentMethod {
   CARD
-  MOBILE_MONEY
-  BANK_TRANSFER
+  ORANGE_MONEY_SN
+  WAVE_SN
+  FREE_MONEY_SN
 }
 
 enum PaymentProvider {
-  stripe
-  flutterwave
-  paystack
-  orange_money
+  FLUTTERWAVE
+  CINETPAY
+  PAYDUNYA
+  ORANGE_WEBPAY
 }
 
 enum MembershipTier {
@@ -137,22 +138,14 @@ model Listing {
 }
 
 model Booking {
-  id            String        @id @default(cuid())
-  customerId    String
-  customer      User          @relation(fields: [customerId], references: [id])
-  providerId    String
-  provider      Provider      @relation(fields: [providerId], references: [id])
-  listingId     String
-  listing       Listing       @relation(fields: [listingId], references: [id])
-  status        BookingStatus @default(PENDING)
-  startDate     DateTime
-  endDate       DateTime
-  guests        Int           @default(1)
-  totalAmount   Int           // Amount in cents
-  commission    Int           // Commission amount in cents
-  specialRequests String?
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
+  id           String   @id @default(cuid())
+  userId       String
+  experienceId String
+  status       String   // draft | pending_payment | confirmed | cancelled
+  total        Int
+  currency     String   @default("XOF")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
   payments Payment[]
   reviews  Review[]
@@ -161,19 +154,17 @@ model Booking {
 }
 
 model Payment {
-  id            String        @id @default(cuid())
-  bookingId     String
-  booking       Booking       @relation(fields: [bookingId], references: [id])
-  amount        Int           // Amount in cents
-  currency      String        @default("XOF") // West African CFA franc
-  status        PaymentStatus @default(PENDING)
-  method        PaymentMethod
-  provider      PaymentProvider
-  providerId    String?       // External payment provider ID
-  providerData  Json?         // Store provider-specific data
-  metadata      Json?         // Additional payment metadata
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
+  id          String           @id @default(cuid())
+  bookingId   String
+  provider    PaymentProvider
+  method      PaymentMethod
+  amount      Int
+  currency    String           @default("XOF")
+  status      String           // INITIATED | PENDING | CONFIRMED | FAILED | REFUNDED
+  reference   String           @unique
+  raw         Json?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
 
   refunds       Refund[]
 

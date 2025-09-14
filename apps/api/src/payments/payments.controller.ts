@@ -12,35 +12,50 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
-import { PaymentsService } from './payments.service';
+import { PaymentService } from './services/payment.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { WebhookVerificationService } from './webhooks/webhook-verification.service';
-import {
-  CreatePaymentIntentRequest,
-  PaymentConfirmation,
-  CreateRefundRequest,
-  MobileMoneyPayment,
-  CardPayment,
-} from '@palmera/schemas';
+import { PaymentProviderType, PaymentMethod } from './interfaces/payment-provider.interface';
 
 @ApiTags('Payments')
 @Controller('payments')
 export class PaymentsController {
   constructor(
-    private readonly paymentsService: PaymentsService,
+    private readonly paymentService: PaymentService,
     private readonly webhookVerificationService: WebhookVerificationService,
   ) {}
 
-  @Post('intent')
+  @Post('create')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'Create payment intent' })
-  @ApiResponse({ status: 201, description: 'Payment intent created successfully' })
-  async createPaymentIntent(
-    @Body() createPaymentIntentDto: CreatePaymentIntentRequest,
+  @ApiOperation({ summary: 'Create payment' })
+  @ApiResponse({ status: 201, description: 'Payment created successfully' })
+  async createPayment(
+    @Body() body: {
+      bookingId: string;
+      provider: PaymentProviderType;
+      method: PaymentMethod;
+      amount: number;
+      currency?: string;
+      customer: {
+        email: string;
+        phone?: string;
+        name?: string;
+      };
+      metadata?: Record<string, any>;
+    },
     @Request() req,
   ) {
-    return this.paymentsService.createPaymentIntent(createPaymentIntentDto, req.user.id);
+    return this.paymentService.createPayment(body);
+  }
+
+  @Get('verify/:reference')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Verify payment' })
+  @ApiResponse({ status: 200, description: 'Payment verified successfully' })
+  async verifyPayment(@Param('reference') reference: string) {
+    return this.paymentService.verifyPayment(reference);
   }
 
   @Post('confirm')
@@ -188,18 +203,14 @@ export class PaymentsController {
     return this.paymentsService.handleOrangeMoneyWebhook(body, headers);
   }
 
-  @Get('providers/:country')
-  @ApiOperation({ summary: 'Get available payment providers for country' })
+  @Get('providers')
+  @ApiOperation({ summary: 'Get supported payment providers' })
   @ApiResponse({ status: 200, description: 'Payment providers retrieved successfully' })
-  async getPaymentProviders(@Param('country') country: string) {
-    return this.paymentsService.getPaymentProviders(country);
-  }
-
-  @Get('methods/:provider')
-  @ApiOperation({ summary: 'Get supported payment methods for provider' })
-  @ApiResponse({ status: 200, description: 'Payment methods retrieved successfully' })
-  async getPaymentMethods(@Param('provider') provider: string) {
-    return this.paymentsService.getPaymentMethods(provider);
+  async getSupportedProviders() {
+    return {
+      providers: this.paymentService.getSupportedProviders(),
+      methods: this.paymentService.getSupportedMethods(),
+    };
   }
 
   @Post('orange-money/instructions')

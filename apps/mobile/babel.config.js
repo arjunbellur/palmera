@@ -9,6 +9,7 @@ module.exports = function (api) {
         alias: {
           '@palmera/ui': '../../packages/ui/src',
           '@palmera/types': '../../packages/types/src',
+          '@palmera/tokens': '../../packages/tokens/src'
         },
       }],
       'react-native-reanimated/plugin',

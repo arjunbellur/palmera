@@ -3,6 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { TailwindProvider } from 'nativewind';
 import Toast from 'react-native-toast-message';
 import { palmeraTheme } from '@palmera/ui';
 import { SDKProvider } from '../contexts/SDKContext';
@@ -20,8 +21,9 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
-        <SDKProvider>
-          <QueryClientProvider client={queryClient}>
+        <TailwindProvider>
+          <SDKProvider>
+            <QueryClientProvider client={queryClient}>
             <Stack
               screenOptions={{
                 headerStyle: {
@@ -139,8 +141,9 @@ export default function RootLayout() {
             </Stack>
             <StatusBar style="light" />
             <Toast />
-          </QueryClientProvider>
-        </SDKProvider>
+            </QueryClientProvider>
+          </SDKProvider>
+        </TailwindProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );
