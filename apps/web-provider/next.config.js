@@ -1,8 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export',
+  trailingSlash: true,
   transpilePackages: ['@palmera/schemas', '@palmera/sdk'],
   images: {
     domains: ['images.unsplash.com', 'localhost'],
+    unoptimized: true, // Required for static export
   },
   env: {
     NEXTAUTH_URL: process.env.NEXTAUTH_URL || 'http://localhost:3001',
