@@ -7,7 +7,7 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "npx pnpm --recursive run build",
+    "build": "pnpm --filter @palmera/tokens run build && pnpm --filter @palmera/schemas run build && pnpm --filter @palmera/i18n run build && pnpm --filter @palmera/ui run build && pnpm --filter @palmera/sdk run build && pnpm --filter @palmera/api run build && pnpm --filter @palmera/mobile run build && pnpm --filter @palmera/web-admin run build && pnpm --filter @palmera/web-provider run build",
     "dev": "npx pnpm --recursive run dev",
     "dev:fast": "./scripts/start-dev.sh",
     "lint": "npx pnpm --recursive run lint",
