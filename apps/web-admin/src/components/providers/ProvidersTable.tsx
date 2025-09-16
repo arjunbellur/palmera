@@ -118,10 +118,10 @@ export function ProvidersTable() {
             All Providers
           </h3>
           <div className="flex items-center space-x-2">
-            <Button variant="outline" size="sm">
+            <Button variant="outline">
               Export
             </Button>
-            <Button size="sm">
+            <Button>
               Add Provider
             </Button>
           </div>

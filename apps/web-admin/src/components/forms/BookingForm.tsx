@@ -100,8 +100,7 @@ export const BookingForm: React.FC = () => {
         />
 
         <Button
-          onPress={() => handleSubmit(onSubmit)()}
-          disabled={isSubmitting}
+          onPress={isSubmitting ? undefined : () => handleSubmit(onSubmit)()}
           style={{ width: '100%', opacity: isSubmitting ? 0.6 : 1 }}
         >
           {isSubmitting ? 'Booking...' : 'Book Experience'}

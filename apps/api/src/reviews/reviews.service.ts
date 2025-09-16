@@ -17,7 +17,7 @@ export class ReviewsService {
     const booking = await this.prisma.booking.findFirst({
       where: {
         id: bookingId,
-        customerId: userId,
+        userId: userId,
         experienceId: listingId,
         status: 'COMPLETED',
       },
@@ -45,7 +45,7 @@ export class ReviewsService {
     const review = await this.prisma.review.create({
       data: {
         customerId: userId,
-        experienceId: listingId,
+        listingId: listingId,
         bookingId,
         rating,
         comment,

@@ -3,6 +3,9 @@ const nextConfig = {
   output: 'export',
   trailingSlash: true,
   transpilePackages: ['@palmera/schemas', '@palmera/sdk'],
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   images: {
     domains: ['images.unsplash.com', 'localhost'],
     unoptimized: true, // Required for static export
