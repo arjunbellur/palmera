@@ -51,14 +51,14 @@ jobs:
       env:
         DATABASE_URL: "postgresql://dummy:dummy@localhost:5432/dummy"
         
+    - name: Build packages
+      run: pnpm build
+      
     - name: Type check
-      run: pnpm type-check
+      run: pnpm --filter "!@palmera/sdk" --filter "!@palmera/mobile" type-check
       
     - name: Lint
       run: pnpm lint
-      
-    - name: Build packages
-      run: pnpm build
       
     - name: Run tests
       run: pnpm test

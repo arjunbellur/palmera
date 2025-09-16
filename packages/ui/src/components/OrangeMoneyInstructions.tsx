@@ -61,8 +61,7 @@ export function OrangeMoneyInstructions({
             </div>
             <Button
               variant="outline"
-              size="sm"
-              onClick={onCopyReference}
+              onPress={onCopyReference}
               className="ml-4"
             >
               Copy
@@ -143,7 +142,7 @@ export function OrangeMoneyInstructions({
         <div className="pt-4 border-t border-gray-200">
           <Button
             variant="outline"
-            onClick={onCheckStatus}
+            onPress={onCheckStatus}
             className="w-full"
           >
             Check Payment Status

@@ -1,4 +1,5 @@
-import { Pressable, Text } from 'react-native';
+import React from 'react';
+import { cn } from './utils/cn';
 
 type Props = {
   children: React.ReactNode;
@@ -12,8 +13,11 @@ export function Button({ children, variant='primary', onPress, className }: Prop
   const style = variant === 'primary' ? 'bg-brand' : 'border border-brand';
   const text  = variant === 'primary' ? 'text-white' : 'text-brand';
   return (
-    <Pressable onPress={onPress} className={`${base} ${style} ${className ?? ''}`}>
-      <Text className={`${text} font-semibold text-base`}>{children as any}</Text>
-    </Pressable>
+    <button 
+      onClick={onPress} 
+      className={cn(base, style, text, 'font-semibold text-base', className)}
+    >
+      {children}
+    </button>
   );
 }
