@@ -31,7 +31,7 @@ export class BookingsService {
     // Check availability
     const conflictingBookings = await this.prisma.booking.findMany({
       where: {
-        listingId,
+        experienceId: listingId,
         status: { in: ['PENDING', 'CONFIRMED'] },
         OR: [
           {
@@ -66,19 +66,18 @@ export class BookingsService {
     // Create booking
     const booking = await this.prisma.booking.create({
       data: {
-        customerId: userId,
+        userId: userId,
         providerId: listing.providerId,
-        listingId,
+        experienceId: listingId,
         startDate: new Date(startDate),
         endDate: new Date(endDate),
         guests,
-        totalAmount: Math.round(totalAmount),
-        commission,
+        total: Math.round(totalAmount),
         specialRequests,
         status: 'PENDING',
       },
       include: {
-        customer: {
+        user: {
           select: {
             id: true,
             firstName: true,
@@ -148,7 +147,7 @@ export class BookingsService {
         skip,
         take: limit,
         include: {
-          customer: {
+          user: {
             select: {
               id: true,
               firstName: true,
@@ -216,7 +215,7 @@ export class BookingsService {
     const booking = await this.prisma.booking.findFirst({
       where,
       include: {
-        customer: {
+        user: {
           select: {
             id: true,
             firstName: true,

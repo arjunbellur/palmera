@@ -18,7 +18,7 @@ export class ReviewsService {
       where: {
         id: bookingId,
         customerId: userId,
-        listingId,
+        experienceId: listingId,
         status: 'COMPLETED',
       },
     });
@@ -45,7 +45,7 @@ export class ReviewsService {
     const review = await this.prisma.review.create({
       data: {
         customerId: userId,
-        listingId,
+        experienceId: listingId,
         bookingId,
         rating,
         comment,

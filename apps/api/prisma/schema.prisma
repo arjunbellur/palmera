@@ -45,16 +45,20 @@ enum PaymentStatus {
 
 enum PaymentMethod {
   CARD
+  MOBILE_MONEY
+  BANK_TRANSFER
   ORANGE_MONEY_SN
   WAVE_SN
   FREE_MONEY_SN
 }
 
 enum PaymentProvider {
-  FLUTTERWAVE
-  CINETPAY
-  PAYDUNYA
-  ORANGE_WEBPAY
+  stripe
+  flutterwave
+  paystack
+  cinetpay
+  paydunya
+  orange_webpay
 }
 
 enum MembershipTier {
@@ -148,6 +152,10 @@ model Booking {
   status       String   // draft | pending_payment | confirmed | cancelled
   total        Int
   currency     String   @default("XOF")
+  startDate    DateTime
+  endDate      DateTime
+  guests       Int      @default(1)
+  specialRequests String?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
@@ -167,6 +175,8 @@ model Payment {
   currency    String           @default("XOF")
   status      String           // INITIATED | PENDING | CONFIRMED | FAILED | REFUNDED
   reference   String           @unique
+  providerId  String?          // External provider payment ID
+  metadata    Json?            // Additional payment metadata
   raw         Json?
   createdAt   DateTime         @default(now())
   updatedAt   DateTime         @updatedAt

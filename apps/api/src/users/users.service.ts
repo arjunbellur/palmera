@@ -302,7 +302,7 @@ export class UsersService {
     // Check if user has any active bookings
     const activeBookings = await this.prisma.booking.findMany({
       where: {
-        customerId: userId,
+        userId: userId,
         status: { in: ['PENDING', 'CONFIRMED'] },
       },
     });

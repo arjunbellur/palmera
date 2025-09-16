@@ -91,7 +91,7 @@ export class PaymentService {
           status: 'INITIATED',
           reference: paymentIntent.reference,
           raw: {
-            intent: paymentIntent,
+            intent: paymentIntent as any,
           },
         },
       });

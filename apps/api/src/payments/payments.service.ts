@@ -41,7 +41,7 @@ export class PaymentsService {
     const booking = await this.prisma.booking.findFirst({
       where: {
         id: bookingId,
-        customerId: userId,
+        userId: userId,
         status: 'PENDING',
       },
     });
@@ -142,7 +142,7 @@ export class PaymentsService {
     const payment = await this.prisma.payment.findFirst({
       where: {
         providerId: paymentIntentId,
-        booking: { customerId: userId },
+        booking: { userId: userId },
       },
       include: { booking: true },
     });
@@ -174,7 +174,7 @@ export class PaymentsService {
       where: { id: payment.id },
       data: {
         status: 'COMPLETED',
-        providerData: metadata,
+        metadata: metadata,
       },
     });
 
@@ -240,7 +240,7 @@ export class PaymentsService {
     const payment = await this.prisma.payment.findFirst({
       where: {
         id,
-        booking: { customerId: userId },
+        booking: { userId: userId },
       },
     });
 
@@ -275,7 +275,7 @@ export class PaymentsService {
     const payment = await this.prisma.payment.findFirst({
       where: {
         id: paymentId,
-        booking: { customerId: userId },
+        booking: { userId: userId },
         status: 'COMPLETED',
       },
     });

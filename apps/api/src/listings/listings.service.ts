@@ -294,7 +294,7 @@ export class ListingsService {
     // Check for existing bookings
     const existingBookings = await this.prisma.booking.findMany({
       where: {
-        listingId,
+        experienceId: listingId,
         status: { in: ['PENDING', 'CONFIRMED'] },
         OR: [
           {
