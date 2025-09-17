@@ -10,7 +10,6 @@ This guide explains how to properly configure Cloudflare Pages for the Palmera m
 - **Build output directory**: `apps/web-provider/out`
 - **Root directory**: `/` (empty - use repository root)
 - **Node.js version**: `18` (uses .nvmrc file)
-- **Install command**: `pnpm install --no-frozen-lockfile`
 
 ### Web Admin Dashboard  
 - **Framework preset**: `Next.js`
@@ -18,7 +17,6 @@ This guide explains how to properly configure Cloudflare Pages for the Palmera m
 - **Build output directory**: `apps/web-admin/out`
 - **Root directory**: `/` (empty - use repository root)
 - **Node.js version**: `18` (uses .nvmrc file)
-- **Install command**: `pnpm install --no-frozen-lockfile`
 
 ## Environment Variables
 
