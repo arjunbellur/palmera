@@ -1,8 +1,9 @@
 name: Deploy
 
-on:
-  push:
-    branches: [main]
+# DISABLED - Using Cloudflare Pages for web apps
+# on:
+#   push:
+#     branches: [main]
 
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}

@@ -1,10 +1,11 @@
 name: Deploy Web Apps to Vercel
 
-on:
-  push:
-    branches: [main]
-    paths: ['apps/web-admin/**', 'apps/web-provider/**']
-  workflow_dispatch:
+# DISABLED - Using Cloudflare Pages instead of Vercel
+# on:
+#   push:
+#     branches: [main]
+#     paths: ['apps/web-admin/**', 'apps/web-provider/**']
+#   workflow_dispatch:
 
 jobs:
   deploy-admin:
