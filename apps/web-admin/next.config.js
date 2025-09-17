@@ -2,9 +2,13 @@
 const nextConfig = {
   output: 'export',
   trailingSlash: true,
+  distDir: 'out',
   transpilePackages: ['@palmera/schemas', '@palmera/sdk', '@palmera/ui', '@palmera/tokens', '@palmera/i18n'],
   eslint: {
     ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: false,
   },
   images: {
     domains: ['images.unsplash.com', 'localhost'],
