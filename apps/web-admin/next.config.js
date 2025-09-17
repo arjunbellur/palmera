@@ -2,7 +2,7 @@
 const nextConfig = {
   output: 'export',
   trailingSlash: true,
-  transpilePackages: ['@palmera/schemas', '@palmera/sdk'],
+  transpilePackages: ['@palmera/schemas', '@palmera/sdk', '@palmera/ui', '@palmera/tokens', '@palmera/i18n'],
   eslint: {
     ignoreDuringBuilds: true,
   },

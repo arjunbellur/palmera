@@ -18,6 +18,8 @@ This guide explains how to properly configure Cloudflare Pages for the Palmera m
 - **Root directory**: `/` (empty - use repository root)
 - **Node.js version**: `18` (uses .nvmrc file)
 
+**Note**: Remove any custom install commands - let Cloudflare handle the default `pnpm install`
+
 ## Environment Variables
 
 Set these in your Cloudflare Pages project:
