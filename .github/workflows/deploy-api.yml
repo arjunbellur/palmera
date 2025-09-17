@@ -22,33 +22,52 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
-          cache-dependency-path: apps/api/package-lock.json
+          
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9.0.0
+          
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+          
+      - name: Setup pnpm cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate Prisma Client
         run: |
           cd apps/api
-          npm ci
+          pnpm db:generate
+        env:
+          DATABASE_URL: "postgresql://dummy:dummy@localhost:5432/dummy"
 
       - name: Run linting
-        run: |
-          cd apps/api
-          npm run lint
+        run: pnpm --filter @palmera/api run lint
 
       - name: Run type checking
-        run: |
-          cd apps/api
-          npm run type-check
+        run: pnpm --filter @palmera/api run type-check
 
       - name: Run unit tests
-        run: |
-          cd apps/api
-          npm run test:unit
+        run: pnpm --filter @palmera/api run test:unit
+        env:
+          DATABASE_URL: "postgresql://dummy:dummy@localhost:5432/dummy"
+          NODE_ENV: "test"
 
       - name: Run integration tests
-        run: |
-          cd apps/api
-          npm run test:integration
+        run: pnpm --filter @palmera/api run test:integration
+        env:
+          DATABASE_URL: "postgresql://dummy:dummy@localhost:5432/dummy"
+          NODE_ENV: "test"
 
   build-and-push:
     needs: test
