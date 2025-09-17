@@ -18,7 +18,13 @@ This guide explains how to properly configure Cloudflare Pages for the Palmera m
 - **Root directory**: `/` (empty - use repository root)
 - **Node.js version**: `18` (uses .nvmrc file)
 
-**Note**: Remove any custom install commands - let Cloudflare handle the default `pnpm install`
+## CRITICAL: Cloudflare Pages Settings
+
+**REMOVE any custom install commands** - Use only:
+- **Build command**: `pnpm build:web-provider` (or `pnpm build:web-admin`)
+- **Install command**: Leave EMPTY (let Cloudflare use default `pnpm install`)
+
+The build is failing because of the custom `--no-frozen-lockfile` install command.
 
 ## Environment Variables
 
