@@ -1,16 +1,19 @@
-name: Deploy Web Apps to Vercel
+name: Deploy Web Apps to Vercel (DISABLED)
 
 # DISABLED - Using Cloudflare Pages instead of Vercel
-# on:
-#   push:
-#     branches: [main]
-#     paths: ['apps/web-admin/**', 'apps/web-provider/**']
-#   workflow_dispatch:
+on:
+  workflow_dispatch:
+    inputs:
+      force_run:
+        description: 'This workflow is disabled'
+        required: false
+        default: 'disabled'
 
 jobs:
   deploy-admin:
     runs-on: ubuntu-latest
     environment: production
+    if: false  # This workflow is disabled
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -58,6 +61,7 @@ jobs:
   deploy-provider:
     runs-on: ubuntu-latest
     environment: production
+    if: false  # This workflow is disabled
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

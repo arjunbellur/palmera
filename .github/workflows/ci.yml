@@ -52,7 +52,12 @@ jobs:
         DATABASE_URL: "postgresql://dummy:dummy@localhost:5432/dummy"
         
     - name: Build packages
-      run: pnpm --filter @palmera/tokens run build && pnpm --filter @palmera/schemas run build && pnpm --filter @palmera/i18n run build && pnpm --filter @palmera/ui run build && pnpm --filter @palmera/sdk run build
+      run: |
+        pnpm --filter @palmera/tokens run build
+        pnpm --filter @palmera/schemas run build  
+        pnpm --filter @palmera/i18n run build
+        pnpm --filter @palmera/ui run build
+        pnpm --filter @palmera/sdk run build
       
     - name: Type check
       run: pnpm --filter "!@palmera/sdk" --filter "!@palmera/mobile" type-check
