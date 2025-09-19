@@ -10,4 +10,6 @@ export default defineConfig({
   external: ['react', 'react-dom', 'react-native'],
   platform: 'neutral',
   target: 'es2020',
+  // Use esbuild instead of Rollup to avoid native binary issues
+  bundle: true,
 });

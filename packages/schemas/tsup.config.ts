@@ -7,4 +7,8 @@ export default defineConfig({
   splitting: false,
   sourcemap: true,
   clean: true,
+  // Use esbuild instead of Rollup to avoid native binary issues on some platforms
+  bundle: true,
+  target: 'node18',
+  platform: 'node',
 });

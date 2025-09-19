@@ -15,7 +15,8 @@
     "./palmera-theme.css": "./palmera-theme.css"
   },
   "scripts": {
-    "build": "tsup",
+    "build": "tsup || npm run build:fallback",
+    "build:fallback": "tsc && echo 'Built with TypeScript compiler as fallback'",
     "dev": "tsup --watch",
     "lint": "eslint . --ext .ts,.tsx",
     "type-check": "tsc --noEmit",

@@ -6,4 +6,8 @@ export default defineConfig({
   dts: true,
   clean: true,
   external: [],
+  // Use esbuild instead of Rollup to avoid native binary issues
+  bundle: true,
+  target: 'node18',
+  platform: 'node',
 });

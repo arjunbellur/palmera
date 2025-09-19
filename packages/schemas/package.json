@@ -5,7 +5,8 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "tsup",
+    "build": "tsup || npm run build:fallback",
+    "build:fallback": "tsc && echo 'Built with TypeScript compiler as fallback'",
     "dev": "tsup --watch",
     "lint": "eslint . --ext .ts",
     "type-check": "tsc --noEmit",
