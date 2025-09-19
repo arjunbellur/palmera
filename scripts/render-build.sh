@@ -46,9 +46,15 @@ echo "🗄️  Generating Prisma client..."
 cd apps/api
 pnpm db:generate
 
-# Run database migrations (if needed)
+# Run database migrations (if DATABASE_URL is available)
 echo "🔄 Running database migrations..."
-pnpm prisma migrate deploy
+if [ -n "$DATABASE_URL" ]; then
+  echo "✅ DATABASE_URL found, running migrations..."
+  pnpm prisma migrate deploy
+else
+  echo "⚠️  DATABASE_URL not found, skipping migrations..."
+  echo "ℹ️  Migrations will be run when the app starts with proper environment variables"
+fi
 
 # Build API
 echo "🏗️  Building API..."
