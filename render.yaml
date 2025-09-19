@@ -1,0 +1,46 @@
+services:
+  - type: web
+    name: palmera-api
+    env: node
+    region: oregon
+    plan: starter
+    buildCommand: ./scripts/render-build.sh
+    startCommand: cd apps/api && pnpm start:prod
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3002
+      - key: DATABASE_URL
+        fromDatabase:
+          name: palmera-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: NEXTAUTH_SECRET  
+        generateValue: true
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      - key: SENTRY_DSN
+        sync: false
+      - key: EMAIL_SERVICE_API_KEY
+        sync: false
+      - key: AWS_ACCESS_KEY_ID
+        sync: false
+      - key: AWS_SECRET_ACCESS_KEY
+        sync: false
+      - key: AWS_REGION
+        value: us-west-2
+      - key: AWS_S3_BUCKET
+        sync: false
+
+databases:
+  - name: palmera-db
+    databaseName: palmera
+    user: palmera_user
+    region: oregon
+    plan: starter
+    postgresMajorVersion: 15
