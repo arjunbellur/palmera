@@ -5,7 +5,7 @@ echo "🚀 Building Palmera API for Render (Free Tier Optimized)..."
 
 # Temporarily override NODE_ENV to install dev dependencies
 echo "📦 Installing dependencies (forcing dev dependencies installation)..."
-NODE_ENV=development pnpm install -w --ignore-scripts --no-optional
+NODE_ENV=development pnpm install -w --ignore-scripts
 
 # Build schemas package (required by API)
 echo "🔧 Building schemas package..."
