@@ -3,18 +3,26 @@ set -e
 
 echo "🚀 Building Palmera API for Render (Free Tier Optimized)..."
 
-# Install all dependencies first (needed for monorepo)
-echo "📦 Installing all dependencies..."
-pnpm install -w --prefer-offline
+# Install production dependencies first
+echo "📦 Installing production dependencies..."
+pnpm install -w --prod --prefer-offline
+
+# Install dev dependencies for schemas package (needed for tsup)
+echo "🔧 Installing build tools for schemas package..."
+cd packages/schemas
+pnpm install --include=dev
 
 # Build schemas package (required by API)
 echo "🔧 Building schemas package..."
-cd ../..
-pnpm --filter @palmera/schemas run build
+pnpm build
+
+# Install dev dependencies for API (needed for NestJS build)
+echo "🔧 Installing build tools for API..."
+cd ../../apps/api
+pnpm install --include=dev
 
 # Generate Prisma client
 echo "🗄️  Generating Prisma client..."
-cd apps/api
 pnpm db:generate
 
 # Run database migrations (if needed)
