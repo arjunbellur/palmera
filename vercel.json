@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "bash build-web-admin.sh",
+  "buildCommand": "bash ./build-web-admin.sh",
   "outputDirectory": "apps/web-admin/out",
   "installCommand": "pnpm install",
   "framework": null
