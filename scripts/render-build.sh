@@ -3,9 +3,9 @@ set -e
 
 echo "🚀 Building Palmera API for Render (Free Tier Optimized)..."
 
-# Install dependencies with cache optimization
+# Install dependencies including dev dependencies for build tools
 echo "📦 Installing dependencies..."
-pnpm install --frozen-lockfile --prefer-offline
+NODE_ENV=development pnpm install --frozen-lockfile --prefer-offline
 
 # Build only essential shared packages
 echo "🔧 Building shared packages..."
