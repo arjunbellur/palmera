@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "bash ./build-web-admin.sh",
+  "buildCommand": "pnpm --filter @palmera/tokens run build && pnpm --filter @palmera/schemas run build && pnpm --filter @palmera/i18n run build && pnpm --filter @palmera/ui run build && pnpm --filter @palmera/sdk run build && pnpm --filter @palmera/web-admin run build",
   "outputDirectory": "apps/web-admin/out",
   "installCommand": "pnpm install",
   "framework": null
