@@ -3,9 +3,9 @@ set -e
 
 echo "🚀 Building Palmera API for Render (Free Tier Optimized)..."
 
-# Install dependencies with pnpm, skipping problematic optional dependencies
-echo "📦 Installing dependencies (skipping optional deps to avoid native compilation)..."
-pnpm install -w --include=dev --ignore-scripts --no-optional
+# Temporarily override NODE_ENV to install dev dependencies
+echo "📦 Installing dependencies (forcing dev dependencies installation)..."
+NODE_ENV=development pnpm install -w --ignore-scripts --no-optional
 
 # Build schemas package (required by API)
 echo "🔧 Building schemas package..."
@@ -17,10 +17,8 @@ cd apps/api
 pnpm db:generate
 
 # Run database migrations (if needed)
-if [ "$NODE_ENV" = "production" ]; then
-    echo "🔄 Running database migrations..."
-    pnpm prisma migrate deploy --skip-generate
-fi
+echo "🔄 Running database migrations..."
+pnpm prisma migrate deploy --skip-generate
 
 # Build API
 echo "🏗️  Building API..."
