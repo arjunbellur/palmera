@@ -41,7 +41,7 @@ export const AuthGate: React.FC<AuthGateProps> = ({
     
     // Redirect to login
     React.useEffect(() => {
-      router.push(redirectTo);
+      router.push(redirectTo as any);
     }, [router, redirectTo]);
 
     return (
