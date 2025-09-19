@@ -3,37 +3,24 @@ set -e
 
 echo "🚀 Building Palmera API for Render (Free Tier Optimized)..."
 
-# Install production dependencies first
-echo "📦 Installing production dependencies..."
-pnpm install -w --prod --prefer-offline
-
-# Install dev dependencies for schemas package (needed for tsup)
-echo "🔧 Installing build tools for schemas package..."
-cd packages/schemas
-pnpm install --include=dev
-
-# Build schemas package (required by API)
-echo "🔧 Building schemas package..."
-pnpm build
-
-# Install dev dependencies for API (needed for NestJS build)
-echo "🔧 Installing build tools for API..."
-cd ../../apps/api
-pnpm install --include=dev
+# Skip problematic optional dependencies and install with npm
+echo "📦 Installing dependencies (avoiding native compilation)..."
+npm install --production=false --ignore-scripts --no-optional
 
 # Generate Prisma client
 echo "🗄️  Generating Prisma client..."
-pnpm db:generate
+cd apps/api
+npx prisma generate
 
 # Run database migrations (if needed)
 if [ "$NODE_ENV" = "production" ]; then
     echo "🔄 Running database migrations..."
-    pnpm prisma migrate deploy --skip-generate
+    npx prisma migrate deploy --skip-generate
 fi
 
-# Build API
+# Build API directly
 echo "🏗️  Building API..."
-NODE_OPTIONS="--max-old-space-size=512" pnpm build
+NODE_OPTIONS="--max-old-space-size=512" npx nest build
 
 echo "✅ Build completed successfully!"
 echo "📁 API built in: apps/api/dist"
