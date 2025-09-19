@@ -3,12 +3,13 @@ set -e
 
 echo "🚀 Building Palmera API for Render (Free Tier Optimized)..."
 
-# Install dependencies including dev dependencies for build tools
-echo "📦 Installing dependencies (including dev dependencies for build)..."
-pnpm install -w --include=dev --prefer-offline
+# Install all dependencies first (needed for monorepo)
+echo "📦 Installing all dependencies..."
+pnpm install -w --prefer-offline
 
-# Build only essential shared packages
-echo "🔧 Building shared packages..."
+# Build schemas package (required by API)
+echo "🔧 Building schemas package..."
+cd ../..
 pnpm --filter @palmera/schemas run build
 
 # Generate Prisma client
@@ -22,7 +23,7 @@ if [ "$NODE_ENV" = "production" ]; then
     pnpm prisma migrate deploy --skip-generate
 fi
 
-# Build API with optimization
+# Build API
 echo "🏗️  Building API..."
 NODE_OPTIONS="--max-old-space-size=512" pnpm build
 
