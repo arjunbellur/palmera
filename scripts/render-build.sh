@@ -5,7 +5,7 @@ echo "🚀 Building Palmera API for Render (Free Tier Optimized)..."
 
 # Install dependencies including dev dependencies for build tools
 echo "📦 Installing dependencies (including dev dependencies for build)..."
-pnpm install --include=dev --prefer-offline
+pnpm install -w --include=dev --prefer-offline
 
 # Build only essential shared packages
 echo "🔧 Building shared packages..."
