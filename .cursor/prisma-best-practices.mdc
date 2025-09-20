@@ -1,0 +1,33 @@
+---
+name: prisma-best-practices.mdc
+description: Best practices for database modeling with Prisma
+globs: 
+  - apps/api/prisma/**/*.{ts}
+  - apps/api/src/**/*.{ts}
+---
+
+- Use meaningful names for models and fields (User, Provider, Listing, Booking)
+- Implement relations to maintain data integrity with proper foreign keys
+- Use migrations to manage schema changes with proper versioning
+- Utilize Prisma's type safety for queries and mutations
+- Use proper enum types for status fields (UserRole, BookingStatus, PaymentStatus)
+- Implement proper indexing for performance optimization
+- Use proper constraints for data validation
+- Implement proper soft deletes where appropriate
+- Use proper audit fields (createdAt, updatedAt) for all models
+- Implement proper data validation with Prisma's validation features
+- Use proper connection pooling for database connections
+- Implement proper transaction handling for complex operations
+- Use proper query optimization with Prisma's query engine
+- Implement proper data seeding for development and testing
+- Use proper database backup and recovery strategies
+- Implement proper data privacy and GDPR compliance
+- Use proper database monitoring and performance tracking
+- Implement proper data archiving strategies
+- Use proper database security with proper access controls
+- Implement proper data migration strategies for schema changes
+- Use proper database testing with test databases
+- Implement proper data consistency checks
+- Use proper database connection management
+- Implement proper data replication strategies
+- Use proper database performance optimization

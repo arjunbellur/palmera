@@ -1,0 +1,14 @@
+# Ignore everything except the unified web app
+apps/api
+apps/mobile
+apps/web-admin
+apps/web-provider
+e2e
+packages
+shared
+scripts
+*.md
+.gitignore
+render.yaml
+vercel.json
+vercel*.json

@@ -1,0 +1,35 @@
+---
+name: tailwindcss-best-practices.mdc
+description: Best practices for styling with Tailwind CSS
+globs: 
+  - apps/web-admin/**/*.{ts,tsx,css}
+  - apps/web-provider/**/*.{ts,tsx,css}
+  - packages/ui/**/*.{ts,tsx,css}
+  - packages/ui/src/**/*.{ts,tsx,css}
+---
+
+- Use utility-first classes for rapid styling
+- Create reusable components with Tailwind's @apply directive
+- Ensure responsive design with Tailwind's responsive utilities
+- Use custom themes and configurations for consistent styling
+- Use the Palmera design system tokens (Midnight Blue, Palm Green, Ivory White, Sandstone Beige, Gold Accents)
+- Implement proper dark mode support with Tailwind's dark mode utilities
+- Use proper spacing and typography scales from the design system
+- Implement proper color contrast for accessibility
+- Use proper hover and focus states for interactive elements
+- Implement proper animation and transition utilities
+- Use proper grid and flexbox utilities for layouts
+- Implement proper form styling with Tailwind form utilities
+- Use proper component variants with Tailwind's variant system
+- Implement proper responsive breakpoints for mobile-first design
+- Use proper custom CSS variables for dynamic theming
+- Implement proper component composition with Tailwind
+- Use proper performance optimization with Tailwind's purge system
+- Implement proper accessibility utilities
+- Use proper print styles with Tailwind's print utilities
+- Implement proper container queries where supported
+- Use proper aspect ratio utilities for media
+- Implement proper backdrop utilities for overlays
+- Use proper ring utilities for focus indicators
+- Implement proper shadow utilities for depth
+- Use proper opacity utilities for transparency effects

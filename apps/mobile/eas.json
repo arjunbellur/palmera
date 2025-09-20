@@ -1,0 +1,7 @@
+{
+  "cli": { "version": ">= 13.0.0" },
+  "build": {
+    "development": { "node": "18.20.3", "env": { "CI": "true" } },
+    "production":  { "node": "18.20.3", "env": { "CI": "true" } }
+  }
+}

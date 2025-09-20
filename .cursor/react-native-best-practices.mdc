@@ -1,0 +1,23 @@
+---
+name: react-native-best-practices.mdc
+description: Best practices for React Native applications using Expo
+globs: 
+  - apps/mobile/**/*.{ts,tsx}
+  - packages/ui/src/**/*.{ts,tsx}
+---
+
+- Use functional components and hooks for state management
+- Optimize performance with React.memo and useCallback
+- Implement proper error handling with Error Boundaries
+- Utilize Expo's built-in features for notifications and permissions
+- Use Expo Router for file-based navigation
+- Implement proper TypeScript types for all components
+- Use the shared UI package for consistent styling across platforms
+- Follow the Palmera design system tokens for colors and typography
+- Implement proper loading states and error handling in mobile components
+- Use Expo's secure storage for sensitive data like auth tokens
+- Implement proper image optimization with Expo Image
+- Use Expo's location services for location-based features
+- Implement proper push notification handling with Expo Notifications
+- Use Expo's camera and media library for KYC document uploads
+- Follow accessibility guidelines for mobile components

@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "name": "palmera-web-admin",
+  "buildCommand": "pnpm build:web-admin",
+  "outputDirectory": "apps/web-admin/out",
+  "installCommand": "pnpm install",
+  "framework": null,
+  "env": {
+    "NEXTAUTH_URL": "@nextauth-url-admin",
+    "NEXTAUTH_SECRET": "@nextauth-secret-admin",
+    "NEXT_PUBLIC_API_URL": "@api-url"
+  }
+}

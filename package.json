@@ -1,0 +1,37 @@
+{
+  "name": "palmera",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "shared"
+  ],
+  "scripts": {
+    "dev": "./tools/scripts/dev.sh",
+    "build": "./tools/scripts/build.sh",
+    "dev:web-unified": "cd apps/web-unified && pnpm dev",
+    "db:generate": "cd apps/api && pnpm db:generate",
+    "db:push": "cd apps/api && pnpm db:push", 
+    "db:migrate": "cd apps/api && pnpm db:migrate",
+    "db:seed": "cd apps/api && pnpm db:seed",
+    "lint": "npx pnpm --recursive run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "clean": "rm -rf node_modules apps/*/node_modules packages/*/node_modules shared/node_modules && pnpm install"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.28.4"
+  },
+  "devDependencies": {
+    "prettier": "^3.0.0",
+    "typescript": "^5.2.2",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.0.0"
+  },
+  "engines": {
+    "node": ">=20.x"
+  },
+  "packageManager": "pnpm@9.0.0"
+}

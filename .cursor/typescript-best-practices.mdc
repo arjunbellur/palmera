@@ -1,0 +1,34 @@
+---
+name: typescript-best-practices.mdc
+description: TypeScript coding standards and type safety guidelines
+globs: 
+  - **/*.{ts,tsx}
+  - apps/**/*.{ts,tsx}
+  - packages/**/*.{ts,tsx}
+---
+
+- Use strict null checks and strict mode in tsconfig.json
+- Prefer interface over type for object shapes
+- Use type guards and assertions for runtime type checking
+- Implement proper type inference with generics
+- Use proper TypeScript types for all function parameters and return values
+- Implement proper type definitions for external libraries
+- Use proper type definitions for API responses and requests
+- Implement proper type definitions for database models
+- Use proper type definitions for payment providers and adapters
+- Implement proper type definitions for internationalization
+- Use proper type definitions for form validation
+- Implement proper type definitions for state management
+- Use proper type definitions for navigation parameters
+- Implement proper type definitions for component props
+- Use proper type definitions for hooks and custom hooks
+- Implement proper type definitions for context providers
+- Use proper type definitions for error handling
+- Implement proper type definitions for configuration
+- Use proper type definitions for environment variables
+- Implement proper type definitions for webhooks
+- Use proper type definitions for payment processing
+- Use proper type definitions for user authentication
+- Implement proper type definitions for file uploads
+- Use proper type definitions for notifications
+- Implement proper type definitions for real-time features

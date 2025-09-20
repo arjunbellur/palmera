@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "name": "palmera-web-provider", 
+  "buildCommand": "pnpm build:web-provider",
+  "outputDirectory": "apps/web-provider/out",
+  "installCommand": "pnpm install",
+  "env": {
+    "NEXTAUTH_URL": "@nextauth-url-provider",
+    "NEXTAUTH_SECRET": "@nextauth-secret-provider", 
+    "NEXT_PUBLIC_API_URL": "@api-url"
+  }
+}

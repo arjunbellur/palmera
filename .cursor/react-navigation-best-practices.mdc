@@ -1,0 +1,23 @@
+---
+name: react-navigation-best-practices.mdc
+description: Best practices for navigation in React Native applications
+globs: 
+  - apps/mobile/**/*.{ts,tsx}
+  - apps/mobile/src/app/**/*.{ts,tsx}
+---
+
+- Use Expo Router for file-based navigation with proper TypeScript support
+- Implement deep linking for better user experience with booking URLs
+- Use context or Zustand for global state management across navigators
+- Keep navigation state in sync with the app state
+- Use proper TypeScript types for navigation parameters
+- Implement proper authentication flow with protected routes
+- Use tab navigation for main app sections (Home, Search, Favorites, Profile)
+- Implement proper back button handling and navigation history
+- Use proper loading states during navigation transitions
+- Implement proper error boundaries for navigation errors
+- Use proper route guards for role-based access (Customer, Provider, Admin)
+- Implement proper deep linking for booking confirmations and payment callbacks
+- Use proper navigation animations and transitions
+- Implement proper navigation state persistence
+- Use proper navigation testing with Expo Router testing utilities

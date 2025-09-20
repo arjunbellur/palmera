@@ -1,0 +1,358 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  CUSTOMER
+  PROVIDER
+  ADMIN
+  CONCIERGE
+}
+
+enum Category {
+  VILLA
+  JETSKI
+  QUAD
+  NIGHTLIFE
+  CAR
+  TOUR
+  SPORT
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+  REFUNDED
+}
+
+enum PaymentStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+  REFUNDED
+}
+
+enum PaymentMethod {
+  CARD
+  MOBILE_MONEY
+  BANK_TRANSFER
+  ORANGE_MONEY_SN
+  WAVE_SN
+  FREE_MONEY_SN
+}
+
+enum PaymentProvider {
+  stripe
+}
+
+enum MembershipTier {
+  STANDARD
+  GOLD
+}
+
+enum GroupRole {
+  OWNER
+  PAYER
+  MEMBER
+}
+
+enum InviteStatus {
+  INVITED
+  ACCEPTED
+  DECLINED
+}
+
+enum ContributionStatus {
+  PENDING
+  AUTHORIZED
+  CAPTURED
+  FAILED
+  REFUNDED
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  emailVerified Boolean   @default(false)
+  phone         String?   @unique
+  firstName     String
+  lastName      String
+  role          UserRole  @default(CUSTOMER)
+  avatar        String?
+  isActive      Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Customer fields
+  membershipTier MembershipTier @default(STANDARD)
+  bookings       Booking[]
+  reviews        Review[]
+  conciergeRequests ConciergeRequest[]
+
+  // Groups functionality
+  ownedGroups    Group[] @relation("GroupOwner")
+  groupMemberships GroupMember[]
+  orderContributions OrderContribution[]
+
+  // Provider fields
+  provider       Provider?
+  kycStatus      String? // PENDING, APPROVED, REJECTED
+  kycDocuments   Json?   // Store KYC document URLs
+
+  // Auth
+  passwordHash String?
+
+  @@map("users")
+}
+
+model Provider {
+  id           String   @id @default(cuid())
+  userId       String   @unique
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  businessName String
+  businessType String   @default("TOURISM")
+  description  String?
+  website      String?
+  isVerified   Boolean  @default(false)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  listings Listing[]
+  bookings Booking[]
+
+  @@map("providers")
+}
+
+model Listing {
+  id          String   @id @default(cuid())
+  providerId  String
+  provider    Provider @relation(fields: [providerId], references: [id], onDelete: Cascade)
+  title       String
+  description String
+  category    Category
+  city        String   // Dakar, Saly, etc.
+  address     String?
+  latitude    Float?
+  longitude   Float?
+  images      String[] // Array of image URLs
+  pricing     Json     // Flexible pricing structure
+  capacity    Int?     // Max number of people
+  duration    Int?     // Duration in minutes
+  isActive    Boolean  @default(true)
+  isFeatured  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  bookings Booking[]
+  reviews  Review[]
+
+  @@map("listings")
+}
+
+model Booking {
+  id           String   @id @default(cuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id])
+  experienceId String
+  listing      Listing  @relation(fields: [experienceId], references: [id])
+  providerId   String
+  provider     Provider @relation(fields: [providerId], references: [id])
+  
+  // Groups functionality
+  groupId      String?
+  group        Group?   @relation("GroupBookings", fields: [groupId], references: [id])
+  
+  status       String   // draft | pending_payment | confirmed | cancelled
+  total        Int
+  currency     String   @default("XOF")
+  startDate    DateTime
+  endDate      DateTime
+  guests       Int      @default(1)
+  specialRequests String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  payments Payment[]
+  reviews  Review[]
+  contributions OrderContribution[]
+
+  @@map("bookings")
+}
+
+model Payment {
+  id          String           @id @default(cuid())
+  bookingId   String
+  booking     Booking          @relation(fields: [bookingId], references: [id])
+  provider    PaymentProvider
+  method      PaymentMethod
+  amount      Int
+  currency    String           @default("XOF")
+  status      String           // INITIATED | PENDING | CONFIRMED | FAILED | REFUNDED
+  reference   String           @unique
+  providerId  String?          // External provider payment ID
+  metadata    Json?            // Additional payment metadata
+  raw         Json?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  refunds       Refund[]
+
+  @@map("payments")
+}
+
+model Refund {
+  id              String        @id @default(cuid())
+  paymentId       String
+  payment         Payment       @relation(fields: [paymentId], references: [id])
+  amount          Int           // Refund amount in cents
+  reason          String
+  status          PaymentStatus @default(PENDING)
+  providerRefundId String?      // External refund provider ID
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  @@map("refunds")
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  customerId String
+  customer   User     @relation(fields: [customerId], references: [id])
+  listingId String
+  listing   Listing  @relation(fields: [listingId], references: [id])
+  bookingId String
+  booking   Booking  @relation(fields: [bookingId], references: [id])
+  rating    Int      // 1-5 stars
+  comment   String?
+  isVerified Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([customerId, bookingId])
+  @@map("reviews")
+}
+
+model ConciergeRequest {
+  id        String   @id @default(cuid())
+  customerId String
+  customer   User     @relation(fields: [customerId], references: [id])
+  title     String
+  description String
+  status    String   @default("PENDING") // PENDING, IN_PROGRESS, COMPLETED, CANCELLED
+  priority  String   @default("NORMAL") // LOW, NORMAL, HIGH, URGENT
+  assignedTo String? // Concierge user ID
+  response  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("concierge_requests")
+}
+
+model ChatMessage {
+  id        String   @id @default(cuid())
+  senderId  String
+  receiverId String
+  bookingId String?
+  content   String
+  message   String?  // Alternative field name for content
+  type      String   @default("TEXT") // TEXT, IMAGE, FILE
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@map("chat_messages")
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  action    String
+  resource  String
+  resourceId String?
+  details   Json?
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+
+  @@map("audit_logs")
+}
+
+model SystemConfig {
+  id    String @id @default(cuid())
+  key   String @unique
+  value Json
+  description String?
+  updatedAt DateTime @updatedAt
+
+  @@map("system_config")
+}
+
+// GROUPS FUNCTIONALITY MODELS
+model Group {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  ownerId     String
+  owner       User     @relation("GroupOwner", fields: [ownerId], references: [id])
+  
+  members     GroupMember[]
+  bookings    Booking[] @relation("GroupBookings")
+  
+  // Simple JSON for group features
+  chatThread  Json?    // Array of chat messages
+  preferences Json?    // Group preferences and settings
+  
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("groups")
+}
+
+model GroupMember {
+  id       String      @id @default(cuid())
+  groupId  String
+  group    Group       @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  userId   String
+  user     User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  role     GroupRole   @default(MEMBER)
+  status   InviteStatus @default(INVITED)
+  
+  invitedAt DateTime    @default(now())
+  joinedAt  DateTime?
+  
+  @@unique([groupId, userId])
+  @@map("group_members")
+}
+
+model OrderContribution {
+  id        String            @id @default(cuid())
+  bookingId String
+  booking   Booking           @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  amount    Int               // Amount in cents
+  status    ContributionStatus @default(PENDING)
+  
+  // Payment tracking
+  paymentIntentId String?     // Stripe payment intent ID
+  
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+  
+  @@unique([bookingId, userId])
+  @@map("order_contributions")
+}
