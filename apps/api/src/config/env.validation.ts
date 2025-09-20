@@ -11,10 +11,18 @@ const envSchema = z.object({
   DATABASE_URL: z.string().min(1, 'DATABASE_URL is required'),
   DIRECT_URL: z.string().min(1, 'DIRECT_URL is required'),
 
-  // Authentication
-  JWT_SECRET: z.string().min(32, 'JWT_SECRET must be at least 32 characters'),
+  // Authentication - Choose between Supabase or JWT
+  AUTH_PROVIDER: z.enum(['supabase', 'jwt']).default('jwt'),
+  
+  // Supabase Configuration (required if AUTH_PROVIDER=supabase)
+  SUPABASE_URL: z.string().url().optional(),
+  SUPABASE_ANON_KEY: z.string().optional(),
+  SUPABASE_SERVICE_ROLE_KEY: z.string().optional(),
+
+  // JWT Configuration (required if AUTH_PROVIDER=jwt)
+  JWT_SECRET: z.string().min(32, 'JWT_SECRET must be at least 32 characters').optional(),
   JWT_EXPIRES_IN: z.string().default('7d'),
-  JWT_REFRESH_SECRET: z.string().min(32, 'JWT_REFRESH_SECRET must be at least 32 characters'),
+  JWT_REFRESH_SECRET: z.string().min(32, 'JWT_REFRESH_SECRET must be at least 32 characters').optional(),
   JWT_REFRESH_EXPIRES_IN: z.string().default('30d'),
 
   // Email
@@ -138,6 +146,20 @@ export function validateEnv(): EnvConfig {
 // Provider-specific validation
 export function validateProviderConfig(config: EnvConfig) {
   const errors: string[] = [];
+
+  // Auth provider validation
+  switch (config.AUTH_PROVIDER) {
+    case 'supabase':
+      if (!config.SUPABASE_URL || !config.SUPABASE_ANON_KEY) {
+        errors.push('SUPABASE_URL and SUPABASE_ANON_KEY are required when AUTH_PROVIDER=supabase');
+      }
+      break;
+    case 'jwt':
+      if (!config.JWT_SECRET || !config.JWT_REFRESH_SECRET) {
+        errors.push('JWT_SECRET and JWT_REFRESH_SECRET are required when AUTH_PROVIDER=jwt');
+      }
+      break;
+  }
 
   // Email provider validation
   switch (config.EMAIL_PROVIDER) {

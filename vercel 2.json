@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "projects": [
+    {
+      "name": "palmera-web-provider",
+      "source": "apps/web-provider",
+      "framework": "nextjs",
+      "buildCommand": "pnpm build:web-provider",
+      "outputDirectory": "apps/web-provider/out",
+      "installCommand": "pnpm install"
+    },
+    {
+      "name": "palmera-web-admin", 
+      "source": "apps/web-admin",
+      "framework": "nextjs",
+      "buildCommand": "pnpm build:web-admin",
+      "outputDirectory": "apps/web-admin/out",
+      "installCommand": "pnpm install"
+    }
+  ]
+}

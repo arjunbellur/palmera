@@ -1,0 +1,6 @@
+{
+  "version": 2,
+  "buildCommand": "pnpm build:web-provider",
+  "outputDirectory": "apps/web-provider/out",
+  "installCommand": "pnpm install"
+}
