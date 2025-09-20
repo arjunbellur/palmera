@@ -16,7 +16,7 @@ import {
   CreateBookingRequest,
   UpdateBookingStatusRequest,
   BookingQuery,
-} from '@palmera/schemas';
+} from '@palmera/shared';
 
 @ApiTags('Bookings')
 @Controller('bookings')

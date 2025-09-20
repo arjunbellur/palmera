@@ -16,7 +16,7 @@ import {
   ResetPasswordRequest,
   AuthResponse,
   JwtPayload,
-} from '@palmera/schemas';
+} from '@palmera/shared';
 
 @Injectable()
 export class AuthService {

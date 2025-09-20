@@ -4,7 +4,7 @@ import {
   CreateReviewRequest,
   UpdateReviewRequest,
   ReviewQuery,
-} from '@palmera/schemas';
+} from '@palmera/shared';
 
 @Injectable()
 export class ReviewsService {

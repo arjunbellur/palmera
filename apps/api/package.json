@@ -49,7 +49,7 @@
     "zod": "^3.22.0",
     "axios": "^1.6.0",
     "@sentry/node": "^7.0.0",
-    "@palmera/schemas": "file:../../packages/schemas"
+    "@palmera/shared": "workspace:*"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",

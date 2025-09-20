@@ -18,7 +18,7 @@ import {
   UpdateListingRequest,
   ListingQuery,
   CheckAvailabilityRequest,
-} from '@palmera/schemas';
+} from '@palmera/shared';
 
 @ApiTags('Listings')
 @Controller('listings')

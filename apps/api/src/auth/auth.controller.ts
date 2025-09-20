@@ -19,7 +19,7 @@ import {
   ForgotPasswordRequest,
   ResetPasswordRequest,
   AuthResponse,
-} from '@palmera/schemas';
+} from '@palmera/shared';
 
 @ApiTags('Authentication')
 @Controller('auth')

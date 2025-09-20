@@ -5,7 +5,7 @@ import {
   UpdateListingRequest,
   ListingQuery,
   CheckAvailabilityRequest,
-} from '@palmera/schemas';
+} from '@palmera/shared';
 
 @Injectable()
 export class ListingsService {

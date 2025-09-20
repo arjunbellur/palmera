@@ -4,7 +4,7 @@ import {
   CreateBookingRequest,
   UpdateBookingStatusRequest,
   BookingQuery,
-} from '@palmera/schemas';
+} from '@palmera/shared';
 
 @Injectable()
 export class BookingsService {

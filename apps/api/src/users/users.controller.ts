@@ -17,7 +17,7 @@ import {
   UpdateProviderRequest,
   KycSubmissionRequest,
   MembershipUpgradeRequest,
-} from '@palmera/schemas';
+} from '@palmera/shared';
 
 @ApiTags('Users')
 @Controller('users')

@@ -19,7 +19,7 @@
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "@/*": ["src/*"],
-      "@palmera/schemas": ["../../packages/schemas/src"]
+      "@palmera/shared": ["../../shared/src"]
     }
   }
 }

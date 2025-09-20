@@ -17,7 +17,7 @@ import {
   CreateReviewRequest,
   UpdateReviewRequest,
   ReviewQuery,
-} from '@palmera/schemas';
+} from '@palmera/shared';
 
 @ApiTags('Reviews')
 @Controller('reviews')
