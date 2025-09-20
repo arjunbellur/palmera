@@ -10,6 +10,9 @@
   "scripts": {
     "dev": "./scripts/dev.sh",
     "build": "./scripts/build.sh",
+    "build:packages": "pnpm --recursive --filter='./packages/*' run build",
+    "build:web-unified": "./scripts/build-web-unified.sh",
+    "dev:web-unified": "cd apps/web-unified && pnpm dev",
     "db:generate": "cd apps/api && pnpm db:generate",
     "db:push": "cd apps/api && pnpm db:push", 
     "db:migrate": "cd apps/api && pnpm db:migrate",

@@ -1,0 +1,37 @@
+{
+  "version": 2,
+  "name": "palmera-web-unified",
+  "builds": [
+    {
+      "src": "apps/web-unified/package.json",
+      "use": "@vercel/next"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/admin/(.*)",
+      "dest": "apps/web-unified/$1"
+    },
+    {
+      "src": "/provider/(.*)",
+      "dest": "apps/web-unified/$1"
+    },
+    {
+      "src": "/auth/(.*)",
+      "dest": "apps/web-unified/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "apps/web-unified/$1"
+    }
+  ],
+  "env": {
+    "NEXT_PUBLIC_API_URL": "@palmera-api-url",
+    "NEXT_PUBLIC_APP_NAME": "Palmera Unified Dashboard"
+  },
+  "build": {
+    "env": {
+      "NEXT_PUBLIC_API_URL": "@palmera-api-url"
+    }
+  }
+}

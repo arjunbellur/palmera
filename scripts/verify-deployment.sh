@@ -1,57 +1,46 @@
 #!/bin/bash
 set -e
 
-echo "🔍 PALMERA DEPLOYMENT VERIFICATION"
-echo "=================================="
+echo "🔍 PALMERA UNIFIED APP DEPLOYMENT VERIFICATION"
+echo "=============================================="
 
-# Test builds
+# Test unified build
 echo ""
-echo "📦 Testing Admin Build..."
-if pnpm build:web-admin > /dev/null 2>&1; then
-    echo "✅ Admin build: SUCCESS"
-    if [ -d "apps/web-admin/out" ]; then
-        echo "✅ Admin output directory: EXISTS"
-        echo "   📁 Files: $(ls apps/web-admin/out | wc -l | xargs) files generated"
+echo "📦 Testing Unified Web App Build..."
+if pnpm build:web-unified > /dev/null 2>&1; then
+    echo "✅ Unified web app build: SUCCESS"
+    if [ -d "apps/web-unified/out" ]; then
+        echo "✅ Unified web app output directory: EXISTS"
+        echo "   📁 Files: $(ls apps/web-unified/out | wc -l | xargs) files generated"
     else
-        echo "❌ Admin output directory: MISSING"
+        echo "❌ Unified web app output directory: MISSING"
     fi
 else
-    echo "❌ Admin build: FAILED"
-fi
-
-echo ""
-echo "📦 Testing Provider Build..."
-if pnpm build:web-provider > /dev/null 2>&1; then
-    echo "✅ Provider build: SUCCESS"
-    if [ -d "apps/web-provider/out" ]; then
-        echo "✅ Provider output directory: EXISTS"
-        echo "   📁 Files: $(ls apps/web-provider/out | wc -l | xargs) files generated"
-    else
-        echo "❌ Provider output directory: MISSING"
-    fi
-else
-    echo "❌ Provider build: FAILED"
+    echo "❌ Unified web app build: FAILED"
 fi
 
 echo ""
 echo "🔧 VERCEL PROJECT CONFIGURATION NEEDED:"
 echo "======================================="
 echo ""
-echo "🏢 ADMIN PROJECT (palmera-web-admin):"
-echo "   Build Command: pnpm build:web-admin"
-echo "   Output Directory: apps/web-admin/out"
+echo "🌐 UNIFIED WEB APP PROJECT (palmera-web-unified):"
+echo "   Root Directory: apps/web-unified"
+echo "   Build Command: pnpm build"
+echo "   Output Directory: .next"
 echo "   Install Command: pnpm install"
-echo "   Framework: Other"
-echo ""
-echo "🏪 PROVIDER PROJECT (palmera):"
-echo "   Build Command: pnpm build:web-provider"
-echo "   Output Directory: apps/web-provider/out"
-echo "   Install Command: pnpm install"
-echo "   Framework: Other"
+echo "   Framework: Next.js"
 echo ""
 echo "🔑 ENVIRONMENT VARIABLES NEEDED:"
-echo "   NEXTAUTH_URL=https://your-vercel-url.vercel.app"
-echo "   NEXTAUTH_SECRET=GKmqefXW6dApheflsoio1ei9vQNFKxMm1i3s2lvnMGY="
-echo "   NEXT_PUBLIC_API_URL=https://your-api-url"
+echo "   NEXT_PUBLIC_API_URL=https://your-api-url.onrender.com"
+echo "   NEXT_PUBLIC_APP_NAME=Palmera Unified Dashboard"
+echo "   NODE_ENV=production"
+echo ""
+echo "📋 DEPLOYMENT STEPS:"
+echo "   1. Create new Vercel project: palmera-web-unified"
+echo "   2. Set root directory to: apps/web-unified"
+echo "   3. Configure environment variables above"
+echo "   4. Deploy and test role-based routing"
+echo "   5. Update DNS to point to new unified app"
+echo "   6. Decommission old separate web-admin and web-provider projects"
 echo ""
 echo "✅ Verification complete!"
