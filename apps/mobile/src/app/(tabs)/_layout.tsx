@@ -50,11 +50,11 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="favorites"
+        name="groups"
         options={{
-          title: 'Favorites',
+          title: 'Groups',
           tabBarIcon: ({ color }) => (
-            <Text style={{ color, fontSize: 20 }}>❤️</Text>
+            <Text style={{ color, fontSize: 20 }}>👥</Text>
           ),
         }}
       />

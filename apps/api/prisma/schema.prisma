@@ -54,16 +54,31 @@ enum PaymentMethod {
 
 enum PaymentProvider {
   stripe
-  flutterwave
-  paystack
-  cinetpay
-  paydunya
-  orange_webpay
 }
 
 enum MembershipTier {
   STANDARD
   GOLD
+}
+
+enum GroupRole {
+  OWNER
+  PAYER
+  MEMBER
+}
+
+enum InviteStatus {
+  INVITED
+  ACCEPTED
+  DECLINED
+}
+
+enum ContributionStatus {
+  PENDING
+  AUTHORIZED
+  CAPTURED
+  FAILED
+  REFUNDED
 }
 
 model User {
@@ -84,6 +99,11 @@ model User {
   bookings       Booking[]
   reviews        Review[]
   conciergeRequests ConciergeRequest[]
+
+  // Groups functionality
+  ownedGroups    Group[] @relation("GroupOwner")
+  groupMemberships GroupMember[]
+  orderContributions OrderContribution[]
 
   // Provider fields
   provider       Provider?
@@ -149,6 +169,11 @@ model Booking {
   listing      Listing  @relation(fields: [experienceId], references: [id])
   providerId   String
   provider     Provider @relation(fields: [providerId], references: [id])
+  
+  // Groups functionality
+  groupId      String?
+  group        Group?   @relation("GroupBookings", fields: [groupId], references: [id])
+  
   status       String   // draft | pending_payment | confirmed | cancelled
   total        Int
   currency     String   @default("XOF")
@@ -161,6 +186,7 @@ model Booking {
 
   payments Payment[]
   reviews  Review[]
+  contributions OrderContribution[]
 
   @@map("bookings")
 }
@@ -270,4 +296,63 @@ model SystemConfig {
   updatedAt DateTime @updatedAt
 
   @@map("system_config")
+}
+
+// GROUPS FUNCTIONALITY MODELS
+model Group {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  ownerId     String
+  owner       User     @relation("GroupOwner", fields: [ownerId], references: [id])
+  
+  members     GroupMember[]
+  bookings    Booking[] @relation("GroupBookings")
+  
+  // Simple JSON for group features
+  chatThread  Json?    // Array of chat messages
+  preferences Json?    // Group preferences and settings
+  
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("groups")
+}
+
+model GroupMember {
+  id       String      @id @default(cuid())
+  groupId  String
+  group    Group       @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  userId   String
+  user     User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  role     GroupRole   @default(MEMBER)
+  status   InviteStatus @default(INVITED)
+  
+  invitedAt DateTime    @default(now())
+  joinedAt  DateTime?
+  
+  @@unique([groupId, userId])
+  @@map("group_members")
+}
+
+model OrderContribution {
+  id        String            @id @default(cuid())
+  bookingId String
+  booking   Booking           @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  amount    Int               // Amount in cents
+  status    ContributionStatus @default(PENDING)
+  
+  // Payment tracking
+  paymentIntentId String?     // Stripe payment intent ID
+  
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+  
+  @@unique([bookingId, userId])
+  @@map("order_contributions")
 }

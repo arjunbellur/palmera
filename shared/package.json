@@ -1,0 +1,30 @@
+{
+  "name": "@palmera/shared",
+  "version": "1.0.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsup || npm run build:fallback",
+    "build:fallback": "tsc && echo 'Built with TypeScript compiler as fallback'",
+    "dev": "tsup --watch",
+    "lint": "eslint . --ext .ts",
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "zod": "^3.22.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "tsup": "^7.0.0",
+    "typescript": "^5.2.2"
+  }
+}

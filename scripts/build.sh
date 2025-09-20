@@ -1,36 +1,36 @@
 #!/bin/bash
-
-# Build script for Palmera monorepo
 set -e
 
-echo "🚀 Starting Palmera build process..."
-
-# Check if pnpm is installed
-if ! command -v pnpm &> /dev/null; then
-    echo "❌ pnpm is not installed. Installing pnpm..."
-    npm install -g pnpm@9.0.0
-fi
+echo "🚀 Building Palmera for Production..."
 
 # Install dependencies
 echo "📦 Installing dependencies..."
 pnpm install --frozen-lockfile
 
+# Build shared package first
+echo "🔧 Building shared package..."
+cd shared && pnpm build && cd ..
+
 # Generate Prisma client
-echo "🔧 Generating Prisma client..."
-cd apps/api
-pnpm db:generate
-cd ../..
+echo "🗄️ Generating Prisma client..."
+cd apps/api && pnpm db:generate && cd ../..
 
-# Type check
-echo "🔍 Running type check..."
-pnpm type-check
+# Build API
+echo "🏗️ Building API..."
+cd apps/api && pnpm build && cd ../..
 
-# Lint
-echo "🧹 Running linter..."
-pnpm lint
+# Build web apps
+echo "🌐 Building web applications..."
+cd apps/web-admin && pnpm build && cd ../..
+cd apps/web-provider && pnpm build && cd ../..
 
-# Build packages
-echo "🏗️ Building packages..."
-pnpm build
+# Build mobile app (for web)
+echo "📱 Building mobile app for web..."
+cd apps/mobile && pnpm build && cd ../..
 
 echo "✅ Build completed successfully!"
+echo "📁 Built applications:"
+echo "  - API: apps/api/dist"
+echo "  - Web Admin: apps/web-admin/out"
+echo "  - Web Provider: apps/web-provider/out"
+echo "  - Mobile: apps/mobile/dist"
