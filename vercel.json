@@ -11,5 +11,6 @@
       "src": "/(.*)",
       "dest": "apps/web-unified/$1"
     }
-  ]
+  ],
+  "outputDirectory": "apps/web-unified/out"
 }

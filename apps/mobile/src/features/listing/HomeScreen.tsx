@@ -45,9 +45,10 @@ export function HomeScreen() {
       style={styles.container} 
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{ paddingBottom: insets.bottom + 100 }}
+      contentInsetAdjustmentBehavior="never"
     >
       {/* Header */}
-      <View style={[styles.header, { paddingTop: palmeraTheme.spacing[12] + insets.top }]}>
+      <View style={[styles.header, { paddingTop: insets.top }]}>
         <View style={styles.headerTop}>
           <View>
             <Text style={styles.greeting}>Good morning</Text>
@@ -138,9 +139,8 @@ const styles = StyleSheet.create({
   },
   header: { 
     backgroundColor: palmeraTheme.colors.background, 
-    paddingHorizontal: palmeraTheme.spacing[5], 
-    paddingTop: palmeraTheme.spacing[12], 
-    paddingBottom: palmeraTheme.spacing[6],
+    paddingHorizontal: palmeraTheme.spacing[4], 
+    paddingBottom: palmeraTheme.spacing[2],
     borderBottomWidth: 1,
     borderBottomColor: palmeraTheme.colors.border,
   },
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row', 
     justifyContent: 'space-between', 
     alignItems: 'center', 
-    marginBottom: palmeraTheme.spacing[5] 
+    marginBottom: palmeraTheme.spacing[2] 
   },
   greeting: { 
     fontSize: 16, 
@@ -224,8 +224,8 @@ const styles = StyleSheet.create({
     fontWeight: '400',
   },
   categoriesSection: {
-    paddingHorizontal: palmeraTheme.spacing[5],
-    paddingVertical: palmeraTheme.spacing[6],
+    paddingHorizontal: palmeraTheme.spacing[4],
+    paddingVertical: palmeraTheme.spacing[5],
   },
   categoriesScroll: {
     marginTop: palmeraTheme.spacing[4],
@@ -253,8 +253,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   section: { 
-    paddingHorizontal: palmeraTheme.spacing[5],
-    marginBottom: palmeraTheme.spacing[8] 
+    paddingHorizontal: palmeraTheme.spacing[4],
+    marginBottom: palmeraTheme.spacing[6] 
   },
   sectionHeader: {
     flexDirection: 'row',
