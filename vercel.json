@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "cd apps/web-unified && pnpm run build",
+  "buildCommand": "pnpm --filter @palmera/web-unified build",
   "outputDirectory": "apps/web-unified/out",
   "installCommand": "pnpm install",
   "framework": null
