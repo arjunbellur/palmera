@@ -1,7 +1,22 @@
 {
   "version": 2,
-  "buildCommand": "pnpm --filter @palmera/web-unified build",
-  "outputDirectory": "apps/web-unified/out",
-  "installCommand": "pnpm install",
-  "framework": null
+  "builds": [
+    {
+      "src": "apps/web-unified/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "buildCommand": "pnpm --filter @palmera/web-unified build",
+        "outputDirectory": "out"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/apps/web-unified/out/$1"
+    }
+  ]
 }
