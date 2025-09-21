@@ -105,41 +105,54 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: palmeraTheme.colors.primary,
-        tabBarInactiveTintColor: palmeraTheme.colors.textMuted,
+        tabBarActiveTintColor: '#FFFFFF',
+        tabBarInactiveTintColor: 'rgba(255, 255, 255, 0.5)',
         tabBarStyle: {
-          backgroundColor: palmeraTheme.colors.background,
-          borderTopColor: palmeraTheme.colors.border,
-          borderTopWidth: 1,
+          backgroundColor: 'rgba(255, 255, 255, 0.1)',
+          borderTopWidth: 0,
           paddingBottom: Math.max(insets.bottom, palmeraTheme.spacing[3]),
-          paddingTop: palmeraTheme.spacing[2],
+          paddingTop: palmeraTheme.spacing[3],
           height: 88 + Math.max(insets.bottom, palmeraTheme.spacing[3]),
-          paddingHorizontal: palmeraTheme.spacing[4],
+          paddingHorizontal: palmeraTheme.spacing[6],
+          position: 'absolute',
+          bottom: palmeraTheme.spacing[4],
+          left: palmeraTheme.spacing[4],
+          right: palmeraTheme.spacing[4],
+          borderRadius: 24,
+          // Glassmorphic effect
+          backdropFilter: 'blur(20px)',
+          shadowColor: '#000000',
+          shadowOffset: {
+            width: 0,
+            height: 4,
+          },
+          shadowOpacity: 0.3,
+          shadowRadius: 8,
+          elevation: 8,
         },
         tabBarLabelStyle: {
           fontSize: 11,
           fontWeight: '600',
-          marginTop: palmeraTheme.spacing[1],
+          marginTop: 4,
         },
         headerStyle: {
-          backgroundColor: palmeraTheme.colors.background,
-          borderBottomColor: palmeraTheme.colors.border,
-          borderBottomWidth: 1,
+          backgroundColor: '#000000',
+          borderBottomWidth: 0,
           elevation: 0,
           shadowOpacity: 0,
         },
-        headerTintColor: palmeraTheme.colors.text,
+        headerTintColor: '#FFFFFF',
         headerTitleStyle: {
           fontSize: 18,
           fontWeight: '600',
-          color: palmeraTheme.colors.text,
+          color: '#FFFFFF',
         },
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Explore',
+          title: 'Home',
           tabBarIcon: ({ color, focused }) => (
             <HomeIcon color={color} size={focused ? 26 : 22} />
           ),
@@ -157,7 +170,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="groups"
         options={{
-          title: 'Groups',
+          title: 'Favorites',
           tabBarIcon: ({ color, focused }) => (
             <GroupsIcon color={color} size={focused ? 26 : 22} />
           ),
