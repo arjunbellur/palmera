@@ -26,40 +26,30 @@ const HomeIcon = ({ color, size = 24, focused }: { color: string; size?: number;
   </View>
 );
 
-const SearchIcon = ({ color, size = 24, focused }: { color: string; size?: number; focused?: boolean }) => (
+const GroupsIcon = ({ color, size = 24, focused }: { color: string; size?: number; focused?: boolean }) => (
   <View style={{ padding: 8 }}>
     <Ionicons 
-      name={focused ? "search" : "search-outline"} 
+      name={focused ? "people" : "people-outline"} 
       size={20} 
       color={color}
     />
   </View>
 );
 
-const HeartIcon = ({ color, size = 24, focused }: { color: string; size?: number; focused?: boolean }) => (
+const TicketsIcon = ({ color, size = 24, focused }: { color: string; size?: number; focused?: boolean }) => (
   <View style={{ padding: 8 }}>
     <Ionicons 
-      name={focused ? "heart" : "heart-outline"} 
+      name={focused ? "ticket" : "ticket-outline"} 
       size={20} 
       color={color}
     />
   </View>
 );
 
-const ProfileIcon = ({ color, size = 24, focused }: { color: string; size?: number; focused?: boolean }) => (
+const AboutIcon = ({ color, size = 24, focused }: { color: string; size?: number; focused?: boolean }) => (
   <View style={{ padding: 8 }}>
     <Ionicons 
-      name={focused ? "person" : "person-outline"} 
-      size={20} 
-      color={color}
-    />
-  </View>
-);
-
-const FilterIcon = ({ color, size = 24, focused }: { color: string; size?: number; focused?: boolean }) => (
-  <View style={{ padding: 8 }}>
-    <Ionicons 
-      name="filter" 
+      name={focused ? "information-circle" : "information-circle-outline"} 
       size={20} 
       color={color}
     />
@@ -75,27 +65,27 @@ export default function TabLayout() {
         tabBarActiveTintColor: '#FFFFFF',
         tabBarInactiveTintColor: 'rgba(255, 255, 255, 0.5)',
         tabBarStyle: {
-          backgroundColor: 'rgba(255, 255, 255, 0.15)',
+          backgroundColor: 'rgba(0, 0, 0, 0.6)',
           borderTopWidth: 0,
-          paddingBottom: Math.max(insets.bottom + 8, 12),
-          paddingTop: 16,
-          height: 75 + Math.max(insets.bottom, 0),
-          paddingHorizontal: palmeraTheme.spacing[8],
+          paddingBottom: Math.max(insets.bottom, 8),
+          paddingTop: 8,
+          height: 65 + Math.max(insets.bottom, 0),
+          paddingHorizontal: 0,
           position: 'absolute',
           bottom: palmeraTheme.spacing[3],
           left: palmeraTheme.spacing[4],
           right: palmeraTheme.spacing[4],
           borderRadius: 28,
-          // Enhanced glassmorphic effect
-          backdropFilter: 'blur(40px)',
+          // Dark glassmorphic effect with high intensity blur
+          backdropFilter: 'blur(60px)',
           shadowColor: '#000000',
           shadowOffset: {
             width: 0,
-            height: 8,
+            height: 12,
           },
-          shadowOpacity: 0.4,
-          shadowRadius: 16,
-          elevation: 20,
+          shadowOpacity: 0.6,
+          shadowRadius: 20,
+          elevation: 25,
           zIndex: 1000,
         },
         tabBarLabelStyle: {
@@ -128,20 +118,20 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="search"
-        options={{
-          title: '',
-          tabBarIcon: ({ color, focused }) => (
-            <SearchIcon color={color} size={20} focused={focused} />
-          ),
-        }}
-      />
-      <Tabs.Screen
         name="groups"
         options={{
           title: '',
           tabBarIcon: ({ color, focused }) => (
-            <HeartIcon color={color} size={20} focused={focused} />
+            <GroupsIcon color={color} size={20} focused={focused} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="search"
+        options={{
+          title: '',
+          tabBarIcon: ({ color, focused }) => (
+            <TicketsIcon color={color} size={20} focused={focused} />
           ),
         }}
       />
@@ -150,16 +140,7 @@ export default function TabLayout() {
         options={{
           title: '',
           tabBarIcon: ({ color, focused }) => (
-            <ProfileIcon color={color} size={20} focused={focused} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="favorites"
-        options={{
-          title: '',
-          tabBarIcon: ({ color, focused }) => (
-            <FilterIcon color={color} size={20} focused={focused} />
+            <AboutIcon color={color} size={20} focused={focused} />
           ),
         }}
       />

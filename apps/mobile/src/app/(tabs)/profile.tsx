@@ -1,11 +1,11 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { palmeraTheme } from '../../theme/palmeraTheme';
 
-export default function ProfileScreen() {
+export default function AboutScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Profile</Text>
-      <Text style={styles.subtitle}>Manage your account</Text>
+      <Text style={styles.title}>About</Text>
+      <Text style={styles.subtitle}>Learn more about Palmera</Text>
     </View>
   );
 }
@@ -15,18 +15,18 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: palmeraTheme.colors.background,
+    backgroundColor: '#000000',
     padding: 20,
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: palmeraTheme.colors.text,
+    color: '#FFFFFF',
     marginBottom: 8,
   },
   subtitle: {
     fontSize: 16,
-    color: palmeraTheme.colors.textMuted,
+    color: 'rgba(255, 255, 255, 0.6)',
     textAlign: 'center',
   },
 });
