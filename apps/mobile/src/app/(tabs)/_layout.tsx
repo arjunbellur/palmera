@@ -110,9 +110,9 @@ export default function TabLayout() {
         tabBarStyle: {
           backgroundColor: 'rgba(255, 255, 255, 0.1)',
           borderTopWidth: 0,
-          paddingBottom: Math.max(insets.bottom, palmeraTheme.spacing[3]),
-          paddingTop: palmeraTheme.spacing[3],
-          height: 88 + Math.max(insets.bottom, palmeraTheme.spacing[3]),
+          paddingBottom: Math.max(insets.bottom, 8),
+          paddingTop: 12,
+          height: 60 + Math.max(insets.bottom, 8),
           paddingHorizontal: palmeraTheme.spacing[6],
           position: 'absolute',
           bottom: palmeraTheme.spacing[4],

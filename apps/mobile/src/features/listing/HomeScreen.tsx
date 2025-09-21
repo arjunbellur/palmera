@@ -44,7 +44,7 @@ export function HomeScreen() {
     <ScrollView 
       style={styles.container} 
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={{ paddingBottom: insets.bottom + 120 }}
+      contentContainerStyle={{ paddingBottom: insets.bottom + 90 }}
       contentInsetAdjustmentBehavior="never"
     >
       {/* Header */}
@@ -119,6 +119,30 @@ export function HomeScreen() {
                 <Text style={styles.categoryIconText}>{category.icon}</Text>
               </View>
               <Text style={styles.categoryName}>{category.name}</Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+      </View>
+
+      {/* Top Artists */}
+      <View style={styles.section}>
+        <View style={styles.sectionHeader}>
+          <Text style={styles.sectionTitle}>Top Artists</Text>
+          <TouchableOpacity>
+            <Text style={styles.viewAllText}>View All</Text>
+          </TouchableOpacity>
+        </View>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.artistsScroll}>
+          {[
+            { name: 'Wade Warren', color: ['#FFD700', '#FF6B35'] },
+            { name: 'Courtney Henry', color: ['#8B5CF6', '#3B82F6'] },
+          ].map((artist, index) => (
+            <TouchableOpacity key={index} style={styles.artistCard}>
+              <View style={[styles.artistImage, { backgroundColor: artist.color[0] }]} />
+              <TouchableOpacity style={styles.artistFavoriteButton}>
+                <View style={styles.heartIcon} />
+              </TouchableOpacity>
+              <Text style={styles.artistName}>{artist.name}</Text>
             </TouchableOpacity>
           ))}
         </ScrollView>
@@ -284,13 +308,13 @@ const styles = StyleSheet.create({
     marginTop: palmeraTheme.spacing[2],
   },
   eventCard: {
-    width: 280,
+    width: 240,
     marginRight: palmeraTheme.spacing[4],
     borderRadius: 16,
     overflow: 'hidden',
   },
   eventImageContainer: {
-    height: 180,
+    height: 140,
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
     borderRadius: 16,
     position: 'relative',
@@ -359,6 +383,38 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#FFFFFF',
     fontWeight: '600',
+  },
+  artistsScroll: {
+    marginTop: palmeraTheme.spacing[2],
+  },
+  artistCard: {
+    width: 140,
+    marginRight: palmeraTheme.spacing[4],
+    alignItems: 'center',
+  },
+  artistImage: {
+    width: 140,
+    height: 100,
+    borderRadius: 16,
+    marginBottom: palmeraTheme.spacing[2],
+    position: 'relative',
+  },
+  artistFavoriteButton: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  artistName: {
+    fontSize: 14,
+    color: '#FFFFFF',
+    fontWeight: '600',
+    textAlign: 'center',
   },
   destinationsGrid: {
     flexDirection: 'row',
