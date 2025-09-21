@@ -1,101 +1,106 @@
 import { Tabs } from 'expo-router';
 import { palmeraTheme } from '../../theme/palmeraTheme';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 // Flat UI Icons as SVG-like components
-const HomeIcon = ({ color, size = 24 }: { color: string; size?: number }) => (
+const HomeIcon = ({ color, size = 24, focused }: { color: string; size?: number; focused?: boolean }) => (
   <View style={{
-    width: size,
-    height: size,
-    backgroundColor: color,
-    borderRadius: 2,
-    opacity: 0.8,
-  }} />
-);
-
-const SearchIcon = ({ color, size = 24 }: { color: string; size?: number }) => (
-  <View style={{
-    width: size,
-    height: size,
-    borderWidth: 2,
-    borderColor: color,
-    borderRadius: size / 2,
-    position: 'relative',
-  }}>
-    <View style={{
-      position: 'absolute',
-      bottom: -2,
-      right: -2,
-      width: size * 0.4,
-      height: 2,
-      backgroundColor: color,
-      transform: [{ rotate: '45deg' }],
-    }} />
-  </View>
-);
-
-const GroupsIcon = ({ color, size = 24 }: { color: string; size?: number }) => (
-  <View style={{
-    width: size,
-    height: size,
     flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: focused ? 'rgba(144, 238, 144, 1)' : 'transparent',
+    paddingHorizontal: focused ? 16 : 8,
+    paddingVertical: 8,
+    borderRadius: 20,
+    minWidth: focused ? 80 : 40,
+    justifyContent: 'center',
   }}>
     <View style={{
-      width: size * 0.4,
-      height: size * 0.4,
-      backgroundColor: color,
+      width: 20,
+      height: 20,
+      backgroundColor: focused ? '#000000' : color,
       borderRadius: 2,
+      marginRight: focused ? 8 : 0,
     }} />
-    <View style={{
-      width: size * 0.4,
-      height: size * 0.4,
-      backgroundColor: color,
-      borderRadius: 2,
-    }} />
-    <View style={{
-      width: size * 0.4,
-      height: size * 0.4,
-      backgroundColor: color,
-      borderRadius: 2,
-    }} />
-    <View style={{
-      width: size * 0.4,
-      height: size * 0.4,
-      backgroundColor: color,
-      borderRadius: 2,
-    }} />
+    {focused && <Text style={{ color: '#000000', fontSize: 12, fontWeight: '600' }}>Home</Text>}
   </View>
 );
 
-const ProfileIcon = ({ color, size = 24 }: { color: string; size?: number }) => (
+const SearchIcon = ({ color, size = 24, focused }: { color: string; size?: number; focused?: boolean }) => (
   <View style={{
-    width: size,
-    height: size,
-    backgroundColor: color,
-    borderRadius: size / 2,
-    position: 'relative',
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: focused ? 'rgba(144, 238, 144, 1)' : 'transparent',
+    paddingHorizontal: focused ? 16 : 8,
+    paddingVertical: 8,
+    borderRadius: 20,
+    minWidth: focused ? 80 : 40,
+    justifyContent: 'center',
   }}>
     <View style={{
-      position: 'absolute',
-      top: size * 0.2,
-      left: size * 0.25,
-      width: size * 0.5,
-      height: size * 0.3,
-      backgroundColor: palmeraTheme.colors.background,
-      borderRadius: size * 0.15,
-    }} />
+      width: 20,
+      height: 20,
+      borderWidth: 2,
+      borderColor: focused ? '#000000' : color,
+      borderRadius: 10,
+      position: 'relative',
+      marginRight: focused ? 8 : 0,
+    }}>
+      <View style={{
+        position: 'absolute',
+        bottom: -2,
+        right: -2,
+        width: 8,
+        height: 2,
+        backgroundColor: focused ? '#000000' : color,
+        transform: [{ rotate: '45deg' }],
+      }} />
+    </View>
+    {focused && <Text style={{ color: '#000000', fontSize: 12, fontWeight: '600' }}>Search</Text>}
+  </View>
+);
+
+const GroupsIcon = ({ color, size = 24, focused }: { color: string; size?: number; focused?: boolean }) => (
+  <View style={{
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: focused ? 'rgba(144, 238, 144, 1)' : 'transparent',
+    paddingHorizontal: focused ? 16 : 8,
+    paddingVertical: 8,
+    borderRadius: 20,
+    minWidth: focused ? 80 : 40,
+    justifyContent: 'center',
+  }}>
     <View style={{
-      position: 'absolute',
-      bottom: size * 0.15,
-      left: size * 0.15,
-      width: size * 0.7,
-      height: size * 0.35,
-      backgroundColor: palmeraTheme.colors.background,
-      borderRadius: size * 0.175,
+      width: 20,
+      height: 20,
+      backgroundColor: focused ? '#000000' : color,
+      borderRadius: 10,
+      marginRight: focused ? 8 : 0,
     }} />
+    {focused && <Text style={{ color: '#000000', fontSize: 12, fontWeight: '600' }}>Favorites</Text>}
+  </View>
+);
+
+const ProfileIcon = ({ color, size = 24, focused }: { color: string; size?: number; focused?: boolean }) => (
+  <View style={{
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: focused ? 'rgba(144, 238, 144, 1)' : 'transparent',
+    paddingHorizontal: focused ? 16 : 8,
+    paddingVertical: 8,
+    borderRadius: 20,
+    minWidth: focused ? 80 : 40,
+    justifyContent: 'center',
+  }}>
+    <View style={{
+      width: 20,
+      height: 20,
+      backgroundColor: focused ? '#000000' : color,
+      borderRadius: 10,
+      marginRight: focused ? 8 : 0,
+    }} />
+    {focused && <Text style={{ color: '#000000', fontSize: 12, fontWeight: '600' }}>Profile</Text>}
   </View>
 );
 
@@ -131,10 +136,10 @@ export default function TabLayout() {
           elevation: 8,
         },
         tabBarLabelStyle: {
-          fontSize: 11,
-          fontWeight: '600',
-          marginTop: 4,
+          fontSize: 0,
+          height: 0,
         },
+        tabBarShowLabel: false,
         headerStyle: {
           backgroundColor: '#000000',
           borderBottomWidth: 0,
@@ -152,37 +157,37 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
+          title: '',
           headerShown: false,
           tabBarIcon: ({ color, focused }) => (
-            <HomeIcon color={color} size={focused ? 26 : 22} />
+            <HomeIcon color={color} size={focused ? 26 : 22} focused={focused} />
           ),
         }}
       />
       <Tabs.Screen
         name="search"
         options={{
-          title: 'Search',
+          title: '',
           tabBarIcon: ({ color, focused }) => (
-            <SearchIcon color={color} size={focused ? 26 : 22} />
+            <SearchIcon color={color} size={focused ? 26 : 22} focused={focused} />
           ),
         }}
       />
       <Tabs.Screen
         name="groups"
         options={{
-          title: 'Favorites',
+          title: '',
           tabBarIcon: ({ color, focused }) => (
-            <GroupsIcon color={color} size={focused ? 26 : 22} />
+            <GroupsIcon color={color} size={focused ? 26 : 22} focused={focused} />
           ),
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
-          title: 'Profile',
+          title: '',
           tabBarIcon: ({ color, focused }) => (
-            <ProfileIcon color={color} size={focused ? 26 : 22} />
+            <ProfileIcon color={color} size={focused ? 26 : 22} focused={focused} />
           ),
         }}
       />

@@ -79,18 +79,18 @@ export function HomeScreen() {
                 <TouchableOpacity style={styles.favoriteButton}>
                   <View style={styles.heartIcon} />
                 </TouchableOpacity>
-              </View>
-              <View style={styles.eventInfo}>
-                <Text style={styles.eventCategory}>Music</Text>
-                <Text style={styles.eventTitle} numberOfLines={2}>
-                  {listing.title}
-                </Text>
-                <View style={styles.eventDetails}>
-                  <View style={styles.eventDate}>
-                    <View style={styles.calendarIcon} />
-                    <Text style={styles.eventDateText}>Dec 18 - 08:00 PM</Text>
+                <View style={styles.eventInfo}>
+                  <Text style={styles.eventCategory}>Music</Text>
+                  <Text style={styles.eventTitle} numberOfLines={2}>
+                    {listing.title}
+                  </Text>
+                  <View style={styles.eventDetails}>
+                    <View style={styles.eventDate}>
+                      <View style={styles.calendarIcon} />
+                      <Text style={styles.eventDateText}>Dec 18 - 08:00 PM</Text>
+                    </View>
+                    <Text style={styles.eventPrice}>${(listing.price / 100).toFixed(2)}</Text>
                   </View>
-                  <Text style={styles.eventPrice}>${(listing.price / 100).toFixed(2)}</Text>
                 </View>
               </View>
             </TouchableOpacity>
@@ -308,20 +308,25 @@ const styles = StyleSheet.create({
     marginTop: palmeraTheme.spacing[2],
   },
   eventCard: {
-    width: 240,
+    width: 320,
     marginRight: palmeraTheme.spacing[4],
     borderRadius: 16,
     overflow: 'hidden',
   },
   eventImageContainer: {
-    height: 140,
+    height: 200,
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
     borderRadius: 16,
     position: 'relative',
-    marginBottom: palmeraTheme.spacing[3],
+    justifyContent: 'flex-end',
+    padding: palmeraTheme.spacing[4],
   },
   eventImage: {
-    flex: 1,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
     backgroundColor: '#1E3A8A', // Blue gradient placeholder
     borderRadius: 16,
   },
@@ -343,7 +348,8 @@ const styles = StyleSheet.create({
     borderRadius: 2,
   },
   eventInfo: {
-    paddingHorizontal: 4,
+    position: 'relative',
+    zIndex: 2,
   },
   eventCategory: {
     fontSize: 12,
