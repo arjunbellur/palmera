@@ -1,16 +1,7 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "apps/web-unified/package.json",
-      "use": "@vercel/next"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "apps/web-unified/$1"
-    }
-  ],
-  "outputDirectory": "apps/web-unified/out"
+  "buildCommand": "cd apps/web-unified && pnpm run build",
+  "outputDirectory": "apps/web-unified/out",
+  "installCommand": "pnpm install",
+  "framework": null
 }
