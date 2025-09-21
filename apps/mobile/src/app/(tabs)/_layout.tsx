@@ -9,20 +9,21 @@ const HomeIcon = ({ color, size = 24, focused }: { color: string; size?: number;
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: focused ? 'rgba(144, 238, 144, 1)' : 'transparent',
-    paddingHorizontal: focused ? 16 : 8,
-    paddingVertical: 8,
-    borderRadius: 20,
-    minWidth: focused ? 80 : 40,
+    paddingHorizontal: focused ? 12 : 6,
+    paddingVertical: 6,
+    borderRadius: 16,
+    minWidth: focused ? 70 : 32,
     justifyContent: 'center',
+    height: 32,
   }}>
     <View style={{
-      width: 20,
-      height: 20,
+      width: 18,
+      height: 18,
       backgroundColor: focused ? '#000000' : color,
       borderRadius: 2,
-      marginRight: focused ? 8 : 0,
+      marginRight: focused ? 6 : 0,
     }} />
-    {focused && <Text style={{ color: '#000000', fontSize: 12, fontWeight: '600' }}>Home</Text>}
+    {focused && <Text style={{ color: '#000000', fontSize: 11, fontWeight: '600' }}>Home</Text>}
   </View>
 );
 
@@ -31,32 +32,33 @@ const SearchIcon = ({ color, size = 24, focused }: { color: string; size?: numbe
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: focused ? 'rgba(144, 238, 144, 1)' : 'transparent',
-    paddingHorizontal: focused ? 16 : 8,
-    paddingVertical: 8,
-    borderRadius: 20,
-    minWidth: focused ? 80 : 40,
+    paddingHorizontal: focused ? 12 : 6,
+    paddingVertical: 6,
+    borderRadius: 16,
+    minWidth: focused ? 70 : 32,
     justifyContent: 'center',
+    height: 32,
   }}>
     <View style={{
-      width: 20,
-      height: 20,
+      width: 18,
+      height: 18,
       borderWidth: 2,
       borderColor: focused ? '#000000' : color,
-      borderRadius: 10,
+      borderRadius: 9,
       position: 'relative',
-      marginRight: focused ? 8 : 0,
+      marginRight: focused ? 6 : 0,
     }}>
       <View style={{
         position: 'absolute',
         bottom: -2,
         right: -2,
-        width: 8,
+        width: 6,
         height: 2,
         backgroundColor: focused ? '#000000' : color,
         transform: [{ rotate: '45deg' }],
       }} />
     </View>
-    {focused && <Text style={{ color: '#000000', fontSize: 12, fontWeight: '600' }}>Search</Text>}
+    {focused && <Text style={{ color: '#000000', fontSize: 11, fontWeight: '600' }}>Search</Text>}
   </View>
 );
 
@@ -65,20 +67,21 @@ const GroupsIcon = ({ color, size = 24, focused }: { color: string; size?: numbe
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: focused ? 'rgba(144, 238, 144, 1)' : 'transparent',
-    paddingHorizontal: focused ? 16 : 8,
-    paddingVertical: 8,
-    borderRadius: 20,
-    minWidth: focused ? 80 : 40,
+    paddingHorizontal: focused ? 12 : 6,
+    paddingVertical: 6,
+    borderRadius: 16,
+    minWidth: focused ? 80 : 32,
     justifyContent: 'center',
+    height: 32,
   }}>
     <View style={{
-      width: 20,
-      height: 20,
+      width: 18,
+      height: 18,
       backgroundColor: focused ? '#000000' : color,
-      borderRadius: 10,
-      marginRight: focused ? 8 : 0,
+      borderRadius: 9,
+      marginRight: focused ? 6 : 0,
     }} />
-    {focused && <Text style={{ color: '#000000', fontSize: 12, fontWeight: '600' }}>Favorites</Text>}
+    {focused && <Text style={{ color: '#000000', fontSize: 11, fontWeight: '600' }}>Favorites</Text>}
   </View>
 );
 
@@ -87,20 +90,21 @@ const ProfileIcon = ({ color, size = 24, focused }: { color: string; size?: numb
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: focused ? 'rgba(144, 238, 144, 1)' : 'transparent',
-    paddingHorizontal: focused ? 16 : 8,
-    paddingVertical: 8,
-    borderRadius: 20,
-    minWidth: focused ? 80 : 40,
+    paddingHorizontal: focused ? 12 : 6,
+    paddingVertical: 6,
+    borderRadius: 16,
+    minWidth: focused ? 70 : 32,
     justifyContent: 'center',
+    height: 32,
   }}>
     <View style={{
-      width: 20,
-      height: 20,
+      width: 18,
+      height: 18,
       backgroundColor: focused ? '#000000' : color,
-      borderRadius: 10,
-      marginRight: focused ? 8 : 0,
+      borderRadius: 9,
+      marginRight: focused ? 6 : 0,
     }} />
-    {focused && <Text style={{ color: '#000000', fontSize: 12, fontWeight: '600' }}>Profile</Text>}
+    {focused && <Text style={{ color: '#000000', fontSize: 11, fontWeight: '600' }}>Profile</Text>}
   </View>
 );
 
@@ -115,12 +119,12 @@ export default function TabLayout() {
         tabBarStyle: {
           backgroundColor: 'rgba(255, 255, 255, 0.1)',
           borderTopWidth: 0,
-          paddingBottom: Math.max(insets.bottom, 8),
-          paddingTop: 12,
-          height: 60 + Math.max(insets.bottom, 8),
-          paddingHorizontal: palmeraTheme.spacing[6],
+          paddingBottom: Math.max(insets.bottom + 8, 16),
+          paddingTop: 8,
+          height: 70 + Math.max(insets.bottom, 0),
+          paddingHorizontal: palmeraTheme.spacing[4],
           position: 'absolute',
-          bottom: palmeraTheme.spacing[4],
+          bottom: palmeraTheme.spacing[2],
           left: palmeraTheme.spacing[4],
           right: palmeraTheme.spacing[4],
           borderRadius: 24,

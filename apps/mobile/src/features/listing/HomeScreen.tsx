@@ -44,7 +44,7 @@ export function HomeScreen() {
     <ScrollView 
       style={styles.container} 
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={{ paddingBottom: insets.bottom + 90 }}
+      contentContainerStyle={{ paddingBottom: insets.bottom + 100 }}
       contentInsetAdjustmentBehavior="never"
     >
       {/* Header */}
