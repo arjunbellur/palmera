@@ -1,6 +1,12 @@
 {
-  "buildCommand": "pnpm build",
-  "outputDirectory": "out",
-  "installCommand": "pnpm install",
-  "rootDirectory": "apps/web-unified"
+  "version": 2,
+  "builds": [
+    {
+      "src": "apps/web-unified/package.json",
+      "use": "@vercel/next",
+      "config": {
+        "rootDirectory": "apps/web-unified"
+      }
+    }
+  ]
 }
