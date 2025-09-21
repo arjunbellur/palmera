@@ -10,51 +10,60 @@ const HomeIcon = ({ color, size = 24, focused }: { color: string; size?: number;
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: focused ? '#90EE90' : 'transparent',
-    paddingHorizontal: focused ? 12 : 0,
-    paddingVertical: focused ? 6 : 0,
-    borderRadius: 20,
+    paddingHorizontal: focused ? 16 : 8,
+    paddingVertical: focused ? 8 : 4,
+    borderRadius: 24,
     justifyContent: 'center',
+    minHeight: 32,
   }}>
     <Ionicons 
       name={focused ? "home" : "home-outline"} 
       size={20} 
       color={focused ? '#000000' : color}
-      style={{ marginRight: focused ? 8 : 0 }}
+      style={{ marginRight: focused ? 10 : 0 }}
     />
     {focused && <Text style={{ color: '#000000', fontSize: 12, fontWeight: '600' }}>Home</Text>}
   </View>
 );
 
 const SearchIcon = ({ color, size = 24, focused }: { color: string; size?: number; focused?: boolean }) => (
-  <Ionicons 
-    name={focused ? "search" : "search-outline"} 
-    size={20} 
-    color={color}
-  />
+  <View style={{ padding: 8 }}>
+    <Ionicons 
+      name={focused ? "search" : "search-outline"} 
+      size={20} 
+      color={color}
+    />
+  </View>
 );
 
 const HeartIcon = ({ color, size = 24, focused }: { color: string; size?: number; focused?: boolean }) => (
-  <Ionicons 
-    name={focused ? "heart" : "heart-outline"} 
-    size={20} 
-    color={color}
-  />
+  <View style={{ padding: 8 }}>
+    <Ionicons 
+      name={focused ? "heart" : "heart-outline"} 
+      size={20} 
+      color={color}
+    />
+  </View>
 );
 
 const ProfileIcon = ({ color, size = 24, focused }: { color: string; size?: number; focused?: boolean }) => (
-  <Ionicons 
-    name={focused ? "person" : "person-outline"} 
-    size={20} 
-    color={color}
-  />
+  <View style={{ padding: 8 }}>
+    <Ionicons 
+      name={focused ? "person" : "person-outline"} 
+      size={20} 
+      color={color}
+    />
+  </View>
 );
 
 const FilterIcon = ({ color, size = 24, focused }: { color: string; size?: number; focused?: boolean }) => (
-  <Ionicons 
-    name="filter" 
-    size={20} 
-    color={color}
-  />
+  <View style={{ padding: 8 }}>
+    <Ionicons 
+      name="filter" 
+      size={20} 
+      color={color}
+    />
+  </View>
 );
 
 export default function TabLayout() {
@@ -66,27 +75,28 @@ export default function TabLayout() {
         tabBarActiveTintColor: '#FFFFFF',
         tabBarInactiveTintColor: 'rgba(255, 255, 255, 0.5)',
         tabBarStyle: {
-          backgroundColor: 'rgba(255, 255, 255, 0.1)',
+          backgroundColor: 'rgba(255, 255, 255, 0.15)',
           borderTopWidth: 0,
-          paddingBottom: Math.max(insets.bottom + 12, 20),
-          paddingTop: 12,
-          height: 80 + Math.max(insets.bottom, 0),
-          paddingHorizontal: palmeraTheme.spacing[6],
+          paddingBottom: Math.max(insets.bottom + 8, 12),
+          paddingTop: 16,
+          height: 75 + Math.max(insets.bottom, 0),
+          paddingHorizontal: palmeraTheme.spacing[8],
           position: 'absolute',
           bottom: palmeraTheme.spacing[3],
           left: palmeraTheme.spacing[4],
           right: palmeraTheme.spacing[4],
           borderRadius: 28,
-          // Glassmorphic effect
-          backdropFilter: 'blur(20px)',
+          // Enhanced glassmorphic effect
+          backdropFilter: 'blur(40px)',
           shadowColor: '#000000',
           shadowOffset: {
             width: 0,
-            height: 4,
+            height: 8,
           },
-          shadowOpacity: 0.3,
-          shadowRadius: 8,
-          elevation: 8,
+          shadowOpacity: 0.4,
+          shadowRadius: 16,
+          elevation: 20,
+          zIndex: 1000,
         },
         tabBarLabelStyle: {
           fontSize: 0,
