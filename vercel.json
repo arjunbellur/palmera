@@ -8,23 +8,5 @@
         "rootDirectory": "apps/web-unified"
       }
     }
-  ],
-  "routes": [
-    {
-      "src": "/admin/(.*)",
-      "dest": "/admin/$1"
-    },
-    {
-      "src": "/provider/(.*)",
-      "dest": "/provider/$1"
-    },
-    {
-      "src": "/auth/(.*)",
-      "dest": "/auth/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
-    }
   ]
 }
