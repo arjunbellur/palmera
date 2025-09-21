@@ -2,198 +2,59 @@ import { Tabs } from 'expo-router';
 import { palmeraTheme } from '../../theme/palmeraTheme';
 import { View, Text } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Ionicons } from '@expo/vector-icons';
 
-// Proper navigation icons matching the reference design
+// Clean navigation icons using Ionicons
 const HomeIcon = ({ color, size = 24, focused }: { color: string; size?: number; focused?: boolean }) => (
   <View style={{
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: focused ? '#90EE90' : 'transparent',
     paddingHorizontal: focused ? 12 : 0,
-    paddingVertical: focused ? 8 : 0,
+    paddingVertical: focused ? 6 : 0,
     borderRadius: 20,
     justifyContent: 'center',
-    minWidth: focused ? undefined : 24,
   }}>
-    {/* House icon shape */}
-    <View style={{
-      width: 20,
-      height: 20,
-      alignItems: 'center',
-      justifyContent: 'center',
-      marginRight: focused ? 8 : 0,
-    }}>
-      <View style={{
-        width: 16,
-        height: 12,
-        backgroundColor: focused ? '#000000' : color,
-        position: 'relative',
-      }}>
-        {/* Roof triangle */}
-        <View style={{
-          position: 'absolute',
-          top: -6,
-          left: 2,
-          width: 0,
-          height: 0,
-          borderLeftWidth: 6,
-          borderRightWidth: 6,
-          borderBottomWidth: 6,
-          borderLeftColor: 'transparent',
-          borderRightColor: 'transparent',
-          borderBottomColor: focused ? '#000000' : color,
-        }} />
-        {/* Door */}
-        <View style={{
-          position: 'absolute',
-          bottom: 0,
-          left: 6,
-          width: 4,
-          height: 6,
-          backgroundColor: focused ? '#90EE90' : '#000000',
-        }} />
-      </View>
-    </View>
+    <Ionicons 
+      name={focused ? "home" : "home-outline"} 
+      size={20} 
+      color={focused ? '#000000' : color}
+      style={{ marginRight: focused ? 8 : 0 }}
+    />
     {focused && <Text style={{ color: '#000000', fontSize: 12, fontWeight: '600' }}>Home</Text>}
   </View>
 );
 
 const SearchIcon = ({ color, size = 24, focused }: { color: string; size?: number; focused?: boolean }) => (
-  <View style={{
-    width: 24,
-    height: 24,
-    alignItems: 'center',
-    justifyContent: 'center',
-  }}>
-    {/* Magnifying glass circle */}
-    <View style={{
-      width: 14,
-      height: 14,
-      borderWidth: 2,
-      borderColor: color,
-      borderRadius: 7,
-      position: 'relative',
-    }} />
-    {/* Handle */}
-    <View style={{
-      position: 'absolute',
-      bottom: 2,
-      right: 2,
-      width: 8,
-      height: 2,
-      backgroundColor: color,
-      transform: [{ rotate: '45deg' }],
-    }} />
-  </View>
+  <Ionicons 
+    name={focused ? "search" : "search-outline"} 
+    size={20} 
+    color={color}
+  />
 );
 
 const HeartIcon = ({ color, size = 24, focused }: { color: string; size?: number; focused?: boolean }) => (
-  <View style={{
-    width: 24,
-    height: 24,
-    alignItems: 'center',
-    justifyContent: 'center',
-  }}>
-    {/* Heart shape made with two circles and a triangle */}
-    <View style={{
-      width: 18,
-      height: 16,
-      position: 'relative',
-    }}>
-      {/* Left circle */}
-      <View style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: 10,
-        height: 10,
-        backgroundColor: color,
-        borderRadius: 5,
-      }} />
-      {/* Right circle */}
-      <View style={{
-        position: 'absolute',
-        top: 0,
-        right: 0,
-        width: 10,
-        height: 10,
-        backgroundColor: color,
-        borderRadius: 5,
-      }} />
-      {/* Bottom triangle */}
-      <View style={{
-        position: 'absolute',
-        top: 6,
-        left: 4,
-        width: 0,
-        height: 0,
-        borderLeftWidth: 5,
-        borderRightWidth: 5,
-        borderTopWidth: 8,
-        borderLeftColor: 'transparent',
-        borderRightColor: 'transparent',
-        borderTopColor: color,
-      }} />
-    </View>
-  </View>
+  <Ionicons 
+    name={focused ? "heart" : "heart-outline"} 
+    size={20} 
+    color={color}
+  />
 );
 
 const ProfileIcon = ({ color, size = 24, focused }: { color: string; size?: number; focused?: boolean }) => (
-  <View style={{
-    width: 24,
-    height: 24,
-    alignItems: 'center',
-    justifyContent: 'center',
-  }}>
-    {/* Person icon */}
-    <View style={{
-      width: 18,
-      height: 18,
-      position: 'relative',
-    }}>
-      {/* Head circle */}
-      <View style={{
-        width: 8,
-        height: 8,
-        backgroundColor: color,
-        borderRadius: 4,
-        position: 'absolute',
-        top: 0,
-        left: 5,
-      }} />
-      {/* Body shape */}
-      <View style={{
-        width: 14,
-        height: 8,
-        backgroundColor: color,
-        borderRadius: 7,
-        position: 'absolute',
-        bottom: 0,
-        left: 2,
-      }} />
-    </View>
-  </View>
+  <Ionicons 
+    name={focused ? "person" : "person-outline"} 
+    size={20} 
+    color={color}
+  />
 );
 
 const FilterIcon = ({ color, size = 24, focused }: { color: string; size?: number; focused?: boolean }) => (
-  <View style={{
-    width: 24,
-    height: 24,
-    alignItems: 'center',
-    justifyContent: 'center',
-  }}>
-    {/* Triangle/filter icon */}
-    <View style={{
-      width: 0,
-      height: 0,
-      borderLeftWidth: 8,
-      borderRightWidth: 8,
-      borderTopWidth: 12,
-      borderLeftColor: 'transparent',
-      borderRightColor: 'transparent',
-      borderTopColor: color,
-    }} />
-  </View>
+  <Ionicons 
+    name="filter" 
+    size={20} 
+    color={color}
+  />
 );
 
 export default function TabLayout() {
@@ -252,7 +113,7 @@ export default function TabLayout() {
           title: '',
           headerShown: false,
           tabBarIcon: ({ color, focused }) => (
-            <HomeIcon color={color} size={focused ? 26 : 22} focused={focused} />
+            <HomeIcon color={color} size={20} focused={focused} />
           ),
         }}
       />
@@ -261,7 +122,7 @@ export default function TabLayout() {
         options={{
           title: '',
           tabBarIcon: ({ color, focused }) => (
-            <SearchIcon color={color} size={focused ? 26 : 22} focused={focused} />
+            <SearchIcon color={color} size={20} focused={focused} />
           ),
         }}
       />
@@ -270,7 +131,7 @@ export default function TabLayout() {
         options={{
           title: '',
           tabBarIcon: ({ color, focused }) => (
-            <HeartIcon color={color} size={focused ? 26 : 22} focused={focused} />
+            <HeartIcon color={color} size={20} focused={focused} />
           ),
         }}
       />
@@ -279,7 +140,7 @@ export default function TabLayout() {
         options={{
           title: '',
           tabBarIcon: ({ color, focused }) => (
-            <ProfileIcon color={color} size={focused ? 26 : 22} focused={focused} />
+            <ProfileIcon color={color} size={20} focused={focused} />
           ),
         }}
       />
@@ -288,7 +149,7 @@ export default function TabLayout() {
         options={{
           title: '',
           tabBarIcon: ({ color, focused }) => (
-            <FilterIcon color={color} size={focused ? 26 : 22} focused={focused} />
+            <FilterIcon color={color} size={20} focused={focused} />
           ),
         }}
       />
