@@ -15,6 +15,8 @@ const nextConfig = {
   env: {
     NEXT_PUBLIC_APP_NAME: 'Palmera Unified Dashboard',
   },
+  // Disable middleware for static export
+  skipMiddlewareUrlNormalize: true,
 };
 
 module.exports = nextConfig;
