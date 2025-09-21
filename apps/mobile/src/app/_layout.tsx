@@ -139,7 +139,7 @@ export default function RootLayout() {
               }} 
             />
               </Stack>
-              <StatusBar style="light" />
+              <StatusBar style="light" backgroundColor="#000000" translucent={false} />
               <Toast />
             </AuthProvider>
           </SDKProvider>
