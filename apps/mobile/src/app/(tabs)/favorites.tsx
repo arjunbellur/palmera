@@ -1,11 +1,11 @@
+import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { palmeraTheme } from '../../theme/palmeraTheme';
 
 export default function FavoritesScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Favorites</Text>
-      <Text style={styles.subtitle}>Your saved experiences</Text>
+      <Text style={styles.subtitle}>Your favorite experiences will appear here</Text>
     </View>
   );
 }
@@ -13,20 +13,20 @@ export default function FavoritesScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#000000',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: palmeraTheme.colors.background,
-    padding: 20,
+    paddingHorizontal: 20,
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: palmeraTheme.colors.text,
+    color: '#FFFFFF',
     marginBottom: 8,
   },
   subtitle: {
     fontSize: 16,
-    color: palmeraTheme.colors.textMuted,
+    color: 'rgba(255, 255, 255, 0.6)',
     textAlign: 'center',
   },
 });
