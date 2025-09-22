@@ -47,12 +47,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#90EE90',
-    paddingHorizontal: 12,
-    paddingVertical: 4,
-    borderRadius: 16,
-    minWidth: 70,
+    paddingHorizontal: 10,
+    paddingVertical: 2,
+    borderRadius: 14,
+    minWidth: 65,
     justifyContent: 'center',
-    height: 28,
+    height: 24,
   },
   activeTabText: {
     color: '#000000',
@@ -63,8 +63,8 @@ const styles = StyleSheet.create({
   inactiveTab: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: 44,
-    height: 28,
+    width: 40,
+    height: 24,
   },
 });
 
@@ -82,7 +82,7 @@ export default function TabLayout() {
           paddingBottom: insets.bottom,
           paddingTop: 0,
           paddingHorizontal: 20,
-          height: 40 + insets.bottom,
+          height: 36 + insets.bottom,
           position: 'absolute',
           bottom: 12,
           left: 20,
@@ -101,6 +101,9 @@ export default function TabLayout() {
           // Modern iOS-style border
           borderWidth: 0.5,
           borderColor: 'rgba(255, 255, 255, 0.1)',
+          // Force override React Navigation defaults
+          marginBottom: 0,
+          marginTop: 0,
         },
         tabBarLabelStyle: {
           fontSize: 0,
