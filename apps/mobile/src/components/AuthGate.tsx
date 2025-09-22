@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
-import { palmeraTheme } from '../../theme/palmeraTheme';
+import { palmeraTheme } from '../theme/palmeraTheme';
 
 export interface AuthGateProps {
   children: React.ReactNode;

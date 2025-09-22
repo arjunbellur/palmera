@@ -3,7 +3,6 @@ import { palmeraTheme } from '../../theme/palmeraTheme';
 import { View, Text, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
-import { BlurView } from 'expo-blur';
 
 // Modern navigation tab component with proper glassmorphism
 const TabButton = ({ 
@@ -23,7 +22,7 @@ const TabButton = ({
     return (
       <View style={styles.activeTab}>
         <Ionicons 
-          name={iconNameFocused || iconName} 
+          name={(iconNameFocused || iconName) as any} 
           size={20} 
           color="#000000"
         />
@@ -35,7 +34,7 @@ const TabButton = ({
   return (
     <View style={styles.inactiveTab}>
       <Ionicons 
-        name={iconName} 
+        name={iconName as any} 
         size={22} 
         color={color}
       />
@@ -88,8 +87,7 @@ export default function TabLayout() {
           left: 20,
           right: 20,
           borderRadius: 30,
-          // Professional glassmorphic effect
-          backdropFilter: 'blur(80px)',
+          // Professional glassmorphic effect (backdrop filter not supported in RN)
           shadowColor: '#000000',
           shadowOffset: {
             width: 0,

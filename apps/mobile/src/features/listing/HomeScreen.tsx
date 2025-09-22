@@ -153,7 +153,7 @@ export function HomeScreen() {
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>Popular destinations</Text>
           <TouchableOpacity>
-            <Text style={styles.seeAllText}>See all</Text>
+            <Text style={styles.viewAllText}>See all</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.destinationsGrid}>
