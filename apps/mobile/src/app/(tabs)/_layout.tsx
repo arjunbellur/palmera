@@ -10,47 +10,47 @@ const HomeIcon = ({ color, size = 24, focused }: { color: string; size?: number;
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: focused ? '#90EE90' : 'transparent',
-    paddingHorizontal: focused ? 12 : 4,
-    paddingVertical: focused ? 6 : 2,
-    borderRadius: 20,
+    paddingHorizontal: focused ? 10 : 2,
+    paddingVertical: focused ? 4 : 1,
+    borderRadius: 18,
     justifyContent: 'center',
-    minHeight: 28,
+    minHeight: 24,
   }}>
     <Ionicons 
       name={focused ? "home" : "home-outline"} 
-      size={18} 
+      size={16} 
       color={focused ? '#000000' : color}
-      style={{ marginRight: focused ? 8 : 0 }}
+      style={{ marginRight: focused ? 6 : 0 }}
     />
-    {focused && <Text style={{ color: '#000000', fontSize: 11, fontWeight: '600' }}>Home</Text>}
+    {focused && <Text style={{ color: '#000000', fontSize: 10, fontWeight: '600' }}>Home</Text>}
   </View>
 );
 
 const GroupsIcon = ({ color, size = 24, focused }: { color: string; size?: number; focused?: boolean }) => (
-  <View style={{ padding: 4 }}>
+  <View style={{ padding: 2 }}>
     <Ionicons 
       name={focused ? "people" : "people-outline"} 
-      size={18} 
+      size={16} 
       color={color}
     />
   </View>
 );
 
 const TicketsIcon = ({ color, size = 24, focused }: { color: string; size?: number; focused?: boolean }) => (
-  <View style={{ padding: 4 }}>
+  <View style={{ padding: 2 }}>
     <Ionicons 
       name={focused ? "ticket" : "ticket-outline"} 
-      size={18} 
+      size={16} 
       color={color}
     />
   </View>
 );
 
 const AboutIcon = ({ color, size = 24, focused }: { color: string; size?: number; focused?: boolean }) => (
-  <View style={{ padding: 4 }}>
+  <View style={{ padding: 2 }}>
     <Ionicons 
       name={focused ? "information-circle" : "information-circle-outline"} 
-      size={18} 
+      size={16} 
       color={color}
     />
   </View>
@@ -68,9 +68,9 @@ export default function TabLayout() {
           backgroundColor: 'rgba(0, 0, 0, 0.6)',
           borderTopWidth: 0,
           paddingBottom: insets.bottom,
-          paddingTop: 8,
-          height: 52 + insets.bottom,
-          paddingHorizontal: palmeraTheme.spacing[3],
+          paddingTop: 4,
+          height: 44 + insets.bottom,
+          paddingHorizontal: palmeraTheme.spacing[2],
           position: 'absolute',
           bottom: 0,
           left: palmeraTheme.spacing[5],
