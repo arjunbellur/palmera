@@ -1,60 +1,72 @@
 import { Tabs } from 'expo-router';
 import { palmeraTheme } from '../../theme/palmeraTheme';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import { BlurView } from 'expo-blur';
 
-// Clean navigation icons using Ionicons
-const HomeIcon = ({ color, size = 24, focused }: { color: string; size?: number; focused?: boolean }) => (
-  <View style={{
+// Modern navigation tab component with proper glassmorphism
+const TabButton = ({ 
+  iconName, 
+  iconNameFocused, 
+  label, 
+  focused, 
+  color 
+}: {
+  iconName: string;
+  iconNameFocused?: string;
+  label: string;
+  focused: boolean;
+  color: string;
+}) => {
+  if (focused) {
+    return (
+      <View style={styles.activeTab}>
+        <Ionicons 
+          name={iconNameFocused || iconName} 
+          size={20} 
+          color="#000000"
+        />
+        <Text style={styles.activeTabText}>{label}</Text>
+      </View>
+    );
+  }
+
+  return (
+    <View style={styles.inactiveTab}>
+      <Ionicons 
+        name={iconName} 
+        size={22} 
+        color={color}
+      />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  activeTab: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: focused ? '#90EE90' : 'transparent',
-    paddingHorizontal: focused ? 10 : 2,
-    paddingVertical: focused ? 4 : 1,
-    borderRadius: 18,
+    backgroundColor: '#90EE90',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 20,
+    minWidth: 80,
     justifyContent: 'center',
-    minHeight: 24,
-  }}>
-    <Ionicons 
-      name={focused ? "home" : "home-outline"} 
-      size={16} 
-      color={focused ? '#000000' : color}
-      style={{ marginRight: focused ? 6 : 0 }}
-    />
-    {focused && <Text style={{ color: '#000000', fontSize: 10, fontWeight: '600' }}>Home</Text>}
-  </View>
-);
-
-const GroupsIcon = ({ color, size = 24, focused }: { color: string; size?: number; focused?: boolean }) => (
-  <View style={{ padding: 2 }}>
-    <Ionicons 
-      name={focused ? "people" : "people-outline"} 
-      size={16} 
-      color={color}
-    />
-  </View>
-);
-
-const TicketsIcon = ({ color, size = 24, focused }: { color: string; size?: number; focused?: boolean }) => (
-  <View style={{ padding: 2 }}>
-    <Ionicons 
-      name={focused ? "ticket" : "ticket-outline"} 
-      size={16} 
-      color={color}
-    />
-  </View>
-);
-
-const AboutIcon = ({ color, size = 24, focused }: { color: string; size?: number; focused?: boolean }) => (
-  <View style={{ padding: 2 }}>
-    <Ionicons 
-      name={focused ? "information-circle" : "information-circle-outline"} 
-      size={16} 
-      color={color}
-    />
-  </View>
-);
+  },
+  activeTabText: {
+    color: '#000000',
+    fontSize: 12,
+    fontWeight: '600',
+    marginLeft: 6,
+  },
+  inactiveTab: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 44,
+    height: 44,
+  },
+});
 
 export default function TabLayout() {
   const insets = useSafeAreaInsets();
@@ -65,28 +77,31 @@ export default function TabLayout() {
         tabBarActiveTintColor: '#FFFFFF',
         tabBarInactiveTintColor: 'rgba(255, 255, 255, 0.5)',
         tabBarStyle: {
-          backgroundColor: 'rgba(0, 0, 0, 0.6)',
+          backgroundColor: 'rgba(0, 0, 0, 0.7)',
           borderTopWidth: 0,
-          paddingBottom: insets.bottom,
-          paddingTop: 0,
-          height: 60 + insets.bottom,
-          paddingHorizontal: 0,
+          paddingBottom: insets.bottom + 8,
+          paddingTop: 12,
+          paddingHorizontal: 20,
+          height: 68 + insets.bottom,
           position: 'absolute',
-          bottom: 0,
-          left: palmeraTheme.spacing[5],
-          right: palmeraTheme.spacing[5],
-          borderRadius: 26,
-          // Dark glassmorphic effect with high intensity blur
-          backdropFilter: 'blur(60px)',
+          bottom: 12,
+          left: 20,
+          right: 20,
+          borderRadius: 30,
+          // Professional glassmorphic effect
+          backdropFilter: 'blur(80px)',
           shadowColor: '#000000',
           shadowOffset: {
             width: 0,
-            height: 6,
+            height: 10,
           },
-          shadowOpacity: 0.4,
-          shadowRadius: 12,
-          elevation: 15,
+          shadowOpacity: 0.6,
+          shadowRadius: 20,
+          elevation: 30,
           zIndex: 1000,
+          // Modern iOS-style border
+          borderWidth: 0.5,
+          borderColor: 'rgba(255, 255, 255, 0.1)',
         },
         tabBarLabelStyle: {
           fontSize: 0,
@@ -113,7 +128,13 @@ export default function TabLayout() {
           title: '',
           headerShown: false,
           tabBarIcon: ({ color, focused }) => (
-            <HomeIcon color={color} size={20} focused={focused} />
+            <TabButton
+              iconName="home-outline"
+              iconNameFocused="home"
+              label="Home"
+              focused={focused}
+              color={color}
+            />
           ),
         }}
       />
@@ -122,7 +143,13 @@ export default function TabLayout() {
         options={{
           title: '',
           tabBarIcon: ({ color, focused }) => (
-            <GroupsIcon color={color} size={20} focused={focused} />
+            <TabButton
+              iconName="people-outline"
+              iconNameFocused="people"
+              label="Groups"
+              focused={focused}
+              color={color}
+            />
           ),
         }}
       />
@@ -131,7 +158,13 @@ export default function TabLayout() {
         options={{
           title: '',
           tabBarIcon: ({ color, focused }) => (
-            <TicketsIcon color={color} size={20} focused={focused} />
+            <TabButton
+              iconName="ticket-outline"
+              iconNameFocused="ticket"
+              label="Tickets"
+              focused={focused}
+              color={color}
+            />
           ),
         }}
       />
@@ -140,7 +173,13 @@ export default function TabLayout() {
         options={{
           title: '',
           tabBarIcon: ({ color, focused }) => (
-            <AboutIcon color={color} size={20} focused={focused} />
+            <TabButton
+              iconName="information-circle-outline"
+              iconNameFocused="information-circle"
+              label="About"
+              focused={focused}
+              color={color}
+            />
           ),
         }}
       />
