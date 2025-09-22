@@ -10,47 +10,47 @@ const HomeIcon = ({ color, size = 24, focused }: { color: string; size?: number;
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: focused ? '#90EE90' : 'transparent',
-    paddingHorizontal: focused ? 16 : 8,
-    paddingVertical: focused ? 8 : 4,
-    borderRadius: 24,
+    paddingHorizontal: focused ? 12 : 4,
+    paddingVertical: focused ? 6 : 2,
+    borderRadius: 20,
     justifyContent: 'center',
-    minHeight: 32,
+    minHeight: 28,
   }}>
     <Ionicons 
       name={focused ? "home" : "home-outline"} 
-      size={20} 
+      size={18} 
       color={focused ? '#000000' : color}
-      style={{ marginRight: focused ? 10 : 0 }}
+      style={{ marginRight: focused ? 8 : 0 }}
     />
-    {focused && <Text style={{ color: '#000000', fontSize: 12, fontWeight: '600' }}>Home</Text>}
+    {focused && <Text style={{ color: '#000000', fontSize: 11, fontWeight: '600' }}>Home</Text>}
   </View>
 );
 
 const GroupsIcon = ({ color, size = 24, focused }: { color: string; size?: number; focused?: boolean }) => (
-  <View style={{ padding: 8 }}>
+  <View style={{ padding: 4 }}>
     <Ionicons 
       name={focused ? "people" : "people-outline"} 
-      size={20} 
+      size={18} 
       color={color}
     />
   </View>
 );
 
 const TicketsIcon = ({ color, size = 24, focused }: { color: string; size?: number; focused?: boolean }) => (
-  <View style={{ padding: 8 }}>
+  <View style={{ padding: 4 }}>
     <Ionicons 
       name={focused ? "ticket" : "ticket-outline"} 
-      size={20} 
+      size={18} 
       color={color}
     />
   </View>
 );
 
 const AboutIcon = ({ color, size = 24, focused }: { color: string; size?: number; focused?: boolean }) => (
-  <View style={{ padding: 8 }}>
+  <View style={{ padding: 4 }}>
     <Ionicons 
       name={focused ? "information-circle" : "information-circle-outline"} 
-      size={20} 
+      size={18} 
       color={color}
     />
   </View>
@@ -67,25 +67,25 @@ export default function TabLayout() {
         tabBarStyle: {
           backgroundColor: 'rgba(0, 0, 0, 0.6)',
           borderTopWidth: 0,
-          paddingBottom: insets.bottom + 2,
-          paddingTop: 6,
-          height: 55 + insets.bottom,
-          paddingHorizontal: palmeraTheme.spacing[6],
+          paddingBottom: insets.bottom > 0 ? insets.bottom : 8,
+          paddingTop: 8,
+          height: 52 + (insets.bottom > 0 ? insets.bottom : 8),
+          paddingHorizontal: palmeraTheme.spacing[3],
           position: 'absolute',
-          bottom: palmeraTheme.spacing[2],
-          left: palmeraTheme.spacing[8],
-          right: palmeraTheme.spacing[8],
-          borderRadius: 28,
+          bottom: 8,
+          left: palmeraTheme.spacing[5],
+          right: palmeraTheme.spacing[5],
+          borderRadius: 26,
           // Dark glassmorphic effect with high intensity blur
           backdropFilter: 'blur(60px)',
           shadowColor: '#000000',
           shadowOffset: {
             width: 0,
-            height: 12,
+            height: 6,
           },
-          shadowOpacity: 0.6,
-          shadowRadius: 20,
-          elevation: 25,
+          shadowOpacity: 0.4,
+          shadowRadius: 12,
+          elevation: 15,
           zIndex: 1000,
         },
         tabBarLabelStyle: {
