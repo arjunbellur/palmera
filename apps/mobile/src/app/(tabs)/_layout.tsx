@@ -79,7 +79,7 @@ export default function TabLayout() {
         tabBarStyle: {
           backgroundColor: 'rgba(0, 0, 0, 0.7)',
           borderTopWidth: 0,
-          paddingBottom: insets.bottom + 8,
+          paddingBottom: insets.bottom,
           paddingTop: 12,
           paddingHorizontal: 20,
           height: 68 + insets.bottom,
