@@ -2,7 +2,7 @@ import React from 'react';
 import { Tabs } from 'expo-router';
 import { View, Text, StyleSheet, useSafeAreaInsets } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { useTheme } from '../../hooks/useTheme';
+import { useThemeContext } from '../../contexts/ThemeContext';
 import { ThemeToggle } from '../../components/ThemeToggle';
 
 // Design tokens from our theme system
@@ -120,7 +120,7 @@ const TabButton = ({
 
 export default function TabLayout() {
   const insets = useSafeAreaInsets();
-  const { theme, toggleTheme } = useTheme();
+  const { theme, toggleTheme } = useThemeContext();
   
   // Calculate proper tab bar height with safe area
   const tabBarHeight = DESIGN_TOKENS.spacing['3xl'] + DESIGN_TOKENS.spacing.lg + (insets.bottom > 0 ? insets.bottom : DESIGN_TOKENS.spacing.md);

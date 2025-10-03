@@ -4,7 +4,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
-import { palmeraTheme, ThemeProvider } from '../theme/palmeraTheme';
+import { palmeraTheme } from '../theme/palmeraTheme';
+import { ThemeProvider } from '../contexts/ThemeContext';
 import { SDKProvider } from '../contexts/SDKContext';
 import { AuthProvider } from '../contexts/AuthContext';
 
