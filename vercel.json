@@ -8,5 +8,11 @@
         "rootDirectory": "apps/web-unified"
       }
     }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/apps/web-unified/$1"
+    }
   ]
 }
