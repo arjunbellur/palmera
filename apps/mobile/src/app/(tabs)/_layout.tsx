@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, useColorScheme } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 
-// Modern navigation tab component with proper glassmorphism
+// Modern navigation tab component following iOS Human Interface Guidelines
 const TabButton = ({ 
   iconName, 
   iconNameFocused, 
@@ -18,13 +18,15 @@ const TabButton = ({
   focused: boolean;
   color: string;
 }) => {
+  const theme = palmeraTheme;
+  
   if (focused) {
     return (
       <View style={styles.activeTab}>
         <Ionicons 
           name={(iconNameFocused || iconName) as any} 
-          size={20} 
-          color="#000000"
+          size={24} // Increased for better visibility
+          color={theme.colors.charcoal}
         />
         <Text style={styles.activeTabText}>{label}</Text>
       </View>
@@ -35,7 +37,7 @@ const TabButton = ({
     <View style={styles.inactiveTab}>
       <Ionicons 
         name={iconName as any} 
-        size={22} 
+        size={24} // Consistent sizing
         color={color}
       />
     </View>
@@ -46,26 +48,34 @@ const styles = StyleSheet.create({
   activeTab: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: palmeraTheme.colors.gold, // Gold for active state
-    paddingHorizontal: 10,
-    paddingVertical: 2,
-    borderRadius: 14,
-    minWidth: 65,
     justifyContent: 'center',
-    height: 24,
+    backgroundColor: palmeraTheme.colors.gold,
+    paddingHorizontal: 16, // Better touch target
+    paddingVertical: 8, // More vertical space
+    borderRadius: 20, // More rounded for modern look
+    minWidth: 80, // Wider for better readability
+    height: 40, // Better touch target (44pt min for iOS)
+    shadowColor: palmeraTheme.colors.gold,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 4,
   },
   activeTabText: {
-    color: palmeraTheme.colors.charcoal, // Dark text on gold
-    fontSize: 12,
+    color: palmeraTheme.colors.charcoal,
+    fontSize: 13, // Slightly larger
     fontWeight: '600',
     marginLeft: 6,
-    fontFamily: palmeraTheme.typography.fontFamily.body,
+    letterSpacing: 0.3, // Better readability
   },
   inactiveTab: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: 40,
-    height: 24,
+    width: 44, // iOS minimum touch target
+    height: 44,
   },
 });
 
@@ -81,34 +91,31 @@ export default function TabLayout() {
         tabBarInactiveTintColor: theme.colors.textMuted,
         tabBarStyle: {
           backgroundColor: colorScheme === 'dark' 
-            ? 'rgba(28, 28, 28, 0.95)' // Dark charcoal with transparency
-            : 'rgba(44, 44, 44, 0.95)', // Charcoal with transparency
+            ? 'rgba(28, 28, 28, 0.95)' 
+            : 'rgba(44, 44, 44, 0.95)',
           borderTopWidth: 0,
-          paddingBottom: insets.bottom,
-          paddingTop: 0,
-          paddingHorizontal: 20,
-          height: 36 + insets.bottom,
+          paddingBottom: insets.bottom > 0 ? insets.bottom : 12, // Better bottom spacing
+          paddingTop: 12, // Add top padding
+          paddingHorizontal: 16, // Reduced horizontal padding
+          height: 70 + (insets.bottom > 0 ? insets.bottom : 12), // Proper height for touch targets
           position: 'absolute',
-          bottom: 12,
-          left: 20,
-          right: 20,
-          borderRadius: 30,
+          bottom: 16, // More space from bottom
+          left: 16, // Better edge spacing
+          right: 16,
+          borderRadius: 32, // Larger radius for modern look
           // Professional glassmorphic effect with gold accent
           shadowColor: theme.colors.gold,
           shadowOffset: {
             width: 0,
-            height: 10,
+            height: 8,
           },
-          shadowOpacity: 0.3,
-          shadowRadius: 20,
-          elevation: 30,
+          shadowOpacity: 0.25,
+          shadowRadius: 16,
+          elevation: 24,
           zIndex: 1000,
-          // Gold border for luxury feel
-          borderWidth: 0.5,
-          borderColor: `${theme.colors.gold}40`, // Gold with 25% opacity
-          // Force override React Navigation defaults
-          marginBottom: 0,
-          marginTop: 0,
+          // Subtle gold border for luxury feel
+          borderWidth: 1,
+          borderColor: `${theme.colors.gold}30`, // Gold with subtle opacity
         },
         tabBarLabelStyle: {
           fontSize: 0,
