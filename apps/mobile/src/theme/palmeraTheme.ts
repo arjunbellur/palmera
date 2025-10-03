@@ -1,98 +1,136 @@
+import { ColorSchemeName } from 'react-native';
+
 /**
- * Palmera React Native Theme
- * Design tokens for React Native applications
+ * Palmera Brand Theme
+ * Premium luxury travel experience
+ * "Escape. Indulge. Experience."
  */
 
-export const palmeraTheme = {
+export interface PalmeraTheme {
   colors: {
-    // Brand Colors
-    midnight: {
-      50: '#f0f4f8',
-      100: '#d9e2ec',
-      200: '#bcccdc',
-      300: '#9fb3c8',
-      400: '#829ab1',
-      500: '#627d98',
-      600: '#486581',
-      700: '#334e68',
-      800: '#243b53',
-      900: '#102a43',
-      950: '#0B1D39', // Primary midnight blue
-    },
-    palm: {
-      50: '#f0f9f4',
-      100: '#dcf2e4',
-      200: '#bce5cd',
-      300: '#8dd1a8',
-      400: '#56b57c',
-      500: '#339a5a',
-      600: '#257d47',
-      700: '#1f633a',
-      800: '#1c4f30',
-      900: '#1C5E3C', // Primary palm green
-      950: '#0f2a1c',
-    },
-    ivory: {
-      50: '#F8F6F2', // Primary ivory white
-      100: '#f5f2ed',
-      200: '#eae4d8',
-      300: '#ddd2c0',
-      400: '#d0bda3',
-      500: '#c4a886',
-      600: '#b8956a',
-      700: '#a67f52',
-      800: '#8a6a45',
-      900: '#6f5538',
-      950: '#3d2f1f',
-    },
-    sandstone: {
-      50: '#faf8f5',
-      100: '#f5f0e8',
-      200: '#E0C9A6', // Primary sandstone beige
-      300: '#d4b88a',
-      400: '#c8a66e',
-      500: '#bc9452',
-      600: '#a67f3e',
-      700: '#8a6a33',
-      800: '#6e5529',
-      900: '#52401f',
-      950: '#362b15',
-    },
-    gold: {
-      50: '#fefcf5',
-      100: '#fdf7e6',
-      200: '#fbecc7',
-      300: '#f8dca0',
-      400: '#f5c778',
-      500: '#CFA348', // Primary gold accent
-      600: '#b88a2a',
-      700: '#9a6f1f',
-      800: '#7c5719',
-      900: '#5e3f13',
-      950: '#40280d',
-    },
-    // Semantic Colors - Airbnb inspired green/gold/blue
-    primary: '#00A699', // Airbnb green
-    secondary: '#00B894', // Lighter green
-    accent: '#FFD700', // Gold
-    background: '#FFFFFF',
-    surface: '#F7F7F7',
-    text: '#222222',
-    textSecondary: '#717171',
-    textMuted: '#B0B0B0',
-    border: '#DDDDDD',
-    error: '#FF385C',
-    warning: '#FF9500',
-    success: '#00A699',
-    info: '#4285F4',
+    // Core Brand
+    forestGreen: string;
+    gold: string;
+    midnightBlue: string;
+    sandBeige: string;
+    offWhite: string;
+    charcoal: string;
+
+    // Semantic
+    background: string;
+    surface: string;
+    surfaceSecondary: string;
+    primary: string;
+    secondary: string;
+    accent: string;
+    text: string;
+    textSecondary: string;
+    textMuted: string;
+    border: string;
+    borderHover: string;
+
+    // Status
+    success: string;
+    warning: string;
+    error: string;
+    info: string;
+
+    // Component-specific
+    buttonPrimary: string;
+    buttonPrimaryText: string;
+    buttonSecondary: string;
+    buttonSecondaryText: string;
+    cardBg: string;
+    cardBorder: string;
+    navigationActive: string;
+    navigationHover: string;
+  };
+  typography: {
+    fontFamily: {
+      heading: string;
+      body: string;
+    };
+    fontSize: {
+      xs: number;
+      sm: number;
+      base: number;
+      lg: number;
+      xl: number;
+      '2xl': number;
+      '3xl': number;
+      '4xl': number;
+      '5xl': number;
+    };
+    fontWeight: {
+      light: '300';
+      normal: '400';
+      medium: '500';
+      semibold: '600';
+      bold: '700';
+      extrabold: '800';
+    };
+  };
+  spacing: {
+    xs: number;
+    sm: number;
+    md: number;
+    lg: number;
+    xl: number;
+    '2xl': number;
+    '3xl': number;
+  };
+  borderRadius: {
+    sm: number;
+    md: number;
+    lg: number;
+    xl: number;
+    full: number;
+  };
+}
+
+const lightTheme: PalmeraTheme = {
+  colors: {
+    // Core Brand
+    forestGreen: '#2E5339',
+    gold: '#D4AF37',
+    midnightBlue: '#191970',
+    sandBeige: '#E6D5B8',
+    offWhite: '#F9F7F4',
+    charcoal: '#2C2C2C',
+
+    // Semantic - Light Mode
+    background: '#F9F7F4',
+    surface: '#FFFFFF',
+    surfaceSecondary: '#E6D5B8',
+    primary: '#2E5339',
+    secondary: '#D4AF37',
+    accent: '#191970',
+    text: '#2C2C2C',
+    textSecondary: '#666666',
+    textMuted: '#999999',
+    border: '#E6D5B8',
+    borderHover: '#D4AF37',
+
+    // Status
+    success: '#2E5339',
+    warning: '#D4AF37',
+    error: '#DC2626',
+    info: '#191970',
+
+    // Component-specific
+    buttonPrimary: '#D4AF37',
+    buttonPrimaryText: '#2C2C2C',
+    buttonSecondary: 'transparent',
+    buttonSecondaryText: '#2E5339',
+    cardBg: '#FFFFFF',
+    cardBorder: '#E6D5B8',
+    navigationActive: '#2E5339',
+    navigationHover: '#D4AF37',
   },
   typography: {
     fontFamily: {
-      display: 'PlayfairDisplay-Regular',
-      displayBold: 'PlayfairDisplay-Bold',
-      body: 'Lato-Regular',
-      bodyBold: 'Lato-Bold',
-      bodyLight: 'Lato-Light',
+      heading: 'Playfair Display',
+      body: 'Inter',
     },
     fontSize: {
       xs: 12,
@@ -104,93 +142,74 @@ export const palmeraTheme = {
       '3xl': 30,
       '4xl': 36,
       '5xl': 48,
-      '6xl': 60,
-      '7xl': 72,
-      '8xl': 96,
-      '9xl': 128,
     },
-    lineHeight: {
-      tight: 1.25,
-      normal: 1.5,
-      relaxed: 1.75,
+    fontWeight: {
+      light: '300',
+      normal: '400',
+      medium: '500',
+      semibold: '600',
+      bold: '700',
+      extrabold: '800',
     },
   },
   spacing: {
-    0: 0,
-    1: 4,
-    2: 8,
-    3: 12,
-    4: 16,
-    5: 20,
-    6: 24,
-    8: 32,
-    10: 40,
-    12: 48,
-    14: 56,
-    16: 64,
-    18: 72,
-    20: 80,
-    22: 88,
-    24: 96,
-    28: 112,
-    32: 128,
-    36: 144,
-    40: 160,
-    44: 176,
-    48: 192,
-    52: 208,
-    56: 224,
-    60: 240,
-    64: 256,
-    72: 288,
-    80: 320,
-    96: 384,
+    xs: 4,
+    sm: 8,
+    md: 16,
+    lg: 24,
+    xl: 32,
+    '2xl': 48,
+    '3xl': 64,
   },
   borderRadius: {
-    none: 0,
     sm: 4,
-    md: 6,
-    lg: 8,
-    xl: 12,
-    '2xl': 16,
-    '3xl': 24,
+    md: 8,
+    lg: 16,
+    xl: 24,
     full: 9999,
   },
-  shadows: {
-    sm: {
-      shadowColor: '#0B1D39',
-      shadowOffset: { width: 0, height: 1 },
-      shadowOpacity: 0.1,
-      shadowRadius: 2,
-      elevation: 2,
-    },
-    md: {
-      shadowColor: '#0B1D39',
-      shadowOffset: { width: 0, height: 2 },
-      shadowOpacity: 0.1,
-      shadowRadius: 4,
-      elevation: 4,
-    },
-    lg: {
-      shadowColor: '#0B1D39',
-      shadowOffset: { width: 0, height: 4 },
-      shadowOpacity: 0.1,
-      shadowRadius: 8,
-      elevation: 8,
-    },
-    xl: {
-      shadowColor: '#0B1D39',
-      shadowOffset: { width: 0, height: 8 },
-      shadowOpacity: 0.1,
-      shadowRadius: 16,
-      elevation: 16,
-    },
-  },
-  transitions: {
-    fast: 150,
-    normal: 250,
-    slow: 350,
-  },
-} as const;
+};
 
-export type PalmeraTheme = typeof palmeraTheme;
+const darkTheme: PalmeraTheme = {
+  ...lightTheme,
+  colors: {
+    ...lightTheme.colors,
+    
+    // Semantic - Dark Mode
+    background: '#191970', // Midnight Blue
+    surface: '#2C2C2C', // Charcoal
+    surfaceSecondary: '#2E5339', // Forest Green
+    primary: '#D4AF37', // Gold
+    secondary: '#2E5339', // Forest Green
+    accent: '#D4AF37', // Gold
+    text: '#F9F7F4', // Off-White
+    textSecondary: '#E6D5B8',
+    textMuted: '#999999',
+    border: '#2E5339',
+    borderHover: '#D4AF37',
+
+    // Component-specific - Dark Mode
+    buttonPrimary: '#D4AF37',
+    buttonPrimaryText: '#2C2C2C',
+    buttonSecondary: 'transparent',
+    buttonSecondaryText: '#D4AF37',
+    cardBg: '#2C2C2C',
+    cardBorder: '#2E5339',
+    navigationActive: '#D4AF37',
+    navigationHover: '#2E5339',
+  },
+};
+
+export const getTheme = (colorScheme: ColorSchemeName): PalmeraTheme => {
+  return colorScheme === 'dark' ? darkTheme : lightTheme;
+};
+
+export const palmeraTheme = lightTheme;
+export const palmeraDarkTheme = darkTheme;
+
+// Export for easy access
+export default {
+  light: lightTheme,
+  dark: darkTheme,
+  get: getTheme,
+};

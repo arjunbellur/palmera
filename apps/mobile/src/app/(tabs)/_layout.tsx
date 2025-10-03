@@ -1,6 +1,6 @@
 import { Tabs } from 'expo-router';
 import { palmeraTheme } from '../../theme/palmeraTheme';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, useColorScheme } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   activeTab: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#90EE90',
+    backgroundColor: palmeraTheme.colors.gold, // Gold for active state
     paddingHorizontal: 10,
     paddingVertical: 2,
     borderRadius: 14,
@@ -55,10 +55,11 @@ const styles = StyleSheet.create({
     height: 24,
   },
   activeTabText: {
-    color: '#000000',
+    color: palmeraTheme.colors.charcoal, // Dark text on gold
     fontSize: 12,
     fontWeight: '600',
     marginLeft: 6,
+    fontFamily: palmeraTheme.typography.fontFamily.body,
   },
   inactiveTab: {
     alignItems: 'center',
@@ -70,14 +71,18 @@ const styles = StyleSheet.create({
 
 export default function TabLayout() {
   const insets = useSafeAreaInsets();
+  const colorScheme = useColorScheme();
+  const theme = colorScheme === 'dark' ? palmeraTheme : palmeraTheme;
   
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: '#FFFFFF',
-        tabBarInactiveTintColor: 'rgba(255, 255, 255, 0.5)',
+        tabBarActiveTintColor: theme.colors.gold,
+        tabBarInactiveTintColor: theme.colors.textMuted,
         tabBarStyle: {
-          backgroundColor: 'rgba(0, 0, 0, 0.7)',
+          backgroundColor: colorScheme === 'dark' 
+            ? 'rgba(28, 28, 28, 0.95)' // Dark charcoal with transparency
+            : 'rgba(44, 44, 44, 0.95)', // Charcoal with transparency
           borderTopWidth: 0,
           paddingBottom: insets.bottom,
           paddingTop: 0,
@@ -88,19 +93,19 @@ export default function TabLayout() {
           left: 20,
           right: 20,
           borderRadius: 30,
-          // Professional glassmorphic effect (backdrop filter not supported in RN)
-          shadowColor: '#000000',
+          // Professional glassmorphic effect with gold accent
+          shadowColor: theme.colors.gold,
           shadowOffset: {
             width: 0,
             height: 10,
           },
-          shadowOpacity: 0.6,
+          shadowOpacity: 0.3,
           shadowRadius: 20,
           elevation: 30,
           zIndex: 1000,
-          // Modern iOS-style border
+          // Gold border for luxury feel
           borderWidth: 0.5,
-          borderColor: 'rgba(255, 255, 255, 0.1)',
+          borderColor: `${theme.colors.gold}40`, // Gold with 25% opacity
           // Force override React Navigation defaults
           marginBottom: 0,
           marginTop: 0,
@@ -111,16 +116,19 @@ export default function TabLayout() {
         },
         tabBarShowLabel: false,
         headerStyle: {
-          backgroundColor: '#000000',
+          backgroundColor: colorScheme === 'dark' 
+            ? theme.colors.midnightBlue 
+            : theme.colors.forestGreen,
           borderBottomWidth: 0,
           elevation: 0,
           shadowOpacity: 0,
         },
-        headerTintColor: '#FFFFFF',
+        headerTintColor: theme.colors.offWhite,
         headerTitleStyle: {
           fontSize: 18,
           fontWeight: '600',
-          color: '#FFFFFF',
+          color: theme.colors.offWhite,
+          fontFamily: theme.typography.fontFamily.heading,
         },
       }}
     >
