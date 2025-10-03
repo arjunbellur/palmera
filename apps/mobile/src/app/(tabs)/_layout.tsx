@@ -1,5 +1,5 @@
 import { Tabs } from 'expo-router';
-import { palmeraTheme } from '../../theme/palmeraTheme';
+import { palmeraTheme, getTheme } from '../../theme/palmeraTheme';
 import { View, Text, StyleSheet, useColorScheme } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -49,13 +49,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: palmeraTheme.colors.gold,
-    paddingHorizontal: 16, // Better touch target
-    paddingVertical: 8, // More vertical space
-    borderRadius: 20, // More rounded for modern look
-    minWidth: 80, // Wider for better readability
-    height: 40, // Better touch target (44pt min for iOS)
-    shadowColor: palmeraTheme.colors.gold,
+    backgroundColor: '#D4AF37', // Gold
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 20,
+    minWidth: 80,
+    height: 40,
+    shadowColor: '#D4AF37',
     shadowOffset: {
       width: 0,
       height: 2,
@@ -65,16 +65,16 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   activeTabText: {
-    color: palmeraTheme.colors.charcoal,
-    fontSize: 13, // Slightly larger
+    color: '#2C2C2C', // Charcoal
+    fontSize: 13,
     fontWeight: '600',
     marginLeft: 6,
-    letterSpacing: 0.3, // Better readability
+    letterSpacing: 0.3,
   },
   inactiveTab: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: 44, // iOS minimum touch target
+    width: 44,
     height: 44,
   },
 });
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
 export default function TabLayout() {
   const insets = useSafeAreaInsets();
   const colorScheme = useColorScheme();
-  const theme = colorScheme === 'dark' ? palmeraTheme : palmeraTheme;
+  const theme = getTheme(colorScheme);
   
   return (
     <Tabs
