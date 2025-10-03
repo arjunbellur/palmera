@@ -1,18 +1,6 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "apps/web-unified/package.json",
-      "use": "@vercel/next",
-      "config": {
-        "rootDirectory": "apps/web-unified"
-      }
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/apps/web-unified/$1"
-    }
-  ]
+  "buildCommand": "cd apps/web-unified && pnpm install && pnpm build",
+  "devCommand": "cd apps/web-unified && pnpm dev",  
+  "installCommand": "pnpm install --filter @palmera/web-unified...",
+  "outputDirectory": "apps/web-unified/.next"
 }
