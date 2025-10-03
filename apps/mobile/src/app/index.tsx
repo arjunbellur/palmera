@@ -6,9 +6,10 @@ import { palmeraTheme } from '../theme/palmeraTheme';
 
 export default function WelcomeScreen() {
   useEffect(() => {
-    // Check if user is already logged in
-    // If yes, redirect to main app
-    // If no, show welcome screen
+    // Auto-skip to main app to test navigation
+    setTimeout(() => {
+      router.push('/(tabs)');
+    }, 2000);
   }, []);
 
   const handleGetStarted = () => {
