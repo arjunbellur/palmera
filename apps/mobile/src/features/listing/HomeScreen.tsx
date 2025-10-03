@@ -2,13 +2,14 @@ import React from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { palmeraTheme } from '../../theme/palmeraTheme';
+import { useThemeContext } from '../../theme/palmeraTheme';
 import { useAuth } from '../../contexts/AuthContext';
 import { FeaturedListings } from '../../components/home/FeaturedListings';
 
 export function HomeScreen() {
   const { user, logout } = useAuth();
   const insets = useSafeAreaInsets();
+  const { theme } = useThemeContext();
 
   const { data: featuredListings } = useQuery({
     queryKey: ['listings', 'featured'],
@@ -42,9 +43,9 @@ export function HomeScreen() {
 
   return (
     <ScrollView 
-      style={styles.container} 
+      style={[styles.container, { backgroundColor: theme.colors.background }]} 
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={{ paddingBottom: insets.bottom + 100 }}
+      contentContainerStyle={{ paddingBottom: insets.bottom + 120 }}
       contentInsetAdjustmentBehavior="never"
     >
       {/* Header */}
@@ -178,8 +179,7 @@ export function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: { 
-    flex: 1, 
-    backgroundColor: '#000000' 
+    flex: 1,
   },
   header: { 
     backgroundColor: '#000000', 

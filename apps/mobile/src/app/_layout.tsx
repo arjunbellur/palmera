@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
-import { palmeraTheme } from '../theme/palmeraTheme';
+import { palmeraTheme, ThemeProvider } from '../theme/palmeraTheme';
 import { SDKProvider } from '../contexts/SDKContext';
 import { AuthProvider } from '../contexts/AuthContext';
 
@@ -21,9 +21,10 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
-        <QueryClientProvider client={queryClient}>
-          <SDKProvider>
-            <AuthProvider>
+        <ThemeProvider>
+          <QueryClientProvider client={queryClient}>
+            <SDKProvider>
+              <AuthProvider>
               <Stack
             screenOptions={{
               headerStyle: {
@@ -141,9 +142,10 @@ export default function RootLayout() {
               </Stack>
               <StatusBar style="light" backgroundColor="#000000" translucent={false} />
               <Toast />
-            </AuthProvider>
-          </SDKProvider>
-        </QueryClientProvider>
+              </AuthProvider>
+            </SDKProvider>
+          </QueryClientProvider>
+        </ThemeProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );
